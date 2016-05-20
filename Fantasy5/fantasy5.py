@@ -21,12 +21,12 @@ def main( ):
       winningNumbers = ( "" )
       numOfAttempts += ( 1 )
 
-      for i in range( 0, 3, 1 ):
-        winningNumbers += ( str( randrange( 0, 10, 1 ) ) )
+      for i in range( 0, 5, 1 ):
+        winningNumbers += ( str( randrange( 1 , 40, 1 ) ) )
       winningArray = ( winningNumbers.split( ' ' ) )
 
-      for i in range( 0, 3, 1 ):
-        userNumbers += ( str( randrange( 0, 10, 1 ) ) )
+      for i in range( 0, 5, 1 ):
+        userNumbers += ( str( randrange( 1, 40, 1 ) ) )
       userArray = ( userNumbers.split( ' ' ) )
 
       for x in winningArray:
