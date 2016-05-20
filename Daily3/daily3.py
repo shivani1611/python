@@ -27,7 +27,7 @@ def main( ):
       if( userNumbers == ( winningNumbers ) ):
         break 
 
-    print( "Attempts:", numOfAttempts, "\tWinning #\'s:", userNumbers, sep = ( " " ) )
+    print( "Win #:", ( count ), "\tAttempts:", numOfAttempts, "\tWinning #\'s:", userNumbers, sep = ( " " ) )
     sumAttempts += ( numOfAttempts )  
 
   avgAttempts = ( sumAttempts / ( count ) )
