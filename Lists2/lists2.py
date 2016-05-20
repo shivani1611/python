@@ -33,5 +33,7 @@ def main( ):
     elif( wordSearch in bigWords ):
       print( "\"", wordSearch, "\" found!", sep = ( "" ), end = ( "\n" ) )
 
+  fileObj.close( )
+
 if( __name__ == ( "__main__" ) ):
   main( )
