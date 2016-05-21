@@ -26,33 +26,33 @@ def main( ):
 
     words = { "superstitious" 
                : "someone who believes things that are not likely", 
-            "wonderful" 
+              "wonderful" 
                : "when something is amazing and...", 
-            "spontaneous" 
+              "spontaneous" 
                : "when you do something without planning", 
-            "acceleration" 
+              "acceleration" 
                : "when you speed up..",
-            "miraculous" 
+              "miraculous" 
                : "when god intervenes", 
-            "acclaimed" 
+              "acclaimed" 
                : "achieving highest accolades", 
-            "intervened" 
-               : "interfering with a behavior",
-            "withstand" 
+              "intervened" 
+               : "interfering with a negative behavior",
+              "withstand" 
                : "to test your resiliency", 
-            "heavenly" 
+              "heavenly" 
                : "where you go after your life", 
-            "investigated" 
+              "investigated" 
                : "to look deeper into",  
-            "sinful" 
+              "sinful" 
                : "when you do something really bad", 
-            "nightingale" 
+              "nightingale" 
                : "a beautiful bird", 
-            "joyful" 
+              "joyful" 
                : "when you are overly happy", 
-            "happiness" 
+              "happiness" 
                : "when you are content in life", 
-            "boasting" 
+              "boasting" 
                : "when you highly speak about yourself",
           }
 
