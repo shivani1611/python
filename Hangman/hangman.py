@@ -116,7 +116,7 @@ def main( ):
       elif( lives >= ( 6 ) ):
         print( "\nWell done! You got it with only a few tries. " )
       elif( lives >= ( 4 ) ):
-        print( "\nYou won!i " )
+        print( "\nYou won! " )
       elif( lives >= ( 1 ) ):
         print( "\nYou won but try to guess the correct word with fewer tries " )
 
