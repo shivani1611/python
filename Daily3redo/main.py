@@ -11,6 +11,9 @@ def main( ):
 
   if( len( sys.argv ) == ( 1 ) ):
     print( "No arguments specified!" )
+    print( "-v = verbose mode" )
+    print( "# = how many times to win" )
+    print( "Example: python3 main.py -v 10" )
     quit( )
   elif( len( sys.argv ) > ( 1 ) ):
     for i in range( 0, len( sys.argv ), 1 ):
