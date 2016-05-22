@@ -36,16 +36,17 @@ def main( ):
  
   for a in range( 0, howManyTimesToWin, 1 ):
     attemptsCounter = ( 0 )
+
     while( True ):
       attemptsCounter = ( attemptsCounter + 1 )
       winningNumbers = []
       userNumbers = []
 
-      for i in range( 0, 3, 1 ):
-        winningNumbers.append( random.randint( 0, 9 ) )
+      for i in range( 0, 5, 1 ):
+        winningNumbers.append( random.randint( 1, 40 ) )
 
-      for i in range( 0, 3, 1 ):
-        userNumbers.append( random.randint( 0, 9 ) )
+      for i in range( 0, 5, 1 ):
+        userNumbers.append( random.randint( 1, 40 ) )
 
       # keep a backup of the user numbers
       backupUserNumbers = ( copy.copy( userNumbers ) )
@@ -57,9 +58,9 @@ def main( ):
             break
 
       if( verboseMode ):
-        print( "Attempt #: %d" % attemptsCounter , "\tWinning Numbers:", winningNumbers, "\tUser Numbers:",  userNumbers )
+        print( "Attempt #: %d" % attemptsCounter , " Winning:", winningNumbers, " User:",  userNumbers )
 
-      if( backupUserNumbers == ( [ 'X', 'X', 'X' ] ) ):
+      if( backupUserNumbers == ( [ 'X', 'X', 'X', 'X', 'X' ] ) ):
         print( "Attempt #: %d" % attemptsCounter, "\tWinning Number:", userNumbers )
         numOfWins = ( numOfWins + 1 )
         break
@@ -70,7 +71,7 @@ def main( ):
 
   print( "\nTotal Attempts:\t\t", sumAttempts )
   print( "Total Wins:\t\t", numOfWins )
-  print( "Average Wins:\t\t %.5f" % averageWins )
+  print( "Average Wins:\t\t %f" % averageWins )
   print( "Winning Numbers:\t {}/{}\n".format( winningNumbers, userNumbers ) )
  
 if( __name__ == ( "__main__" ) ):
