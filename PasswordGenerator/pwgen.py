@@ -14,6 +14,9 @@ def main( ):
   pwLength = ( 0 )
   numOfOptions = ( 0 )
 
+  print( "\nNetwork Password Generator" )
+  print( "~~~~~~~~~~~~~~~~~~~~~~~~~~\n" )
+
   try:
     if( len( argv ) > ( 1 ) ):
       for i in range( 0, len( argv ), 1 ):
@@ -34,16 +37,26 @@ def main( ):
         raise ValueError( "Password length should be specified!" )
       elif( pwLength < ( 3 ) ):
         raise ValueError( "Password length should be at least 3 characters!" )
-      elif( pwLength >= ( 30 ) ):
+      elif( pwLength > ( 30 ) ):
         raise ValueError( "Password length should not exceed 30 characters!" ) 
-      elif( ( isAlpha and not isUpperCase ) or ( isAlpha and not isLowerCase ) ):
-        raise ValueError( "Must specify either uppercase or lowercase letterin!" )
+      elif( ( isAlpha and not isUpperCase ) and ( isAlpha and not isLowerCase ) ):
+        raise ValueError( "Must specify either uppercase or lowercase letters!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
         raise ValueError( "Must specify the alpha switch!" )
     else:
       raise ValueError( "No arguments provided!" )
   except ValueError as e:
     print( "Exception:", e )
+    print( "\n<len> \t\t= specifies the length of the password" )
+    print( "--alpha \t= enable alpha characters" )
+    print( "--lcase \t= use lowercase characters" )
+    print( "--ucase \t= use uppercase characters" )
+    print( "--num \t\t= enable numbers" )
+    print( "--punc \t\t= enable punctuations" )
+    print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--num] [--punc]" )
+    print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
+    print( "Example: python3 pwgen.py 10 --alpha --ucase --punc\n" )
+    quit( )
 
   if( isAlpha and isLowerCase ):
     numOfOptions = ( numOfOptions + 1 )
@@ -93,6 +106,7 @@ def main( ):
     mainPassword += ( str( i ) )
 
   print( "Password:", mainPassword )
+  print( )
 
 if( __name__ == ( "__main__" ) ):
   main( )
