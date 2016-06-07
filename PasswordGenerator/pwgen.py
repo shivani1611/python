@@ -2,6 +2,7 @@ from sys import argv
 from random import randint
 from random import sample
 from random import seed
+import base64
 
 def main( ):
 
@@ -10,6 +11,7 @@ def main( ):
   isUpperCase = ( False )
   isLowerCase = ( False )
   isPunctuation = ( False )
+  isEncrypt = ( False )
 
   pwLength = ( 0 )
   numOfOptions = ( 0 )
@@ -32,6 +34,8 @@ def main( ):
           isPunctuation = ( True )
         elif( argv[i].isnumeric( ) ):
           pwLength = ( int( argv[i] ) )      
+        elif( argv[i] == ( "--enc" ) ):
+          isEncrypt = ( True )
 
       if( pwLength == ( 0 ) ):
         raise ValueError( "Password length should be specified!" )
@@ -47,12 +51,13 @@ def main( ):
       raise ValueError( "No arguments provided!" )
   except ValueError as e:
     print( "Exception:", e )
-    print( "\n<len> \t\t= specifies the length of the password" )
+    print( "\n# \t\t= specifies the length of the password" )
     print( "--alpha \t= enable alpha characters" )
-    print( "--lcase \t= use lowercase characters" )
-    print( "--ucase \t= use uppercase characters" )
+    print( " --lcase \t= use lowercase characters" )
+    print( " --ucase \t= use uppercase characters" )
     print( "--num \t\t= enable numbers" )
     print( "--punc \t\t= enable punctuations" )
+    print( "--enc \t\t= enable base64 encryption" )
     print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--num] [--punc]" )
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
     print( "Example: python3 pwgen.py 10 --alpha --ucase --punc\n" )
@@ -105,7 +110,11 @@ def main( ):
   for i in temp:
     mainPassword += ( str( i ) )
 
+  if( isEncrypt ):
+    mainPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
+
   print( "Password:", mainPassword )
+
   print( )
 
 if( __name__ == ( "__main__" ) ):
