@@ -12,6 +12,7 @@ def main( ):
   isLowerCase = ( False )
   isPunctuation = ( False )
   isEncrypt = ( False )
+  isDecrypt = ( False )
   isGetLength = ( False )
 
   pwLength = ( 0 )
@@ -40,6 +41,13 @@ def main( ):
           isGetLength = ( True )
         elif( argv[i] == ( "--enc" ) ):
           isEncrypt = ( True )
+        elif( "--dec=" in argv[i] ):
+          isDecrypt = ( True )
+          tmpString = ( str( argv[i][6:] ) )
+          print( "Encoded String:\t\t", tmpString )
+          decryptStr = ( "".join( map( chr, base64.b64decode( bytes( tmpString, "utf-8" ) ) ) ) )
+          print( "Decoded String:\t\t", decryptStr, '\n' )
+          quit( )
 
       if( pwLength == ( 0 ) ):
         raise ValueError( "Password length should be specified!" )
@@ -51,6 +59,8 @@ def main( ):
         raise ValueError( "Must specify either uppercase or lowercase letters!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
         raise ValueError( "Must specify the alpha switch!" )
+      elif( not isAlpha and not isNumeric and not isPunctuation ):
+        raise ValueError( "Please specify options such as alpha, number, puctuation" )
     else:
       raise ValueError( "No arguments provided!" )
   except ValueError as e:
@@ -61,13 +71,16 @@ def main( ):
     print( " --ucase \t= allow uppercase characters" )
     print( "--num \t\t= enable numbers" )
     print( "--punc \t\t= enable punctuations" )
-    print( "--enc \t\t= encode using base64 encryption" )
-    print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--num] [--punc]" )
+    print( "--enc \t\t= encode password using base64 encryption" )
+    print( "--dec-string\t= decode string using base64 decryption" )
+    print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--enc] [--dec=string] [--num] [--punc]" )
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
     print( "Example: python3 pwgen.py 10 --alpha --ucase --punc" )
-    print( "Example: python3 pwgen.py 30 --num --enc\n" )
+    print( "Example: python3 pwgen.py 30 --num --enc" )
+    print( "Example: python3 pwgen.py --dec=ZnJ2\n" ) 
     quit( )
 
+  # determine the number of arguments supplied
   if( isAlpha and isLowerCase ):
     numOfOptions = ( numOfOptions + 1 )
 
@@ -112,13 +125,15 @@ def main( ):
 
   temp = ( sample( tempPassword , pwLength ) )
 
+  # join the list password into a string password
   for i in temp:
     mainPassword += ( str( i ) )
 
   if( isEncrypt ):
+    print( "Raw Password:\t\t", mainPassword )
     mainPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
 
-  print( "Generated Password:", mainPassword, '\n' )
+  print( "Generated Password:\t", mainPassword, '\n' )
 
 if( __name__ == ( "__main__" ) ):
   main( )
