@@ -130,10 +130,11 @@ def main( ):
     mainPassword += ( str( i ) )
 
   if( isEncrypt ):
-    print( "Raw Password:\t\t", mainPassword )
+    print( "Generated Password:\t", mainPassword )
     mainPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
-
-  print( "Generated Password:\t", mainPassword, '\n' )
+    print( "Encoded Password:\t", mainPassword, '\n' )
+  else:
+    print( "Generated Password:\t", mainPassword, '\n' )
 
 if( __name__ == ( "__main__" ) ):
   main( )
