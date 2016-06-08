@@ -72,7 +72,7 @@ def main( ):
     print( "--num \t\t= enable numbers" )
     print( "--punc \t\t= enable punctuations" )
     print( "--enc \t\t= encode password using base64 encryption" )
-    print( "--dec-string\t= decode string using base64 decryption" )
+    print( "--dec=string\t= decode string using base64 decryption" )
     print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--enc] [--dec=string] [--num] [--punc]" )
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
     print( "Example: python3 pwgen.py 10 --alpha --ucase --punc" )
