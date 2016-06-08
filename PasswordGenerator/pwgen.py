@@ -56,9 +56,9 @@ def main( ):
       elif( pwLength > ( 50 ) ):
         raise ValueError( "Password length should not exceed 50 characters!" ) 
       elif( ( isAlpha and not isUpperCase ) and ( isAlpha and not isLowerCase ) ):
-        raise ValueError( "Must specify either uppercase or lowercase letters!" )
+        raise ValueError( "Password will be blank. Please specify either --ucase or --lcase!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
-        raise ValueError( "Must specify the alpha switch!" )
+        raise ValueError( "Password will be blank. Please specify the --alpha switch!" )
       elif( not isAlpha and not isNumeric and not isPunctuation ):
         raise ValueError( "Password will be blank. Please specify options such as --alpha, --num, --punc" )
     else:
