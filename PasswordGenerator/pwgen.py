@@ -60,7 +60,7 @@ def main( ):
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
         raise ValueError( "Must specify the alpha switch!" )
       elif( not isAlpha and not isNumeric and not isPunctuation ):
-        raise ValueError( "Please specify options such as alpha, number, puctuation" )
+        raise ValueError( "Password will be blank. Please specify options such as --alpha, --num, --punc" )
     else:
       raise ValueError( "No arguments provided!" )
   except ValueError as e:
