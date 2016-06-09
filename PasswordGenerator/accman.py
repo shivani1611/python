@@ -23,8 +23,8 @@ def main( ):
   numOfOptions = ( 0 )
   outputFile = ( "" )
 
-  print( "\nNetwork Password Manager" )
-  print( "~~~~~~~~~~~~~~~~~~~~~~~~~~\n" )
+  print( "\nNetwork Account Manager" )
+  print( "~~~~~~~~~~~~~~~~~~~~~~~~~\n" )
 
   try:
     if( len( argv ) > ( 1 ) ):
@@ -86,10 +86,10 @@ def main( ):
     print( "--outputfile=file\t= store the password in a json file" )
     print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--enc] [--dec=string] [--num] [--punc]" )
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
-    print( "Example: python3 pwgen.py 10 --alpha --ucase --punc" )
-    print( "Example: python3 pwgen.py 30 --num --enc" )
-    print( "Example: python3 pwgen.py --dec=ZnJ2" )
-    print( "Example: python3 pwgen.py 5 --num --outputfile=filename\n" ) 
+    print( "Example: python3 accman.py 10 --alpha --ucase --punc" )
+    print( "Example: python3 accman.py 30 --num --enc" )
+    print( "Example: python3 accman.py --dec=ZnJ2" )
+    print( "Example: python3 accman.py 5 --num --outputfile=filename\n" ) 
     quit( )
 
   # determine the number of arguments supplied
