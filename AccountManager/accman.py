@@ -161,36 +161,48 @@ def main( ):
     notes = ( "" )
 
     while( True ):
-      un = ( input( "Enter username: " ) )
-      if( len( un ) > ( 75 ) ):
+      un = ( input( "Enter username or s to skip: " ) )
+      if( un.strip( ).lower( ) == ( 's' ) ):
+        un = ( "" )
+        break
+      elif( len( un ) > ( 75 ) ):
         print( "Username should not exceed 75 characters!" )
         continue
       elif( un ):
         break
     while( True ):
-      email = ( input( "Enter email address: " ) )
-      if( len( email ) > ( 75 ) ):
+      email = ( input( "Enter email address or s to skip: " ) )
+      if( email.strip( ).lower( ) == ( 's' ) ):
+        email = ( "" )
+        break
+      elif( len( email ) > ( 75 ) ):
         print( "Email address should not exceed 75 characters!" )
         continue
       elif( email ):
         break
     while( True ):
-      url = ( input( "Enter URL: " ) )
-      if( len( url ) > ( 125 ) ):
+      url = ( input( "Enter URL/IP or s to skip: " ) )
+      if( url.strip( ).lower( ) == ( 's' ) ):
+        url = ( "" )
+        break
+      elif( len( url ) > ( 125 ) ):
         print( "URL should not exceed 125 characters!" )
         continue
       elif( url ):
         break
     while( True ):
-      notes = ( input( "Enter description: " ) )
-      if( len( notes ) > ( 250 ) ):
+      notes = ( input( "Enter description or s: " ) )
+      if( notes.strip( ).lower( ) == ( 's' ) ):
+        notes = ( "" )
+        break
+      elif( len( notes ) > ( 250 ) ):
         print( "Description should not exceed 250 characters!" )
         continue
       elif( notes ):
         break
 
   if( isOutputFile ):
-    tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
+    tmpJson = { "DESCRIPTION" : notes.strip( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL/IP" : url.strip( ), "EMAIL" : email.strip( ), "USER" : un.strip( ),  }
     tmp_new = ( json.dumps( tmpJson ) )
     converted_new = ( tmp_new.replace( "\'", "\"" ) )
     jsonOutput_new = ( json.loads( tmp_new ) )
