@@ -86,7 +86,7 @@ def main( ):
     print( "--enc \t\t= encode password using base64 encryption" )
     print( "--dec=string\t= decode string using base64 decryption" )
     print( "--outputfile=file\t= store the password in a json file" )
-    print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--enc] [--dec=string] [--num] [--punc]" )
+    print( "\nUsage: python3 accman.py [--alpha [--lcase | --ucase]] [--enc | --dec=string] [--num | --punc] [--outputfile=filename]]" )
     print( "\nExample: python3 accman.py 25 --alpha --lcase --num" )
     print( "Example: python3 accman.py 10 --alpha --ucase --punc" )
     print( "Example: python3 accman.py 30 --num --enc" )
