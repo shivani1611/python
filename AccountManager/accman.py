@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 
 ########################################################################################################
+#
+# Author  : Armond Sarkisian
+# Date    : July 2nd, 2016
+# Title   : Network Account Manager
+# Purpose : To maintain a record of all network device logins
+#
+########################################################################################################
+
+########################################################################################################
 from random import randint
 from random import sample
 from random import seed
@@ -203,7 +212,7 @@ def generatePassword( ):
     print( "Generated Password:\t", mainPassword )
     encodedPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
     encodedPassword = ( encodedPassword.decode( "utf-8" ) )
-    print( "Base64 Encrypted:\t", encodedPassword, '\n' )
+    print( "Encrypted Password:\t", encodedPassword, '\n' )
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
 
