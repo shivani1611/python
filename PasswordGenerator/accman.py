@@ -6,6 +6,8 @@ from pprint import pprint
 import base64
 import json
 import os.path
+import sys
+import traceback
 
 def main( ):
 
@@ -181,11 +183,13 @@ def main( ):
         continue
       elif( notes ):
         break
-    tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
-    tmp_new = ( json.dumps( tmpJson ) )
-    converted_new = ( tmp_new.replace( "'", "\"" ) )
-    jsonOutput_new = ( json.loads( converted_new ) )
 
+  tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
+  tmp_new = ( json.dumps( tmpJson ) )
+  #converted_new = ( tmp_new.replace( "\'", "\"" ) )
+  jsonOutput_new = ( json.loads( tmp_new ) )
+
+  if( isOutputFile ):
     isReadFile = ( False )
 
     jsonOutput = []
@@ -198,13 +202,13 @@ def main( ):
             for i in jsonOutput_old:
               jsonOutput.append( i )
         except:
+          print(  traceback.format_exc( ) )
           isReadFile = ( False )
 
     jsonOutput.append( jsonOutput_new )
-
     with open( outputFile, 'w' ) as fout:
-      pprint( jsonOutput, stream=fout )
-      #json.dump( jsonOutput, fout )
+      #pprint( jsonOutput, stream=fout ) # causing issue with single/double quotes with json
+      json.dump( jsonOutput, fout )
 
 if( __name__ == ( "__main__" ) ):
   main( )
