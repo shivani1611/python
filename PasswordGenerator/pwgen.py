@@ -21,8 +21,9 @@ def main( ):
 
   pwLength = ( 0 )
   numOfOptions = ( 0 )
+  outputFile = ( "" )
 
-  print( "\nNetwork Password Generator" )
+  print( "\nNetwork Password Manager" )
   print( "~~~~~~~~~~~~~~~~~~~~~~~~~~\n" )
 
   try:
@@ -150,36 +151,36 @@ def main( ):
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
 
-  while( True ):
-    pwDesc = ( input( "Password Description: " ) )
-    if( len( pwDesc ) > ( 50 ) ):
-      continue
-    elif( pwDesc ):
-      break
-
-  tmpJson = { "Description" : pwDesc, "Encoded Password" : encodedPassword, "Raw Password" : mainPassword }
-  tmp_new = ( json.dumps( tmpJson ) )
-  converted_new = ( tmp_new.replace( "'", "\"" ) )
-  jsonOutput_new = ( json.loads( converted_new ) )
-
-  isReadFile = ( False )
-
-  jsonOutput = []
   if( isOutputFile ):
-    if( os.path.isfile( outputFile ) ):
-      try:
-        with open( outputFile, 'r' ) as readFile:
-          isReadFile = ( True )
-          jsonOutput_old = json.load( readFile )
-          for i in jsonOutput_old:
-            jsonOutput.append( i )
-      except:
-        isReadFile = ( False )
+    while( True ):
+      pwDesc = ( input( "Password Description: " ) )
+      if( len( pwDesc ) > ( 50 ) ):
+        continue
+      elif( pwDesc ):
+        break
+    tmpJson = { "Description" : pwDesc, "Encoded Password" : encodedPassword.decode( "utf-8" ), "Raw Password" : mainPassword }
+    tmp_new = ( json.dumps( tmpJson ) )
+    converted_new = ( tmp_new.replace( "'", "\"" ) )
+    jsonOutput_new = ( json.loads( converted_new ) )
 
-  jsonOutput.append( jsonOutput_new )
+    isReadFile = ( False )
 
-  with open( outputFile, 'w' ) as fout:
-    json.dump( jsonOutput, fout )
+    jsonOutput = []
+    if( isOutputFile ):
+      if( os.path.isfile( outputFile ) ):
+        try:
+          with open( outputFile, 'r' ) as readFile:
+            isReadFile = ( True )
+            jsonOutput_old = json.load( readFile )
+            for i in jsonOutput_old:
+              jsonOutput.append( i )
+        except:
+          isReadFile = ( False )
+
+    jsonOutput.append( jsonOutput_new )
+
+    with open( outputFile, 'w' ) as fout:
+      json.dump( jsonOutput, fout )
 
 if( __name__ == ( "__main__" ) ):
   main( )
