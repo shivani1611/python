@@ -191,7 +191,7 @@ def main( ):
       elif( url ):
         break
     while( True ):
-      notes = ( input( "Enter description or s: " ) )
+      notes = ( input( "Enter description or s to skip: " ) )
       if( notes.strip( ).lower( ) == ( 's' ) ):
         notes = ( "" )
         break
@@ -201,6 +201,7 @@ def main( ):
       elif( notes ):
         break
 
+  # only perform these actions if the user selected to output the password to a file
   if( isOutputFile ):
     tmpJson = { "DESCRIPTION" : notes.strip( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL/IP" : url.strip( ), "EMAIL" : email.strip( ), "USER" : un.strip( ),  }
     tmp_new = ( json.dumps( tmpJson ) )
