@@ -1,1 +1,0 @@
-[{"EMAIL": "armond.sarkisian@gmail.com", "URL/IP": "http://www.netmon.com", "ENCODED PW": "fi1O", "USER": "asarkisian", "RAW PW": "~-N", "DESCRIPTION": "This is a simple note"}, {"RAW PW": "<lE", "ENCODED PW": "PGxF", "USER": "asarkisian@yp.com", "URL/IP": "10.45.11.51", "EMAIL": "asarkisian@yp.com", "DESCRIPTION": "Netmon 01"}]
