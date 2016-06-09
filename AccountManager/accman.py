@@ -1,32 +1,77 @@
-from sys import argv
+#!/usr/bin/env python3
+
+########################################################################################################
 from random import randint
 from random import sample
 from random import seed
 from pprint import pprint
+from sys import argv
 import base64
 import json
 import os.path
 import sys
 import traceback
+########################################################################################################
 
-def main( ):
+########################################################################################################
+# Global Switches/Options
+isAlpha = ( False )
+isNumeric = ( False )
+isUpperCase = ( False )
+isLowerCase = ( False )
+isPunctuation = ( False )
+isEncrypt = ( False )
+isDecrypt = ( False )
+isGetLength = ( False )
+isOutputFile = ( False )
 
-  isAlpha = ( False )
-  isNumeric = ( False )
-  isUpperCase = ( False )
-  isLowerCase = ( False )
-  isPunctuation = ( False )
-  isEncrypt = ( False )
-  isDecrypt = ( False )
-  isGetLength = ( False )
-  isOutputFile = ( False )
+pwLength = ( 0 )
+numOfOptions = ( 0 )
+outputFile = ( "" )
 
-  pwLength = ( 0 )
-  numOfOptions = ( 0 )
-  outputFile = ( "" )
+# Global Constants
+ALPHAUPPERLIST = ( 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' )
+ALPHALOWERLIST = ( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' )
+NUMBERLIST = ( '1', '2', '3', '4', '5', '6', '7', '8', '9' )
+PUNCLIST = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', '`', '~', ',', '<', '.', '>', '/', '?', ';', '\'', '\"', '\\', ':', '[', '{', ']', '}', '|' )
+########################################################################################################
 
-  print( "\nNetwork Account Manager" )
-  print( "~~~~~~~~~~~~~~~~~~~~~~~~~\n" )
+########################################################################################################
+# Public: Display the title
+#
+# Examples
+#
+#   displayTitle( )
+#   # => None
+#
+# Returns Nothing
+def displayTitle( ):
+  print( "\nNetwork Account Manager\n~~~~~~~~~~~~~~~~~~~~~~~" )
+########################################################################################################
+
+########################################################################################################
+# Public: Validate all the arguments specified by the user
+#
+# Examples
+#
+#   validateArguments( )
+#   # => None
+#
+# Returns Nothing
+def validateArguments( ):
+  global isAlpha
+  global isNumeric
+  global isUpperCase
+  global isLowerCase
+  global isPunctuation
+  global isEncrypt
+  global isDecrypt
+  global isGetLength
+  global isOutputFile
+
+  global pwLength
+  global numOfOptions
+  global outputFile
 
   try:
     if( len( argv ) > ( 1 ) ):
@@ -57,8 +102,8 @@ def main( ):
           print( "Encoded String:\t\t", tmpString )
           decryptStr = ( "".join( map( chr, base64.b64decode( bytes( tmpString, "utf-8" ) ) ) ) )
           print( "Decoded String:\t\t", decryptStr, '\n' )
-          quit( )
 
+      # switch rules
       if( pwLength == ( 0 ) ):
         raise ValueError( "Password length should be specified!" )
       elif( pwLength < ( 3 ) ):
@@ -67,8 +112,9 @@ def main( ):
         raise ValueError( "Password length should not exceed 50 characters!" ) 
       elif( ( isAlpha and not isUpperCase ) and ( isAlpha and not isLowerCase ) ):
         raise ValueError( "Password will be blank. Please specify either --ucase or --lcase!" )
-      elif( len( outputFile ) > ( 20 ) ):
-        raise ValueError( "Output file name should not exceed 20 characters!" )
+      elif( isOutputFile ):
+        if( len( outputFile ) > ( 20 ) ):
+          raise ValueError( "Output file name should not exceed 20 characters!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
         raise ValueError( "Password will be blank. Please specify the --alpha switch!" )
       elif( not isAlpha and not isNumeric and not isPunctuation ):
@@ -106,36 +152,46 @@ def main( ):
 
   if( isPunctuation ):
     numOfOptions = ( numOfOptions + 1 )
+########################################################################################################
 
-  alphaUpperList = ( 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' )
+########################################################################################################
+# Public: Generate the password based on the options provided by the user 
+#
+# Examples
+#
+#   generatePassword( )
+#   # => "12345", "@^@^#2"
+#
+# Returns the main password as well as the encoded password
+def generatePassword( ):
+  global ALPHAUPPERLIST
+  global ALPHALOWERLIST
+  global NUMBERLIST
+  global PUNCLIST
 
-  alphaLowerList = ( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' )
-
-  numberList = ( '1', '2', '3', '4', '5', '6', '7', '8', '9' )
-
-  puncList = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', '`', '~', ',', '<', '.', '>', '/', '?', ';', '\'', '\"', '\\', ':', '[', '{', ']', '}', '|' )
-
+  # randomize
   seed( )
 
   mainPassword = ( "" )
   tempPassword = ( "" )
+  encodedPassword = ( "" )
 
   if( isNumeric ):
     for i in range( 0, pwLength, 1 ):
-      randVal = ( randint( 0, len( numberList ) - 1 ) )
-      tempPassword += ( numberList[randVal] )
+      randVal = ( randint( 0, len( NUMBERLIST ) - 1 ) )
+      tempPassword += ( NUMBERLIST[randVal] )
   if( isAlpha and isLowerCase ):
     for i in range( 0, pwLength, 1 ):
-      randVal = ( randint( 0, len( alphaLowerList ) - 1 ) )
-      tempPassword += ( alphaLowerList[randVal] )
+      randVal = ( randint( 0, len( ALPHALOWERLIST ) - 1 ) )
+      tempPassword += ( ALPHALOWERLIST[randVal] )
   if( isAlpha and isUpperCase ):
     for i in range( 0, pwLength, 1 ):
-      randVal = ( randint( 0, len( alphaUpperList ) - 1 ) )
-      tempPassword += ( alphaUpperList[randVal] )
+      randVal = ( randint( 0, len( ALPHAUPPERLIST ) - 1 ) )
+      tempPassword += ( ALPHAUPPERLIST[randVal] )
   if( isPunctuation ):
     for i in range( 0, pwLength, 1 ):
-      randVal = ( randint( 0, len( puncList ) - 1 ) )
-      tempPassword += ( puncList[randVal] )
+      randVal = ( randint( 0, len( PUNCLIST ) - 1 ) )
+      tempPassword += ( PUNCLIST[randVal] )
 
   temp = ( sample( tempPassword , pwLength ) )
 
@@ -143,9 +199,6 @@ def main( ):
   for i in temp:
     mainPassword += ( str( i ) )
  
-  # set encoded to blank depending on if they want to encode or not
-  encodedPassword = ( "" )
-
   if( isEncrypt ):
     print( "Generated Password:\t", mainPassword )
     encodedPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
@@ -154,6 +207,22 @@ def main( ):
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
 
+  return( mainPassword, encodedPassword )
+########################################################################################################
+
+########################################################################################################
+# Public: Output content to specified file using json structure
+#
+# mainPassword  - The main generated password from generatePassword( )
+# encodedPassword - The encoded password from generatePassword( )
+#
+# Examples
+#
+#   processOutputFile( '12345', '#@#sss' )
+#   # => None
+#
+# Returns Nothing
+def processOutputFile( mainPassword, encodedPassword ):
   if( isOutputFile ):
     un = ( "" )
     email = ( "" )
@@ -227,6 +296,32 @@ def main( ):
     with open( outputFile, 'w' ) as fout:
       #pprint( jsonOutput, stream=fout ) # causing issue with single/double quotes with json
       json.dump( jsonOutput, fout )
+########################################################################################################
+  
+########################################################################################################
+# Public: Main entry point
+#
+# Examples
+#
+#   main( )
+#   # => None
+#
+# Returns Nothing
+def main( ):
+  # display the title of the program
+  displayTitle( )
 
+  # verify what switches the user provided
+  validateArguments( )
+
+  # generate the password based on the user provided arguments
+  mainPassword, encodedPassword = generatePassword( )
+
+  # generate the output json file
+  processOutputFile( mainPassword, encodedPassword )
+########################################################################################################
+
+########################################################################################################
 if( __name__ == ( "__main__" ) ):
   main( )
+########################################################################################################
