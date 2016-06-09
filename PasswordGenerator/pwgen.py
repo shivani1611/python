@@ -147,18 +147,41 @@ def main( ):
   if( isEncrypt ):
     print( "Generated Password:\t", mainPassword )
     encodedPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
+    encodedPassword = ( encodedPassword.decode( "utf-8" ) )
     print( "Encoded Password:\t", encodedPassword, '\n' )
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
 
   if( isOutputFile ):
     while( True ):
-      pwDesc = ( input( "Password Description: " ) )
-      if( len( pwDesc ) > ( 50 ) ):
+      un = ( input( "Enter username: " ) )
+      if( len( un ) > ( 75 ) ):
+        print( "Username should not exceed 75 characters!" )
         continue
-      elif( pwDesc ):
+      elif( un ):
         break
-    tmpJson = { "Description" : pwDesc, "Encoded Password" : encodedPassword.decode( "utf-8" ), "Raw Password" : mainPassword }
+    while( True ):
+      email = ( input( "Enter email address: " ) )
+      if( len( email ) > ( 75 ) ):
+        print( "Email address should not exceed 75 characters!" )
+        continue
+      elif( email ):
+        break
+    while( True ):
+      url = ( input( "Enter URL: " ) )
+      if( len( url ) > ( 125 ) ):
+        print( "URL should not exceed 125 characters!" )
+        continue
+      elif( url ):
+        break
+    while( True ):
+      notes = ( input( "Enter description: " ) )
+      if( len( notes ) > ( 250 ) ):
+        print( "Description should not exceed 250 characters!" )
+        continue
+      elif( notes ):
+        break
+    tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
     tmp_new = ( json.dumps( tmpJson ) )
     converted_new = ( tmp_new.replace( "'", "\"" ) )
     jsonOutput_new = ( json.loads( converted_new ) )
