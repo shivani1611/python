@@ -203,7 +203,8 @@ def main( ):
     jsonOutput.append( jsonOutput_new )
 
     with open( outputFile, 'w' ) as fout:
-      json.dump( jsonOutput, fout )
+      pprint( jsonOutput, stream=fout )
+      #json.dump( jsonOutput, fout )
 
 if( __name__ == ( "__main__" ) ):
   main( )
