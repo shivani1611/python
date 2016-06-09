@@ -148,7 +148,7 @@ def main( ):
     print( "Generated Password:\t", mainPassword )
     encodedPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
     encodedPassword = ( encodedPassword.decode( "utf-8" ) )
-    print( "Encoded Password:\t", encodedPassword, '\n' )
+    print( "Base64 Encrypted:\t", encodedPassword, '\n' )
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
 
