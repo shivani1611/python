@@ -155,6 +155,11 @@ def main( ):
     print( "Generated Password:\t", mainPassword, '\n' )
 
   if( isOutputFile ):
+    un = ( "" )
+    email = ( "" )
+    url = ( "" )
+    notes = ( "" )
+
     while( True ):
       un = ( input( "Enter username: " ) )
       if( len( un ) > ( 75 ) ):
@@ -184,12 +189,12 @@ def main( ):
       elif( notes ):
         break
 
-  tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
-  tmp_new = ( json.dumps( tmpJson ) )
-  #converted_new = ( tmp_new.replace( "\'", "\"" ) )
-  jsonOutput_new = ( json.loads( tmp_new ) )
-
   if( isOutputFile ):
+    tmpJson = { "DESCRIPTION" : notes.strip( ).lower( ), "ENCODED PW" : encodedPassword, "RAW PW" : mainPassword, "URL" : url.strip( ).lower( ), "EMAIL" : email.strip( ).lower( ), "USER" : un.strip( ).lower( ),  }
+    tmp_new = ( json.dumps( tmpJson ) )
+    #converted_new = ( tmp_new.replace( "\'", "\"" ) )
+    jsonOutput_new = ( json.loads( tmp_new ) )
+
     isReadFile = ( False )
 
     jsonOutput = []
