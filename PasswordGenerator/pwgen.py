@@ -88,8 +88,8 @@ def main( ):
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
     print( "Example: python3 pwgen.py 10 --alpha --ucase --punc" )
     print( "Example: python3 pwgen.py 30 --num --enc" )
-    print( "Example: python3 pwgen.py --dec=ZnJ2\n" )
-    print( "Example: python3 pwgen.py 5 --num --outputfile=file.json" ) 
+    print( "Example: python3 pwgen.py --dec=ZnJ2" )
+    print( "Example: python3 pwgen.py 5 --num --outputfile=filename\n" ) 
     quit( )
 
   # determine the number of arguments supplied
