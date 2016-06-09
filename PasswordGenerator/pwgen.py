@@ -2,7 +2,10 @@ from sys import argv
 from random import randint
 from random import sample
 from random import seed
+from pprint import pprint
 import base64
+import json
+import os.path
 
 def main( ):
 
@@ -14,6 +17,7 @@ def main( ):
   isEncrypt = ( False )
   isDecrypt = ( False )
   isGetLength = ( False )
+  isOutputFile = ( False )
 
   pwLength = ( 0 )
   numOfOptions = ( 0 )
@@ -41,6 +45,9 @@ def main( ):
           isGetLength = ( True )
         elif( argv[i] == ( "--enc" ) ):
           isEncrypt = ( True )
+        elif( "--outputfile=" in argv[i] ):
+          isOutputFile = ( True )
+          outputFile = ( str( argv[i][13:] ) )
         elif( "--dec=" in argv[i] ):
           isDecrypt = ( True )
           tmpString = ( str( argv[i][6:] ) )
@@ -57,6 +64,8 @@ def main( ):
         raise ValueError( "Password length should not exceed 50 characters!" ) 
       elif( ( isAlpha and not isUpperCase ) and ( isAlpha and not isLowerCase ) ):
         raise ValueError( "Password will be blank. Please specify either --ucase or --lcase!" )
+      elif( len( outputFile ) > ( 20 ) ):
+        raise ValueError( "Output file name should not exceed 20 characters!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
         raise ValueError( "Password will be blank. Please specify the --alpha switch!" )
       elif( not isAlpha and not isNumeric and not isPunctuation ):
@@ -73,11 +82,13 @@ def main( ):
     print( "--punc \t\t= enable punctuations" )
     print( "--enc \t\t= encode password using base64 encryption" )
     print( "--dec=string\t= decode string using base64 decryption" )
+    print( "--outputfile=file\t= store the password in a json file" )
     print( "\nUsage: python3 pwgen.py [{--alpha}[--lcase][--ucase]] [--enc] [--dec=string] [--num] [--punc]" )
     print( "\nExample: python3 pwgen.py 25 --alpha --lcase --num" )
     print( "Example: python3 pwgen.py 10 --alpha --ucase --punc" )
     print( "Example: python3 pwgen.py 30 --num --enc" )
-    print( "Example: python3 pwgen.py --dec=ZnJ2\n" ) 
+    print( "Example: python3 pwgen.py --dec=ZnJ2\n" )
+    print( "Example: python3 pwgen.py 5 --num --outputfile=file.json" ) 
     quit( )
 
   # determine the number of arguments supplied
@@ -128,13 +139,47 @@ def main( ):
   # join the list password into a string password
   for i in temp:
     mainPassword += ( str( i ) )
+ 
+  # set encoded to blank depending on if they want to encode or not
+  encodedPassword = ( "" )
 
   if( isEncrypt ):
     print( "Generated Password:\t", mainPassword )
-    mainPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
-    print( "Encoded Password:\t", mainPassword, '\n' )
+    encodedPassword = ( base64.b64encode( bytes( mainPassword, "utf-8" ) ) )
+    print( "Encoded Password:\t", encodedPassword, '\n' )
   else:
     print( "Generated Password:\t", mainPassword, '\n' )
+
+  while( True ):
+    pwDesc = ( input( "Password Description: " ) )
+    if( len( pwDesc ) > ( 50 ) ):
+      continue
+    elif( pwDesc ):
+      break
+
+  tmpJson = { "Description" : pwDesc, "Encoded Password" : encodedPassword, "Raw Password" : mainPassword }
+  tmp_new = ( json.dumps( tmpJson ) )
+  converted_new = ( tmp_new.replace( "'", "\"" ) )
+  jsonOutput_new = ( json.loads( converted_new ) )
+
+  isReadFile = ( False )
+
+  jsonOutput = []
+  if( isOutputFile ):
+    if( os.path.isfile( outputFile ) ):
+      try:
+        with open( outputFile, 'r' ) as readFile:
+          isReadFile = ( True )
+          jsonOutput_old = json.load( readFile )
+          for i in jsonOutput_old:
+            jsonOutput.append( i )
+      except:
+        isReadFile = ( False )
+
+  jsonOutput.append( jsonOutput_new )
+
+  with open( outputFile, 'w' ) as fout:
+    json.dump( jsonOutput, fout )
 
 if( __name__ == ( "__main__" ) ):
   main( )
