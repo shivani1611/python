@@ -10,10 +10,10 @@
 ########################################################################################################
 
 ########################################################################################################
+from pprint import pprint
 from random import randint
 from random import sample
 from random import seed
-from pprint import pprint
 from sys import argv
 import base64
 import json
@@ -24,27 +24,27 @@ import traceback
 
 ########################################################################################################
 # Global Switches/Options
-isAlpha = ( False )
-isNumeric = ( False )
-isUpperCase = ( False )
-isLowerCase = ( False )
+isAlpha       = ( False )
+isNumeric     = ( False )
+isUpperCase   = ( False )
+isLowerCase   = ( False )
 isPunctuation = ( False )
-isEncrypt = ( False )
-isDecrypt = ( False )
-isGetLength = ( False )
-isOutputFile = ( False )
-isSave = ( False )
-isSearch = ( False )
+isEncrypt     = ( False )
+isDecrypt     = ( False )
+isGetLength   = ( False )
+isOutputFile  = ( False )
+isSave        = ( False )
+isHelp        = ( False )
 
-pwLength = ( 0 )
-numOfOptions = ( 0 )
-outputFile = ( "" )
+pwLength      = ( 0 )
+numOfOptions  = ( 0 )
+outputFile    = ( "" )
 
 # Global Constants
 ALPHAUPPERLIST = ( 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' )
 ALPHALOWERLIST = ( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' )
-NUMBERLIST = ( '1', '2', '3', '4', '5', '6', '7', '8', '9' )
-PUNCLIST = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', '`', '~', ',', '<', '.', '>', '/', '?', ';', '\'', '\"', '\\', ':', '[', '{', ']', '}', '|' )
+NUMBERLIST     = ( '1', '2', '3', '4', '5', '6', '7', '8', '9' )
+PUNCLIST       = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', '`', '~', ',', '<', '.', '>', '/', '?', ';', '\'', '\"', '\\', ':', '[', '{', ']', '}', '|' )
 ########################################################################################################
 
 ########################################################################################################
@@ -80,6 +80,8 @@ def validateArguments( ):
   global isGetLength
   global isOutputFile
   global isSave
+  global isHelp
+
   global pwLength 
   global numOfOptions 
   global outputFile 
@@ -87,6 +89,7 @@ def validateArguments( ):
   pythonVersion     = ( "python3" )
   appName           = ( "accman.py" )
   lengthSwitch      = ( "#" )
+  helpSwitch        = ( "--help" )
   alphaSwitch       = ( "--alpha" )
   lowerCaseSwitch   = ( "--lcase" )
   upperCaseSwitch   = ( "--ucase" )
@@ -100,7 +103,12 @@ def validateArguments( ):
   try: 
     if( len( argv ) > ( 1 ) ): 
       for i in range( 0, len( argv ), 1 ): 
-        if( argv[i] == ( alphaSwitch ) ): 
+        if( argv[i] == ( appName ) ):
+          pass
+        elif( argv[i] == ( helpSwitch ) ):
+          isHelp = ( True )
+          raise ValueError( "None" )
+        elif( argv[i] == ( alphaSwitch ) ): 
           if( isAlpha ): 
             print( "\nWarning: You should only specify {} once!".format( alphaSwitch ) )
           isAlpha = ( True ) 
@@ -132,8 +140,8 @@ def validateArguments( ):
         elif( outputFileSwitch in argv[i] ):
           if( isOutputFile ):
             raise ValueError( "You can only specify {} once!".format( outputFileSwitch ) )
-          isOutputFile = ( True )
           outputFile = ( str( argv[i][10:] ) )
+          isOutputFile = ( True )
         elif( argv[i] == ( saveSwitch ) ):
           if( isSave ):
             raise ValueError( "You can only specify {} once!".format( saveSwitch ) )
@@ -155,6 +163,8 @@ def validateArguments( ):
           decryptStr = ( "".join( map( chr, base64.b64decode( bytes( tmpString, "utf-8" ) ) ) ) )
           print( "Decoded String:\t\t", decryptStr, '\n' )
           quit( )
+        else:
+          raise ValueError( "Invalid switch used!" )
 
       # switch rules
       if( pwLength == ( 0 ) ):
@@ -177,11 +187,12 @@ def validateArguments( ):
   except ValueError as e:
     print( "\n=> Exception:", e )
     print( "\n{} \t\t= specify the length of the password".format( lengthSwitch ) )
-    print( "{} \t= enable alpha characters".format( alphaSwitch ) )
-    print( " {} \t= allow lowercase characters".format( lowerCaseSwitch ) )
-    print( " {} \t= allow uppercase characters".format( upperCaseSwitch ) )
-    print( "{} \t\t= enable numbers".format( numberSwitch ) )
-    print( "{} \t\t= enable punctuations".format( punctuationSwitch ) )
+    print( "{} \t\t= display the help menu".format( helpSwitch ) )
+    print( "{} \t= allow alpha characters".format( alphaSwitch ) )
+    print( "  {} \t= enable lowercase characters".format( lowerCaseSwitch ) )
+    print( "  {} \t= enable uppercase characters".format( upperCaseSwitch ) )
+    print( "{} \t\t= allow number characters".format( numberSwitch ) )
+    print( "{} \t\t= allow punctuation characters".format( punctuationSwitch ) )
     print( "{} \t\t= encode password using base64 encryption".format( encryptSwitch ) )
     print( "{}string \t= decode string using base64 decryption".format( decryptSwitch ) )
     print( "{}file \t= store the password in a json file".format( outputFileSwitch ) )
@@ -196,6 +207,12 @@ def validateArguments( ):
     quit( )
 
   # determine the number of arguments supplied
+  if( isHelp ):
+    numOfOptions = ( numOfOptions + 1 )
+
+  if( isGetLength ):
+    numOfOptions = ( numOfOptions + 1 )
+
   if( isAlpha and isLowerCase ):
     numOfOptions = ( numOfOptions + 2 )
 
@@ -210,14 +227,12 @@ def validateArguments( ):
 
   if( isEncrypt ):
     numOfOptions = ( numOfOptions + 1 )
-
-  if( isDecrypt ):
+  elif( isDecrypt ):
     numOfOptions = ( numOfOptions + 1 )
 
   if( isOutputFile ):
     numOfOptions = ( numOfOptions + 1 )
-
-  if( isSearch ):
+  elif( isSave ):
     numOfOptions = ( numOfOptions + 1 )
 ########################################################################################################
 
@@ -291,9 +306,9 @@ def generatePassword( ):
 # Returns Nothing
 def processOutputFile( mainPassword, encodedPassword ):
   if( isOutputFile or isSave ):
-    un = ( "" )
+    un    = ( "" )
     email = ( "" )
-    url = ( "" )
+    url   = ( "" )
     notes = ( "" )
 
     while( True ):
@@ -342,19 +357,15 @@ def processOutputFile( mainPassword, encodedPassword ):
     converted_new = ( tmp_new.replace( "\'", "\"" ) )
     jsonOutput_new = ( json.loads( tmp_new ) )
 
-    isReadFile = ( False )
-
     jsonOutput = []
     if( os.path.isfile( outputFile ) ):
       try:
        with open( outputFile, 'r' ) as readFile:
-          isReadFile = ( True )
           jsonOutput_old = json.load( readFile )
           for i in jsonOutput_old:
             jsonOutput.append( i )
       except:
         print(  traceback.format_exc( ) )
-        isReadFile = ( False )
 
     jsonOutput.append( jsonOutput_new )
     with open( outputFile, 'w' ) as fout:
