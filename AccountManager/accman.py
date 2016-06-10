@@ -57,7 +57,7 @@ PUNCLIST = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+
 #
 # Returns Nothing
 def displayTitle( ):
-  print( "\n\nNetwork Account Manager\n~~~~~~~~~~~~~~~~~~~~~~~" )
+  print( "\n\n\nNetwork Account Manager\n~~~~~~~~~~~~~~~~~~~~~~~" )
 ########################################################################################################
 
 ########################################################################################################
@@ -80,66 +80,81 @@ def validateArguments( ):
   global isGetLength
   global isOutputFile
   global isSave
-  global isSearch 
   global pwLength 
   global numOfOptions 
   global outputFile 
 
+  pythonVersion     = ( "python3" )
+  appName           = ( "accman.py" )
+  lengthSwitch      = ( "#" )
+  alphaSwitch       = ( "--alpha" )
+  lowerCaseSwitch   = ( "--lcase" )
+  upperCaseSwitch   = ( "--ucase" )
+  numberSwitch      = ( "--num" )
+  punctuationSwitch = ( "--punc" )
+  encryptSwitch     = ( "--enc" )
+  decryptSwitch     = ( "--dec=" )
+  outputFileSwitch  = ( "--outfile=" )
+  saveSwitch        = ( "--save" )
+
   try: 
     if( len( argv ) > ( 1 ) ): 
       for i in range( 0, len( argv ), 1 ): 
-        if( argv[i] == ( "--alpha" ) ): 
+        if( argv[i] == ( alphaSwitch ) ): 
           if( isAlpha ): 
-            print( "\nWarning: You should only specify --alpha once!" ) 
+            print( "\nWarning: You should only specify {} once!".format( alphaSwitch ) )
           isAlpha = ( True ) 
-        elif( argv[i] == ( "--num" ) ): 
+        elif( argv[i] == ( numberSwitch ) ): 
           if( isNumeric ): 
-            print( "\nWarning: You should only specify --num once!" ) 
+            print( "\nWarning: You should only specify {} once!".format( numberSwitch ) ) 
           isNumeric = ( True ) 
-        elif( argv[i] == ( "--ucase" ) ): 
+        elif( argv[i] == ( upperCaseSwitch ) ): 
           if( isUpperCase ): 
-            print( "\nWarning: You should can only specify --ucase once!" ) 
+            print( "\nWarning: You should can only specify {} once!".format( upperCaseSwitch ) ) 
           isUpperCase = ( True ) 
-        elif( argv[i] == ( "--lcase" ) ): 
+        elif( argv[i] == ( lowerCaseSwitch ) ): 
           if( isLowerCase ): 
-            print( "\nWarning: You should only specify --lcase once!" ) 
+            print( "\nWarning: You should only specify {} once!".format( lowerCaseSwitch ) ) 
           isLowerCase = ( True ) 
-        elif( argv[i] == ( "--punc" ) ): 
+        elif( argv[i] == ( punctuationSwitch ) ): 
           if( isPunctuation ):
-            print( "\nWarning: You should only specify --punc once!" )
+            print( "\nWarning: You should only specify {} once!".format( punctuationSwitch ) )
           isPunctuation = ( True )
         elif( argv[i].isnumeric( ) ):
           if( isGetLength ):
-            raise ValueError( "\nYou can only specify length once!" )
+            raise ValueError( "You can only specify length once!" )
           pwLength = ( int( argv[i] ) )
           isGetLength = ( True )
-        elif( argv[i] == ( "--enc" ) ):
+        elif( argv[i] == ( encryptSwitch ) ):
           if( isEncrypt ):
-            print( "\nWarning: You should only specify --enc once!" )
+            print( "\nWarning: You should only specify {} once!".format( encryptSwitch ) )
           isEncrypt = ( True )
-        elif( ( "--outfile=" in argv[i] ) or ( "--outfile:" in argv[i] ) ):
+        elif( outputFileSwitch in argv[i] ):
           if( isOutputFile ):
-            raise ValueError( "\nYou can only specify --outfile once!" )
+            raise ValueError( "You can only specify {} once!".format( outputFileSwitch ) )
           isOutputFile = ( True )
           outputFile = ( str( argv[i][10:] ) )
-        elif( argv[i] == ( "--save" ) ):
+        elif( argv[i] == ( saveSwitch ) ):
+          if( isSave ):
+            raise ValueError( "You can only specify {} once!".format( saveSwitch ) )
+          isSave = ( True )
           if( not isOutputFile ):
-            if( isSave ):
-              print( "\nWarning: You should only specify --save once!" )
-            isSave = ( True )
             while( True ):
               outputFile = ( input( "Enter filename to save: " ) )
               outputFile = ( outputFile.strip( ) )
               if( outputFile ):
                 break
-        elif( ( "--dec=" in argv[i] ) or( "--dec:" in argv[i] ) ):
+          else:
+            print( "\nWarning: You should specify either {} or {}!".format( saveSwitch, outputFileSwitch ) )
+        elif( decryptSwitch in argv[i] ):
           if( isDecrypt ):
-            print( "\nWarning: You should only specify --dec once!" )
+            print( "\nWarning: You should only specify {} once!".format( decryptSwitch ) )
           isDecrypt = ( True )
           tmpString = ( str( argv[i][6:] ) )
-          print( "Encoded String:\t\t", tmpString )
+          print( "\nEncoded String:\t\t", tmpString )
           decryptStr = ( "".join( map( chr, base64.b64decode( bytes( tmpString, "utf-8" ) ) ) ) )
           print( "Decoded String:\t\t", decryptStr, '\n' )
+          quit( )
 
       # switch rules
       if( pwLength == ( 0 ) ):
@@ -149,40 +164,35 @@ def validateArguments( ):
       elif( pwLength > ( 50 ) ):
         raise ValueError( "Password length should not exceed 50 characters!" ) 
       elif( ( isAlpha and not isUpperCase ) and ( isAlpha and not isLowerCase ) ):
-        raise ValueError( "Password will be blank. Please specify either --ucase or --lcase!" )
+        raise ValueError( "Please also specify either {} or {}!".format( upperCaseSwitch, lowerCaseSwitch ) )
       elif( isOutputFile ):
         if( len( outputFile ) > ( 20 ) ):
           raise ValueError( "Output file name should not exceed 20 characters!" )
       elif( ( isUpperCase and not isAlpha ) or ( isLowerCase and not isAlpha ) ):
-        raise ValueError( "Password will be blank. Please specify the --alpha switch!" )
+        raise ValueError( "Please also specify the {} switch!".format( alphaSwitch ) )
       elif( not isAlpha and not isNumeric and not isPunctuation ):
-        raise ValueError( "Password will be blank. Please specify options such as --alpha, --num, --punc" )
+        raise ValueError( "Please specify encoding options!" )
     else:
       raise ValueError( "No arguments provided!" )
   except ValueError as e:
-    print( "\nException:", e )
-    print( "\n# \t\t= specify the length of the password" )
-    print( "--alpha \t= enable alpha characters" )
-    print( " --lcase \t= allow lowercase characters" )
-    print( " --ucase \t= allow uppercase characters" )
-    print( "--num \t\t= enable numbers" )
-    print( "--punc \t\t= enable punctuations" )
-    print( "--enc \t\t= encode password using base64 encryption" )
-    print( "--dec=string\t= decode string using base64 decryption" )
-    print( "--outfile=file\t= store the password in a json file" )
-    print( "--save=file\t= store the password in a json file" )
-    print( "--srchRawPass=\t= search for raw password" )
-    print( "--srchEncPass=\t= search for encrypted password" )
-    print( "--srchUser=\t= search for the user" )
-    print( "--srchEmail=\t= search for the email" )
-    print( "--srchDesc=\t= search a substring within the description" )
-    print( "\nUsage: python3 accman.py [--srchRawPass=pw | --srchEncPass=pw | --srchUser=user | --srchEmail=email | --srchDesc=substring] [--alpha [--lcase | --ucase]] [--enc | --dec=string] [--num | --punc] [--outfile=file | --save]]" )
-    print( "\nExample: python3 accman.py 25 --alpha --lcase --num" )
-    print( "Example: python3 accman.py 10 --alpha --ucase --punc" )
-    print( "Example: python3 accman.py 30 --num --enc --save" )
-    print( "Example: python3 accman.py --dec=ZnJ2" )
-    print( "Example: python3 accman.py 5 --num --outputfile=filename" ) 
-    print( "Example: python3 accman.py --srchUser=asarkisian\n" )
+    print( "\n=> Exception:", e )
+    print( "\n{} \t\t= specify the length of the password".format( lengthSwitch ) )
+    print( "{} \t= enable alpha characters".format( alphaSwitch ) )
+    print( " {} \t= allow lowercase characters".format( lowerCaseSwitch ) )
+    print( " {} \t= allow uppercase characters".format( upperCaseSwitch ) )
+    print( "{} \t\t= enable numbers".format( numberSwitch ) )
+    print( "{} \t\t= enable punctuations".format( punctuationSwitch ) )
+    print( "{} \t\t= encode password using base64 encryption".format( encryptSwitch ) )
+    print( "{}string \t= decode string using base64 decryption".format( decryptSwitch ) )
+    print( "{}file \t= store the password in a json file".format( outputFileSwitch ) )
+    print( "{} \t\t= prompt to store the password in a json file".format( saveSwitch ) )
+    print( "\nUsage: {} {} {} [{} [{} | {}]] [{} | {}string] [{} | {}] [{}file | {}]]".format( pythonVersion, appName, lengthSwitch, alphaSwitch, lowerCaseSwitch, upperCaseSwitch, encryptSwitch, decryptSwitch, numberSwitch, punctuationSwitch, outputFileSwitch, saveSwitch ) )
+    print( "\nExample: {} {} 25 {} {} {}".format( pythonVersion, appName, alphaSwitch, lowerCaseSwitch, numberSwitch ) )
+    print( "Example: {} {} 10 {} {} {}".format( pythonVersion, appName, alphaSwitch, upperCaseSwitch, punctuationSwitch ) )
+    print( "Example: {} {} 30 {} {} {}".format( pythonVersion, appName, numberSwitch, encryptSwitch, saveSwitch ) )
+    print( "Example: {} {} {}ZnJ2".format( pythonVersion, appName, decryptSwitch ) )
+    print( "Example: {} {} 5 {} {}file.dat".format( pythonVersion, appName, numberSwitch, outputFileSwitch ) ) 
+    print( )
     quit( )
 
   # determine the number of arguments supplied
