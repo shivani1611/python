@@ -45,6 +45,7 @@ ALPHAUPPERLIST = ( 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', '
 ALPHALOWERLIST = ( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' )
 NUMBERLIST     = ( '1', '2', '3', '4', '5', '6', '7', '8', '9' )
 PUNCLIST       = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', '`', '~', ',', '<', '.', '>', '/', '?', ';', '\'', '\"', '\\', ':', '[', '{', ']', '}', '|' )
+SPECIALLIST    = ( "\u2660", "\u2661", "\u2662", "\u2663", "\u2664", "\u2665", "\u2666", "\u2667" )
 ########################################################################################################
 
 ########################################################################################################
@@ -59,6 +60,13 @@ PUNCLIST       = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '
 def displayTitle( ):
   print( "\n\n\nNetwork Credential Manager\n~~~~~~~~~~~~~~~~~~~~~~~~~~" )
 ########################################################################################################
+
+########################################################################################################
+#def mainMenu( ):
+
+########################################################################################################
+
+
 
 ########################################################################################################
 # Public: Validate all the arguments specified by the user
@@ -87,7 +95,7 @@ def validateArguments( ):
   global outputFile 
 
   pythonVersion     = ( "python3" )
-  fileName          = ( "accman.py" )
+  fileName          = ( "credman.py" )
   lengthSwitch      = ( "#" )
   helpSwitch        = ( "--help" )
   alphaSwitch       = ( "--alpha" )
@@ -96,6 +104,7 @@ def validateArguments( ):
   numberSwitch      = ( "--num" )
   punctuationSwitch = ( "--punc" )
   encryptSwitch     = ( "--enc" )
+  encryptSwitch2    = ( "--enc=" )
   decryptSwitch     = ( "--dec=" )
   outputFileSwitch  = ( "--outfile=" )
   saveSwitch        = ( "--save" )
@@ -103,48 +112,44 @@ def validateArguments( ):
   try: 
     if( len( argv ) > ( 1 ) ): 
       for i in range( 0, len( argv ), 1 ): 
-        if( argv[i] == ( fileName ) ):
+        if( fileName in argv[i] ):
           pass
         elif( argv[i] == ( helpSwitch ) ):
           isHelp = ( True )
           raise ValueError( "None" )
         elif( argv[i] == ( alphaSwitch ) ): 
           if( isAlpha ): 
-            print( "\nWarning: You should only specify {} once!".format( alphaSwitch ) )
+            print( "\nWarning: You should specify {} only once!".format( alphaSwitch ) )
           isAlpha = ( True ) 
         elif( argv[i] == ( numberSwitch ) ): 
           if( isNumeric ): 
-            print( "\nWarning: You should only specify {} once!".format( numberSwitch ) ) 
+            print( "\nWarning: You should specify {} only once!".format( numberSwitch ) ) 
           isNumeric = ( True ) 
         elif( argv[i] == ( upperCaseSwitch ) ): 
           if( isUpperCase ): 
-            print( "\nWarning: You should can only specify {} once!".format( upperCaseSwitch ) ) 
+            print( "\nWarning: You should specify {} only once!".format( upperCaseSwitch ) ) 
           isUpperCase = ( True ) 
         elif( argv[i] == ( lowerCaseSwitch ) ): 
           if( isLowerCase ): 
-            print( "\nWarning: You should only specify {} once!".format( lowerCaseSwitch ) ) 
+            print( "\nWarning: You should specify {} only once!".format( lowerCaseSwitch ) ) 
           isLowerCase = ( True ) 
         elif( argv[i] == ( punctuationSwitch ) ): 
           if( isPunctuation ):
-            print( "\nWarning: You should only specify {} once!".format( punctuationSwitch ) )
+            print( "\nWarning: You should specify {} only once!".format( punctuationSwitch ) )
           isPunctuation = ( True )
         elif( argv[i].isnumeric( ) ):
           if( isGetLength ):
-            raise ValueError( "You can only specify length once!" )
+            raise ValueError( "You can specify length only once!" )
           pwLength = ( int( argv[i] ) )
           isGetLength = ( True )
-        elif( argv[i] == ( encryptSwitch ) ):
-          if( isEncrypt ):
-            print( "\nWarning: You should only specify {} once!".format( encryptSwitch ) )
-          isEncrypt = ( True )
         elif( outputFileSwitch in argv[i] ):
           if( isOutputFile ):
-            raise ValueError( "You can only specify {} once!".format( outputFileSwitch ) )
+            raise ValueError( "You can specify {} only once!".format( outputFileSwitch ) )
           outputFile = ( str( argv[i][10:] ) )
           isOutputFile = ( True )
         elif( argv[i] == ( saveSwitch ) ):
           if( isSave ):
-            raise ValueError( "You can only specify {} once!".format( saveSwitch ) )
+            raise ValueError( "You can specify {} only once!".format( saveSwitch ) )
           isSave = ( True )
           if( not isOutputFile ):
             while( True ):
@@ -154,9 +159,23 @@ def validateArguments( ):
                 break
           else:
             print( "\nWarning: You should specify either {} or {}!".format( saveSwitch, outputFileSwitch ) )
+        elif( argv[i] == ( encryptSwitch ) ):
+          if( isEncrypt ):
+            print( "\nWarning: You should specify {} only once!".format( encryptSwitch ) )
+          isEncrypt = ( True )
+        elif( encryptSwitch2 in argv[i] ):
+          if( isEncrypt ):
+            print( "\nWarning: You should specify the encrypt switch only once!" )
+          isEncrypt = ( True )
+          tmpString = ( str( argv[i][6:] ) )
+          print( "\nDecoded String:\t\t", tmpString )
+          encryptStr = ( base64.b64encode( bytes( tmpString, "utf-8" ) ) )
+          encryptStr = ( encryptStr.decode( "utf-8" ) )
+          print( "Encoded String:\t\t", encryptStr, '\n' )
+          quit( )
         elif( decryptSwitch in argv[i] ):
           if( isDecrypt ):
-            print( "\nWarning: You should only specify {} once!".format( decryptSwitch ) )
+            print( "\nWarning: You should specify {} only once!".format( decryptSwitch ) )
           isDecrypt = ( True )
           tmpString = ( str( argv[i][6:] ) )
           print( "\nEncoded String:\t\t", tmpString )
@@ -194,6 +213,7 @@ def validateArguments( ):
     print( "{} \t\t= allow number characters".format( numberSwitch ) )
     print( "{} \t\t= allow punctuation characters".format( punctuationSwitch ) )
     print( "{} \t\t= encode password using base64 encryption".format( encryptSwitch ) )
+    print( "{}string \t= encode string using base64 encryption".format( encryptSwitch2 ) )
     print( "{}string \t= decode string using base64 decryption".format( decryptSwitch ) )
     print( "{}file \t= store the password in a json file".format( outputFileSwitch ) )
     print( "{} \t\t= prompt to store the password in a json file".format( saveSwitch ) )
@@ -250,6 +270,7 @@ def generatePassword( ):
   global ALPHALOWERLIST
   global NUMBERLIST
   global PUNCLIST
+  global SPECIALLIST
 
   # randomize
   seed( )
