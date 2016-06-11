@@ -57,7 +57,7 @@ PUNCLIST       = ( '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '
 #
 # Returns Nothing
 def displayTitle( ):
-  print( "\n\n\nNetwork Account Manager\n~~~~~~~~~~~~~~~~~~~~~~~" )
+  print( "\n\n\nNetwork Credential Manager\n~~~~~~~~~~~~~~~~~~~~~~~~~~" )
 ########################################################################################################
 
 ########################################################################################################
@@ -87,7 +87,7 @@ def validateArguments( ):
   global outputFile 
 
   pythonVersion     = ( "python3" )
-  appName           = ( "accman.py" )
+  fileName          = ( "accman.py" )
   lengthSwitch      = ( "#" )
   helpSwitch        = ( "--help" )
   alphaSwitch       = ( "--alpha" )
@@ -103,7 +103,7 @@ def validateArguments( ):
   try: 
     if( len( argv ) > ( 1 ) ): 
       for i in range( 0, len( argv ), 1 ): 
-        if( argv[i] == ( appName ) ):
+        if( argv[i] == ( fileName ) ):
           pass
         elif( argv[i] == ( helpSwitch ) ):
           isHelp = ( True )
@@ -197,12 +197,12 @@ def validateArguments( ):
     print( "{}string \t= decode string using base64 decryption".format( decryptSwitch ) )
     print( "{}file \t= store the password in a json file".format( outputFileSwitch ) )
     print( "{} \t\t= prompt to store the password in a json file".format( saveSwitch ) )
-    print( "\nUsage: {} {} {} [{} [{} | {}]] [{} | {}string] [{} | {}] [{}file | {}]]".format( pythonVersion, appName, lengthSwitch, alphaSwitch, lowerCaseSwitch, upperCaseSwitch, encryptSwitch, decryptSwitch, numberSwitch, punctuationSwitch, outputFileSwitch, saveSwitch ) )
-    print( "\nExample: {} {} 25 {} {} {}".format( pythonVersion, appName, alphaSwitch, lowerCaseSwitch, numberSwitch ) )
-    print( "Example: {} {} 10 {} {} {}".format( pythonVersion, appName, alphaSwitch, upperCaseSwitch, punctuationSwitch ) )
-    print( "Example: {} {} 30 {} {} {}".format( pythonVersion, appName, numberSwitch, encryptSwitch, saveSwitch ) )
-    print( "Example: {} {} {}ZnJ2".format( pythonVersion, appName, decryptSwitch ) )
-    print( "Example: {} {} 5 {} {}file.dat".format( pythonVersion, appName, numberSwitch, outputFileSwitch ) ) 
+    print( "\nUsage: {} {} {} [{} [{} | {}]] [{} | {}string] [{} | {}] [{}file | {}]]".format( pythonVersion, fileName, lengthSwitch, alphaSwitch, lowerCaseSwitch, upperCaseSwitch, encryptSwitch, decryptSwitch, numberSwitch, punctuationSwitch, outputFileSwitch, saveSwitch ) )
+    print( "\nExample: {} {} 25 {} {} {}".format( pythonVersion, fileName, alphaSwitch, lowerCaseSwitch, numberSwitch ) )
+    print( "Example: {} {} 10 {} {} {}".format( pythonVersion, fileName, alphaSwitch, upperCaseSwitch, punctuationSwitch ) )
+    print( "Example: {} {} 30 {} {} {}".format( pythonVersion, fileName, numberSwitch, encryptSwitch, saveSwitch ) )
+    print( "Example: {} {} {}ZnJ2".format( pythonVersion, fileName, decryptSwitch ) )
+    print( "Example: {} {} 5 {} {}file.dat".format( pythonVersion, fileName, numberSwitch, outputFileSwitch ) ) 
     print( )
     quit( )
 
@@ -254,8 +254,8 @@ def generatePassword( ):
   # randomize
   seed( )
 
-  mainPassword = ( "" )
-  tempPassword = ( "" )
+  mainPassword    = ( "" )
+  tempPassword    = ( "" )
   encodedPassword = ( "" )
 
   if( isNumeric ):
