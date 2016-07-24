@@ -479,7 +479,7 @@ def openInvoice( url ):
       if( "suse" in str( platform.linux_distribution( )[0] ).lower( ) ):
         webbrowser.get( 'firefox' ).open_new( url )
       elif( "ubuntu" in str( platform.linux_distribution( )[0] ).lower( ) ):
-        pass
+        os.system( "{0} {1} {2}".format( ( "/usr/bin/firefox" ), ( "-new-tab" ), ( url ) ) )
       else:
         webbrowser.get( 'firefox' ).open_new( url )
     else:
