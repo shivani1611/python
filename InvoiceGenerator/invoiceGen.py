@@ -475,8 +475,15 @@ def openInvoice( url ):
   if( isPlatformWindows == ( True ) ):
     webbrowser.open_new( url )
   else:
-    if( "suse" in str( platform.linux_distribution( )[0] ).lower( ) ):
-      webbrowser.get( 'firefox' ).open_new( url )
+    if( "linux" in platform.system( ).lower( ) ):
+      if( "suse" in str( platform.linux_distribution( )[0] ).lower( ) ):
+        webbrowser.get( 'firefox' ).open_new( url )
+      elif( "ubuntu" in str( platform.linux_distribution( )[0] ).lower( ) ):
+        pass
+      else:
+        webbrowser.get( 'firefox' ).open_new( url )
+    else:
+      webbrowser.get( 'safari' ).open_new( url )
   print( "\nGoodbye!\n" )
   return
 
@@ -724,6 +731,7 @@ def main( ):
   # routine(s)
   displayIntro( )
 
+  #optional
   #authenticate( )
 
   fn, mn, ln, sa, ci, st, zc, co, op, hp, mp, ap, no, em, cl, dscList, prList = getInput( )  
