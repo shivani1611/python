@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Invoice Manager
+Comment=Launch Invoice Generator
+Exec=sh /home/beardedwizard/Development/python/InvoiceGenerator/invoiceGen.sh
+Icon=utilities-terminal
+Terminal=true
+Type=Application

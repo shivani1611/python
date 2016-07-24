@@ -1,3 +1,3 @@
-#!/usr/bin/bash
+#!/usr/bin/sh
 
-./invoiceGen.py
+/home/beardedwizard/Development/python/InvoiceGenerator/invoiceGen.py
