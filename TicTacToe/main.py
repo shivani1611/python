@@ -9,8 +9,8 @@ a = []
 b = []
 c = []
 
-p1 = "X"
-p2 = "O"
+p1 = ( "X" )
+p2 = ( "O" )
 
 isGridFull = ( False )
 
@@ -42,6 +42,7 @@ def setGrid( space, symbol ):
 
   isSet = ( True )
 
+  print( "SPACE: ", space )
   if( space == ( "a1" ) ):
     if( a[0] == ( " " ) ):
       a[0] = ( symbol )
@@ -99,6 +100,8 @@ def setGrid( space, symbol ):
   else:
     displayError( "ERROR 102: Space does not exist!" ) 
     isSet = ( False )
+
+  displayGrid( )
   return( isSet )
 
 def checkGrid( ):
@@ -195,7 +198,7 @@ def playTurn( who, symbol ):
     while( True ):
       displayGrid( )
 
-      if( symbol.lower( ) == ( 'x' ) ):
+      if( symbol.upper( ) == ( 'X' ) ):
         choice = ( input( "Player 1: Enter selection: " ) )
       else:
         choice = ( input( "Player 2: Enter selection: " ) )
@@ -209,7 +212,185 @@ def playTurn( who, symbol ):
       else:
         displayError( "ERROR 104: Invalid Space!" )
   elif( who == ( "computer" ) ):
-    pass
+    if( symbol.strip( ) == ( p1 ) ):
+      comp = ( p2 )
+    else:
+      comp = ( p1 )
+
+    while( True ):
+      if( b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and a[1] == ( symbol ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( symbol ) ) and a[2] == ( symbol ) and a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and a[2] == ( symbol ) and a[1] == ( " " ) ):
+        if( setGrid( "a2", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( symbol ) ) and b[1] == ( symbol ) and b[2] == ( " " ) ):
+        if( setGrid( "b3", symbol ) == ( True ) ):
+          break
+      elif( ( b[1] == ( symbol ) ) and b[2] == ( symbol ) and b[0] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( symbol ) ) and b[2] == ( symbol ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( symbol ) ) and c[1] == ( symbol ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[1] == ( symbol ) ) and c[2] == ( symbol ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( symbol ) ) and c[2] == ( symbol ) and c[1] == ( " " ) ):
+        if( setGrid( "c2", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( symbol ) ) and c[0] == ( symbol ) and a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and c[0] == ( symbol ) and b[0] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and b[0] == ( symbol ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( ( b[1] == ( symbol ) ) and c[1] == ( symbol ) and a[1] == ( " " ) ):
+        if( setGrid( "a2", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( symbol ) ) and c[1] == ( symbol ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( symbol ) ) and b[1] == ( symbol ) and c[1] == ( " " ) ):
+        if( setGrid( "c2", symbol ) == ( True ) ):
+          break
+      elif( ( b[2] == ( symbol ) ) and c[2] == ( symbol ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( symbol ) ) and c[2] == ( symbol ) and b[2] == ( " " ) ):
+        if( setGrid( "b3", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( symbol ) ) and b[2] == ( symbol ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[2] == ( symbol ) ) and b[1] == ( symbol ) and a[2] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and c[2] == ( symbol ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( symbol ) ) and b[1] == ( symbol ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( symbol ) ) and b[1] == ( symbol ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( symbol ) ) and a[2] == ( symbol ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( symbol ) ) and b[1] == ( symbol ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and a[1] == ( comp ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( comp ) ) and a[2] == ( comp ) and a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and a[2] == ( comp ) and a[2] == ( " " ) ):
+        if( setGrid( "a2", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( comp ) ) and b[1] == ( comp ) and b[2] == ( " " ) ):
+        if( setGrid( "b3", symbol ) == ( True ) ):
+          break
+      elif( ( b[1] == ( comp ) ) and b[2] == ( comp ) and b[0] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( comp ) ) and b[2] == ( comp ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( comp ) ) and c[1] == ( comp ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[1] == ( comp ) ) and c[2] == ( comp ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( comp ) ) and c[2] == ( comp ) and c[1] == ( " " ) ):
+        if( setGrid( "c2", symbol ) == ( True ) ):
+          break
+      elif( ( b[0] == ( comp ) ) and c[0] == ( comp ) and a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and c[0] == ( comp ) and b[0] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and b[0] == ( comp ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( ( b[1] == ( comp ) ) and c[1] == ( comp ) and a[1] == ( " " ) ):
+        if( setGrid( "a2", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( comp ) ) and c[1] == ( comp ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[1] == ( comp ) ) and b[1] == ( comp ) and c[1] == ( " " ) ):
+        if( setGrid( "c2", symbol ) == ( True ) ):
+          break
+      elif( ( b[2] == ( comp ) ) and c[2] == ( comp ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( comp ) ) and c[2] == ( comp ) and b[2] == ( " " ) ):
+        if( setGrid( "b3", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( comp ) ) and b[2] == ( comp ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[2] == ( comp ) ) and b[1] == ( comp ) and a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and c[2] == ( comp ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[0] == ( comp ) ) and b[1] == ( comp ) and c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( comp ) ) and b[1] == ( comp ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( ( c[0] == ( comp ) ) and a[2] == ( comp ) and b[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( ( a[2] == ( comp ) ) and b[1] == ( comp ) and c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( a[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( c[0] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( c[2] == ( " " ) ):
+        if( setGrid( "c3", symbol ) == ( True ) ):
+          break
+      elif( a[1] == ( " " ) ):
+        if( setGrid( "a2", symbol ) == ( True ) ):
+          break
+      elif( c[1] == ( " " ) ):
+        if( setGrid( "c2", symbol ) == ( True ) ):
+          break
+      elif( b[0] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( b[2] == ( " " ) ):
+        if( setGrid( "b3", symbol ) == ( True ) ):
+          break
+      else:
+        displayError( "ERROR 104: Invalid Space!" )
   else:
     displayError( "ERROR 103: Invalid Player!" )
 
@@ -227,7 +408,9 @@ def humanVSComputer( ):
               if( playTurn( "computer", p1 ) == ( False ) ):
                 if( playTurn( "human", p2 ) == ( False ) ):
                   if( playTurn( "computer", p1 ) == ( False ) ):
-                    pass
+                    displayGrid( )
+                    print( '\n' + "Tie Game!" )
+                    time.sleep( 3 )
   displayGrid( )
   return
 
@@ -241,7 +424,10 @@ def humanVSHuman( ):
               if( playTurn( "human", p1 ) == ( False ) ):
                 if( playTurn( "human", p2 ) == ( False ) ):
                   if( playTurn( "human", p1 ) == ( False ) ):
-                    pass
+                    displayGrid( )
+                    print( '\n' + "Tie Game!" )
+                    time.sleep( 3 )                   
+
   displayGrid( )
   return
 
@@ -255,7 +441,9 @@ def computerVSComputer( ):
               if( playTurn( "computer", p1 ) == ( False ) ):
                 if( playTurn( "computer", p2 ) == ( False ) ):
                   if( playTurn( "computer", p1 ) == ( False ) ):
-                    pass
+                    displayGrid( )
+                    print( '\n' + "Tie Game!" )
+                    time.sleep( 3 )
   displayGrid( )
   return
 
