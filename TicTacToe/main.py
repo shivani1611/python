@@ -218,9 +218,11 @@ def playTurn( who, symbol ):
       comp = ( p1 )
 
     while( True ):
+      # try to get middle square first
       if( b[1] == ( " " ) ):
         if( setGrid( "b2", symbol ) == ( True ) ):
           break
+      # offensive
       elif( ( a[0] == ( symbol ) ) and a[1] == ( symbol ) and a[2] == ( " " ) ):
         if( setGrid( "a3", symbol ) == ( True ) ):
           break
@@ -293,6 +295,7 @@ def playTurn( who, symbol ):
       elif( ( a[2] == ( symbol ) ) and b[1] == ( symbol ) and c[0] == ( " " ) ):
         if( setGrid( "c1", symbol ) == ( True ) ):
           break
+      # defensive
       elif( ( a[0] == ( comp ) ) and a[1] == ( comp ) and a[2] == ( " " ) ):
         if( setGrid( "a3", symbol ) == ( True ) ):
           break
@@ -365,6 +368,15 @@ def playTurn( who, symbol ):
       elif( ( a[2] == ( comp ) ) and b[1] == ( comp ) and c[0] == ( " " ) ):
         if( setGrid( "c1", symbol ) == ( True ) ):
           break
+      # start game placement (corners)
+      elif( a[0] == ( symbol ) and a[1] == ( " " ) and a[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      # start game placement (edges ) 
+      elif( a[1] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      # independent corners
       elif( a[0] == ( " " ) ):
         if( setGrid( "a1", symbol ) == ( True ) ):
           break
@@ -377,6 +389,7 @@ def playTurn( who, symbol ):
       elif( c[2] == ( " " ) ):
         if( setGrid( "c3", symbol ) == ( True ) ):
           break
+      # independent edges
       elif( a[1] == ( " " ) ):
         if( setGrid( "a2", symbol ) == ( True ) ):
           break
@@ -389,6 +402,7 @@ def playTurn( who, symbol ):
       elif( b[2] == ( " " ) ):
         if( setGrid( "b3", symbol ) == ( True ) ):
           break
+      # error space
       else:
         displayError( "ERROR 104: Invalid Space!" )
   else:
