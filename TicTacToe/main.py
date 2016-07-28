@@ -188,7 +188,7 @@ def checkWinner( symbol ):
 
   if( isWinner == ( True ) ):
     displayGrid( )
-    print( '\n' + "{}".format( "Player 1: {}".format( symbol ) if symbol == ( 'X' ) else "Player 2" ) + " wins!" )
+    print( '\n' + "{}".format( "Player 1 Wins!" if symbol == ( 'X' ) else "Player 2 Wins!" ) )
     time.sleep( 3 )
   return( isWinner )
 
