@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import random
 import sys
 import time
 
@@ -218,11 +219,13 @@ def playTurn( who, symbol ):
       comp = ( p1 )
 
     while( True ):
+
       # try to get middle square first
       if( b[1] == ( " " ) ):
         if( setGrid( "b2", symbol ) == ( True ) ):
           break
-      # offensive
+
+      # offensive (end-game)
       elif( ( a[0] == ( symbol ) ) and a[1] == ( symbol ) and a[2] == ( " " ) ):
         if( setGrid( "a3", symbol ) == ( True ) ):
           break
@@ -295,14 +298,15 @@ def playTurn( who, symbol ):
       elif( ( a[2] == ( symbol ) ) and b[1] == ( symbol ) and c[0] == ( " " ) ):
         if( setGrid( "c1", symbol ) == ( True ) ):
           break
-      # defensive
+
+      # defensive (end-game)
       elif( ( a[0] == ( comp ) ) and a[1] == ( comp ) and a[2] == ( " " ) ):
         if( setGrid( "a3", symbol ) == ( True ) ):
           break
       elif( ( a[1] == ( comp ) ) and a[2] == ( comp ) and a[0] == ( " " ) ):
         if( setGrid( "a1", symbol ) == ( True ) ):
           break
-      elif( ( a[0] == ( comp ) ) and a[2] == ( comp ) and a[2] == ( " " ) ):
+      elif( ( a[0] == ( comp ) ) and a[2] == ( comp ) and a[1] == ( " " ) ):
         if( setGrid( "a2", symbol ) == ( True ) ):
           break
       elif( ( b[0] == ( comp ) ) and b[1] == ( comp ) and b[2] == ( " " ) ):
@@ -368,14 +372,33 @@ def playTurn( who, symbol ):
       elif( ( a[2] == ( comp ) ) and b[1] == ( comp ) and c[0] == ( " " ) ):
         if( setGrid( "c1", symbol ) == ( True ) ):
           break
-      # start game placement (corners)
-      elif( a[0] == ( symbol ) and a[1] == ( " " ) and a[2] == ( " " ) ):
-        if( setGrid( "a3", symbol ) == ( True ) ):
-          break
-      # start game placement (edges ) 
-      elif( a[1] == ( " " ) ):
+
+      # offensive (start-game)
+      elif( a[0] == ( " " ) and a[1] == ( " " ) and a[2] == ( " " ) ):
         if( setGrid( "a1", symbol ) == ( True ) ):
           break
+      elif( b[0] == ( " " ) and b[1] == ( " " ) and b[2] == ( " " ) ):
+        if( setGrid( "b1", symbol ) == ( True ) ):
+          break
+      elif( c[0] == ( " " ) and c[1] == ( " " ) and c[2] == ( " " ) ):
+        if( setGrid( "c1", symbol ) == ( True ) ):
+          break
+      elif( a[0] == ( " " ) and b[0] == ( " " ) and c[0] == ( " " ) ):
+        if( setGrid( "a1", symbol ) == ( True ) ):
+          break
+      elif( a[1] == ( " " ) and b[1] == ( " " ) and c[1] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( a[2] == ( " " ) and b[2] == ( " " ) and c[2] == ( " " ) ):
+        if( setGrid( "a3", symbol ) == ( True ) ):
+          break
+      elif( a[0] == ( " " ) and b[1] == ( " " ) and c[2] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+      elif( a[2] == ( " " ) and b[1] == ( " " ) and c[0] == ( " " ) ):
+        if( setGrid( "b2", symbol ) == ( True ) ):
+          break
+
       # independent corners
       elif( a[0] == ( " " ) ):
         if( setGrid( "a1", symbol ) == ( True ) ):
@@ -389,6 +412,7 @@ def playTurn( who, symbol ):
       elif( c[2] == ( " " ) ):
         if( setGrid( "c3", symbol ) == ( True ) ):
           break
+
       # independent edges
       elif( a[1] == ( " " ) ):
         if( setGrid( "a2", symbol ) == ( True ) ):
@@ -413,18 +437,33 @@ def playTurn( who, symbol ):
   return( False )
 
 def humanVSComputer( ):
-  if( playTurn( "computer", p1 ) == ( False ) ):
-    if( playTurn( "human", p2 ) == ( False ) ):
-      if( playTurn( "computer", p1 ) == ( False ) ):
-        if( playTurn( "human", p2 ) == ( False ) ):
-          if( playTurn( "computer", p1 ) == ( False ) ):
-            if( playTurn( "human", p2 ) == ( False ) ):
-              if( playTurn( "computer", p1 ) == ( False ) ):
-                if( playTurn( "human", p2 ) == ( False ) ):
-                  if( playTurn( "computer", p1 ) == ( False ) ):
-                    displayGrid( )
-                    print( '\n' + "Tie Game!" )
-                    time.sleep( 3 )
+  if( random.randint( 0, 1 ) == ( 0 ) ):
+    if( playTurn( "computer", p1 ) == ( False ) ):
+      if( playTurn( "human", p2 ) == ( False ) ):
+        if( playTurn( "computer", p1 ) == ( False ) ):
+          if( playTurn( "human", p2 ) == ( False ) ):
+            if( playTurn( "computer", p1 ) == ( False ) ):
+              if( playTurn( "human", p2 ) == ( False ) ):
+                if( playTurn( "computer", p1 ) == ( False ) ):
+                  if( playTurn( "human", p2 ) == ( False ) ):
+                    if( playTurn( "computer", p1 ) == ( False ) ):
+                      displayGrid( )
+                      print( '\n' + "Tie Game!" )
+                      time.sleep( 3 )
+  else:
+    if( playTurn( "human", p1 ) == ( False ) ):
+      if( playTurn( "computer", p2 ) == ( False ) ):
+        if( playTurn( "human", p1 ) == ( False ) ):
+          if( playTurn( "computer", p2 ) == ( False ) ):
+            if( playTurn( "human", p1 ) == ( False ) ):
+              if( playTurn( "computer", p2 ) == ( False ) ):
+                if( playTurn( "human", p1 ) == ( False ) ):
+                  if( playTurn( "computer", p2 ) == ( False ) ):
+                    if( playTurn( "human", p1 ) == ( False ) ):
+                      displayGrid( )
+                      print( '\n' + "Tie Game!" )
+                      time.sleep( 3 )
+
   displayGrid( )
   return
 
