@@ -1,0 +1,138 @@
+banner login ^
+Warning:  This system is restricted to YP holdings LLC, authorized users for business
+purposes. Unauthorized access is a violation of the law. This service
+may be monitored for administrative and security reasons. By proceeding,
+you consent to this monitoring.
+^
+!
+banner motd ^
+*
+$(hostname)
+*
+^
+!
+username admin privilege 15 secret <admin pwd>
+enable secret <secret pwd>
+!
+snmp-server community k0p1t@r11 RO
+!
+!SolarWinds IRV for smtp traps -> 10.1.4.234  grim0ire
+! NetMRI -> 10.1.4.207 community grim0ire 
+!
+!RADIUS server's key if any ->  S1nfon1
+!
+! OLD TACACS STYLE
+! tacacs-server key m6q49v
+! tacacs-server host 10.45.2.15
+! tacacs-server host 10.45.4.15
+! tacacs-server directed-request
+!
+! NEW TACACS STYLE
+aaa new-model
+aaa group server tacacs+ YPAAA
+ server-private 10.1.114.50 key m6q49v
+ server-private 10.3.114.50 key m6q49v
+! NEW
+aaa authentication login default group YPAAA local none
+aaa authentication login NO_AUTH local none
+aaa authorization exec default group YPAAA if-authenticated
+aaa authorization config-commands
+aaa accounting exec default start-stop group YPAAA
+aaa accounting commands 15 default start-stop group YPAAA
+!
+line con 0
+ login authentication NO_AUTH
+ logging synch
+! OLD
+!aaa authentication login default group tacacs+ local none
+!aaa authorization exec default group tacacs+ if-authenticated
+!aaa authorization config-commands
+!aaa accounting exec default start-stop group tacacs+
+!aaa accounting commands 15 default start-stop group tacacs+
+!
+ip domain-name ro.yellowpages.com  ! or wc1,ev1
+no ip domain-lookup
+crypto key gen rsa gen mod 2048
+!  IP SLA Config for core switches in offices with an internet feed.
+ip sla 1
+ icmp-echo y.y.y.y (IP Address of internet peer router)
+ timeout 1000
+ threshold 500
+ frequency 3
+ip sla schedule 1 life forever start-time now
+
+ip route 0.0.0.0 0.0.0.0 x.x.x.x (IP of default gateway) track 1
+ip route y.y.y.y 255.255.255.255 x.x.x.x (Host route of ISP Peer interface)
+!
+ logging host <regional splunk box>
+logging trap debug
+logging buffered debug
+no logging console
+!SPLUNK SYSLOG BOXES:
+!WC1 -> 10.1.42.60 - log3.wc1.yellowpages.com
+!EV1 -> 10.3.40.66  - log3.ev1.yellowpages.com
+!GLN -> 10.45.2.102 - glnlog2.flight.yellowpages.com
+!
+clock timezone PST -8
+clock summer-time PDT recurring
+ntp server <regional core switch 1>
+ntp server <regional core switch 2>!
+! ash4-core-1/2 - 10.3.255.1, 10.3.255.2
+! irv-core-1/2  - 10.1.255.1, 10.1.255.2
+!
+line vty 0 15
+ session-timeout 10
+ transport input ssh
+ logging synch
+! telnet will be removed once access via ssh is confirmed
+!
+!
+!OLD NETFLOW CONFIG
+! for MPLS Routers
+! ip flow ingress ! needed under wan and lan interface of router
+!##ip flow-export version 9
+!##ip flow-export destination 10.1.4.214 2055  ! to riverbed cascade netflow collector
+!##ip flow-export source <lan facing interface>
+!##ip flow-top-talkers
+!## top 20
+!## sort-by bytes
+
+ 
+! NEW NETFLOW CONFIG
+!
+flow record NETFLOW_RECORD
+ match ipv4 tos
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match interface input
+ collect routing next-hop address ipv4
+ collect ipv4 dscp
+ collect ipv4 ttl minimum
+ collect ipv4 ttl maximum
+ collect transport tcp flags
+ collect interface output
+ collect counter bytes
+ collect counter packets
+ collect timestamp sys-uptime first
+ collect timestamp sys-uptime last
+ collect application name
+!
+!
+flow exporter NETFLOW_EXPORTER
+ destination 10.1.4.234 ! IRVINE ! Ashburn ???
+ export-protocol netflow-v9 
+ source Loopback0
+ transport udp 2055
+!
+!
+flow monitor NETFLOW_MONITOR
+ description "Netflow to Solarwinds"
+ exporter NETFLOW_EXPORTER
+ record NETFLOW_RECORD
+!
+interface GigabitEthernet (WAN faced interface)
+ip flow monitor NETFLOW_MONITOR input
+!
