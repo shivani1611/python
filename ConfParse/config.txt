@@ -1,4 +1,3 @@
-on 15.4
 no service pad
 service timestamps debug datetime msec localtime show-timezone
 service timestamps log datetime msec localtime show-timezone
