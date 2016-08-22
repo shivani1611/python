@@ -110,7 +110,7 @@ def armStay( drv ):
   element = drv.find_element_by_id( "security_button_2" )
   element.click( )  
 
-  time.sleep( 1 )
+  time.sleep( 15 )
 
   try:
     WebDriverWait( drv, 3 ).until( expected_conditions.alert_is_present( ),
@@ -133,13 +133,17 @@ def login( drv ):
   PASS_ELM      = ( "password" )
   SIGNIN_ELM    = ( "signin" )
 
+  time.sleep( 5 )
+
   drv.get( URL )
 
+  time.sleep( 30 )
+
   drv.find_element_by_id( USER_ELM ).clear( )
-  drv.find_element_by_id( USER_ELM ).send_keys( decode( '' ) )
+  drv.find_element_by_id( USER_ELM ).send_keys( decode( 'YXJtb25kLnNhcmtpc2lhbkBnbWFpbC5jb20=' ) )
 
   drv.find_element_by_id( PASS_ELM ).clear( )
-  drv.find_element_by_id( PASS_ELM ).send_keys( decode( '' ) )
+  drv.find_element_by_id( PASS_ELM ).send_keys( decode( 'TXlzcWwwODY0MjEzNTc5' ) )
 
   drv.find_element_by_name( SIGNIN_ELM ).click( )
 
@@ -161,7 +165,7 @@ def logout( drv ):
 def connect( ): 
   drv = ( webdriver.Firefox( ) )
 
-  time.sleep( 1 )
+  time.sleep( 15 )
 
   return( drv )
 
@@ -203,7 +207,7 @@ def main( ):
         drv = ( connect( ) )
         login( drv )
 
-      time.sleep( 15 )
+      time.sleep( 45 )
 
       if( isCurrentlyArmed_sw ):
         print( "  ==> The system is currently armed: [ {0} ]".format( str( isArmed( drv ) ).upper( ) ) )
@@ -219,7 +223,7 @@ def main( ):
           if( isDisarm_sw ):
             disarm( drv )
     
-        time.sleep( 30 )
+        time.sleep( 45 )
 
       if( ( isArmAway_sw ) or ( isArmStay_sw ) or ( isDisarm_sw ) or ( isCurrentlyArmed_sw ) ):
         logout( drv )
