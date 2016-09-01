@@ -56,7 +56,7 @@ def help( ):
 
   print( )
   print( "--hello, he            = Teach the parrot to say \"Hello\"" )
-  print( "--thank you, ty        = Teach the parrot to say \"Thank you\"" )
+  print( "--thankyou, ty         = Teach the parrot to say \"Thank you\"" )
   print( "--whattayoudoing, wyd  = Teach the parrot to say \"Whatta you doing\"" )
   print( "--goodmorning, gm      = Teach the parrot to say \"Good morning\"" )
   print( "--goodnight, gn        = Teach the parrot to say \"Good night\"" )
@@ -83,7 +83,7 @@ def help( ):
 def connect( ): 
   drv = ( webdriver.Firefox( ) )
 
-  time.sleep( 1 )
+  time.sleep( 15 )
 
   return( drv )
 
@@ -114,7 +114,6 @@ def playVideo( drv, what ):
     drv.get( "https://www.youtube.com/watch?v=Bsd7KxVcW-U" )
   elif( what == ( "relaxing" ) ):
     drv.get( "https://www.youtube.com/watch?v=VeIhRdR2jsU" )
-
   return
 
 def main( ):
@@ -175,7 +174,7 @@ def main( ):
     else:
       drv = ( connect( ) )
 
-      time.sleep( 5 )
+      time.sleep( 30 )
 
       if( isHello_sw ):
         playVideo( drv, "hello" )
@@ -202,7 +201,7 @@ def main( ):
       elif( isRelaxing_sw ):
         playVideo( drv, "relaxing" )
 
-      time.sleep( 10 )
+      time.sleep( 3600 )
 
       drv.close( )
       drv.quit( )
