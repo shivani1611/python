@@ -178,31 +178,41 @@ def main( ):
 
       if( isHello_sw ):
         playVideo( drv, "hello" )
+        time.sleep( 3600 )
       elif( isThankYou_sw ):
         playVideo( drv, "thankyou" )
+        time.sleep( 3600 )
       elif( isWhattaYouDoing_sw ):
         playVideo( drv, "whattayoudoing" )
+        time.sleep( 3600 )
       elif( isGoodMorning_sw ):
         playVideo( drv, "goodmorning" )
+        time.sleep( 3600 )
       elif( isGoodNight_sw ):
         playVideo( drv, "goodnight" )
+        time.sleep( 3600 )
       elif( isILoveYou_sw ):
         playVideo( drv, "iloveyou" )
+        time.sleep( 3600 )
       elif( isImHungry_sw ):
         playVideo( drv, "imhungry" )
+        time.sleep( 3600 )
       elif( isYourSoPretty_sw ):
         playVideo( drv, "yoursopretty" )
+        time.sleep( 3600 )
       elif( isUhOh_sw ):
         playVideo( drv, "uhoh" )
+        time.sleep( 3600 )
       elif( isByeBye_sw ):
         playVideo( drv, "byebye" )
-      elif( isWhistleSW_sw ):
-        playVideo( drv, "whistle-sw" )
+        time.sleep( 3600 )
       elif( isRelaxing_sw ):
         playVideo( drv, "relaxing" )
-
-      time.sleep( 3600 )
-
+        time.sleep( 3600 )
+      elif( isWhistleSW_sw ):
+        playVideo( drv, "whistle-sw" )
+        time.sleep( 1000 )
+ 
       drv.close( )
       drv.quit( )
   
