@@ -20,7 +20,7 @@ def convToString( num ):
   return( conv_string )
 
 def main( ):
-  print( convToString( 567 ) )
+  print( convToString( sys.argv[1] ) )
 
 if( __name__ == ( "__main__" ) ):
   sys.exit( main( ) )
