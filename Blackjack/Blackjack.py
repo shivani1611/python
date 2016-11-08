@@ -1,4 +1,5 @@
 from random import randint
+from time   import sleep
 
 class Blackjack:
 
@@ -8,6 +9,9 @@ class Blackjack:
 
   my_players_count = ( 0 )
   my_dealers_count = ( 0 )
+
+  my_is_player_lose = ( False )
+  my_is_player_tie  = ( False )
 
   def __init__( self, name, balance ):
     self.name    = ( name )
@@ -19,11 +23,15 @@ class Blackjack:
     self.my_dealers_count = ( 0 )
     self.my_players_hand.clear( )
     self.my_dealers_hand.clear( )
+    self.my_is_player_lose = ( False )
+    self.my_is_player_tie = ( False )
 
   def reset_deck( self ):
     self.my_players_count = ( 0 )
     self.my_dealers_count = ( 0 )
     self.my_deck.clear( )
+    self.my_is_player_lose = ( False )
+    self.my_is_player_tie = ( False )
 
   def initialize_deck( self ):
     self.reset_hands( )
@@ -127,17 +135,28 @@ class Blackjack:
       print( self.my_deck[i] )
     return
 
+  def display_balance( self ):
+    return( self.balance )
+
   def display_players_hand( self ):
     for i in range( 0, len( self.my_players_hand ), 1 ):
       print( self.my_players_hand[i], sep = ( '' ), end = ( ' ' ) )
-    print( "\nPlayer Value:", self.calculate_hand( "human" ) ) 
-    print( "Player Balance: ${0:.2f}".format( self.balance ) )
+    self.calculate_hand( "human" ) 
     return
 
   def display_dealers_hand( self ):
     for i in range( 0, len( self.my_dealers_hand ), 1 ):
-      print( self.my_dealers_hand[i], sep = ( '' ), end = ( ' ' ) )
-    print( "\nDealer Value:", self.calculate_hand( "computer" ) )
+      if( ( self.my_is_player_lose == ( True ) ) or ( self.my_is_player_tie == ( True ) ) ):
+         print( self.my_dealers_hand[i], sep = ( '' ), end = ( ' ' ) )
+      elif( ( self.dealer_hand_card_count( ) <= ( 2 ) ) ): 
+        if( i == ( 0 ) ):
+          print( "**", sep = ( '' ), end = ( ' ' ) )
+        else:
+          print( self.my_dealers_hand[i], sep = ( '' ), end = ( ' ' ) )
+      else:
+        print( self.my_dealers_hand[i], sep = ( '' ), end = ( ' ' ) )
+    print( )
+    self.calculate_hand( "computer" )
     return
 
   def perform_action( self, who ):
@@ -156,6 +175,7 @@ class Blackjack:
       elif( self.my_dealers_count >= ( 17 ) ):
         action = ( 'S' )
       else:
+        action = ( 'S' )
         raise ValueError( "Error: Incorrect count" )
     else:
       raise ValueError( "Error: Invalid player!" )
@@ -267,6 +287,7 @@ class Blackjack:
         self.my_dealers_hand.append( self.my_deck.pop( ) ) 
     else:
       raise Exception( "Invalid player!" )
+    sleep( .3 )
     return
 
 

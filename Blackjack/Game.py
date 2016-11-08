@@ -1,6 +1,7 @@
 from Blackjack import Blackjack
 from os        import system
 from time      import sleep
+from re        import match
 
 class Game:
   def __init__( self ):
@@ -10,14 +11,16 @@ class Game:
     system( "clear" )
 
   def display_title( self ):
+    print( )
     print( "Supreme Blackjack by Armond" )
     print( "---------------------------\n" )
 
   def display_table( self, bj ):
-    print( "Player: ", sep = ( ' ' ), end = ( '' ) )
+    print( "Player Balance: ${0:.2f}".format( float( bj.display_balance( ) ) ) )
+    print( "Player Hand: ", sep = ( ' ' ), end = ( '' ) )
     bj.display_players_hand( )
 
-    print( "\n\nDealer: ", sep = ( ' ' ), end = ( '' ) )
+    print( "\n\nDealer Hand: ", sep = ( ' ' ), end = ( '' ) )
     bj.display_dealers_hand( )
    
   def refresh_screen( self, bj ):
@@ -33,24 +36,24 @@ class Game:
 
     if( player_count == ( 21 ) 
     and dealer_count != ( 21 ) ):
-      winner = ( "human" )
+      self.winner = ( "human" )
     elif( dealer_count == ( 21 )
     and player_count != ( 21 ) ):
-      winner = ( "computer" )
+      self.winner = ( "computer" )
     elif( dealer_count == ( 21 ) and player_count == ( 21 ) ):
-      winner = ( "tie" )
+      self.winner = ( "tie" )
     elif( player_count > ( 21 )
     and dealer_count < ( 21 ) ):
-      winner = ( "computer" )
+      self.winner = ( "computer" )
     elif( dealer_count > ( 21 )
     and player_count < ( 21 ) ):
-      winner = ( "human" )
+      self.winner = ( "human" )
     elif( player_count > ( dealer_count ) ):
-      winner = ( "human" )
+      self.winner = ( "human" )
     elif( player_count < ( dealer_count ) ):
-      winner = ( "computer" )
+      self.winner = ( "computer" )
     elif( player_count == ( dealer_count ) ):
-      winner = ( "tie" )
+      self.winner = ( "tie" )
     else:
       raise Exception( "Error: Invalid card count!" )
     return( winner )
@@ -71,19 +74,21 @@ class Game:
         is_play_again = ( False )
         break
 
-      self.amount = ( input( "\nHow much would you like to wager? 0 to exit: " ) )
+      self.amount = ( input( "\n\nWager Amount? (0 to quit): $" ) )
+      self.amount = ( self.amount.strip( ) )
 
-      while( not self.amount.isdigit( ) ):
-        self.amount = ( input( "\nHow much would you like to wager? 0 to exit: " ) )
+      while( match( "^([0-9]{1,5})(\.{0,1})([0-9]{0,2})$", str( self.amount ) ) == ( None ) ):
+        self.amount = ( input( "\nWager Amount? (0 to quit): $" ) )
+        self.amount = ( self.amount.strip( ) )
 
-      self.amount = ( int( self.amount ) )
+      self.amount = ( float( self.amount ) )
 
       if( self.amount <= ( 0.0 ) ):
         is_play_again = ( False )
         break
 
       if( self.amount > ( bj.balance ) ):
-        print( "Cannot wager beyond your available balance!" )
+        print( "\nCannot wager beyond your available balance!" )
         sleep( 2 )
         continue
 
@@ -136,19 +141,27 @@ class Game:
       winner = ( self.determine_winner( bj ) )
 
       print( )
-      if( winner == ( "human" ) ):
-        print( "\nCongratulations. You won ${0}!".format( str( self.amount ) ) )
+      if( self.winner == ( "human" ) ):
+        print( "\nCongratulations. You won ${0:.2f}!".format( self.amount ) )
         bj.balance += ( self.amount * ( 2 ) )
-      elif( winner == ( "computer" ) ):
+        bj.my_is_player_lose = ( False )
+        bj.my_is_player_tie = ( False )
+      elif( self.winner == ( "computer" ) ):
         print( "\nSorry, you lose!" )
-      elif( winner == ( "tie" ) ):
+        bj.my_is_player_lose = ( True )
+        bj.my_is_player_tie = ( False )
+      elif( self.winner == ( "tie" ) ):
         print( "Tie game!" )
         bj.balance += ( self.amount )
+        bj.my_is_player_tie = ( True )
+        bj.my_is_player_lose = ( False )
       else:
         raise Exception( "Error: Invalid winning scenario!" )
       print( )
 
       sleep( 3 )
+
+      self.refresh_screen( bj )
 
     print( "\nFinal Player Balance: ${0:.2f}\n".format( bj.balance ) )
 
