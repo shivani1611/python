@@ -1,5 +1,7 @@
+#!/usr/bin/env python3
 # write a program where a list is taken along with N. If any two unique values
 # add up to N, return true otherwise return false
+
 
 def FindPair(lst, n):
     for i in range( 0, len( lst ), 1 ):
