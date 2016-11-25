@@ -7,9 +7,11 @@ from re       import search
 
 #abstract class
 class LogThis( object, metaclass = ( ABCMeta ) ):
-    _is_enabled = ( False )
+    _is_conf_enabled = ( False )
+    _is_err_enabled  = ( False )
+    _is_log_enabled  = ( False )
 
-    def __init__( self, conf_file, err_file, log_file, is_en = ( False ) ):
+    def __init__( self, conf_file, err_file, log_file ):
         #iterate through the supplied files
         for file in ( err_file, log_file, conf_file ):
             file = ( str( file ).strip( ) )
@@ -27,10 +29,9 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
 
         #if everything is good, store the files in the instance
         self._config_file_name = ( str( conf_file ) )
-        self._error_file_name = ( str( err_file ) )
-        self._log_file_name = ( str( log_file ) )
+        self._error_file_name  = ( str( err_file ) )
+        self._log_file_name    = ( str( log_file ) )
 
-        LogThis.is_enabled = ( is_en )
         return
 
     @property
@@ -49,32 +50,66 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
         return( self._log_file_name )
 
     @property
-    @classmethod
-    def is_enabled( cls ):
-        """_is_enabled property"""
-        return( cls._is_enabled )
+    def is_conf_enabled( self ):
+        """_is_conf_enabled property"""
+        return( self._is_conf_enabled )
 
-    @is_enabled.setter
-    @classmethod
-    def is_enabled( cls, value ):
-        """_is_enabled setter"""
+    @property
+    def is_err_enabled( self ):
+        """_is_err_enabled property"""
+        return( self._is_err_enabled )
+
+    @property
+    def is_log_enabled( self ):
+        """_is_log_enabled property"""
+        return( self._is_log_enabled )
+
+    @is_conf_enabled.setter
+    def is_conf_enabled( self, value ):
+        """_is_conf_enabled setter"""
         if( isinstance( value, bool ) ):
-            cls._is_enabled = ( value )
+            self._is_conf_enabled = ( value )
         elif( isinstance( value, int ) ):
             if( value == ( 1 ) ):
-                cls._is_enabled = ( True )
+                self._is_conf_enabled = ( True )
             elif( value == ( 0 ) ):
-                cls._is_enabled = ( False )
+                self._is_conf_enabled = ( False )
         else:
-            cls._is_enabled = ( False )
+            self._is_conf_enabled = ( False )
 
-    def is_valid_content( self, content ):
+    @is_err_enabled.setter
+    def is_err_enabled( self, value ):
+        """_is_err_enabled setter"""
+        if( isinstance( value, bool ) ):
+            self._is_err_enabled = ( value )
+        elif( isinstance( value, int ) ):
+            if( value == ( 1 ) ):
+                self._is_err_enabled = ( True )
+            elif( value == ( 0 ) ):
+                self._is_err_enabled = ( False )
+        else:
+            self._is_err_enabled = ( False )
+
+    @is_log_enabled.setter
+    def is_log_enabled( self, value ):
+        """_is_log_enabled setter"""
+        if( isinstance( value, bool ) ):
+            self._is_log_enabled = ( value )
+        elif( isinstance( value, int ) ):
+            if( value == ( 1 ) ):
+                self._is_log_enabled = ( True )
+            elif( value == ( 0 ) ):
+                self._is_log_enabled = ( False )
+        else:
+            self._is_log_enabled = ( False )
+
+    def is_content_valid( self, content ):
         is_valid = ( True )
 
         content = ( str( content ) )
         if( len( content ) <= ( 0 ) ):
-            raise( "Missing content! Please be sure to supply content." )
             is_valid = ( False )
+            raise( ValueError( "Missing content! Please be sure to supply it." ) )
 
         return( is_valid )
 
@@ -82,18 +117,17 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
         output_file = ( "" )
 
         if( not out_type ):
-            raise( "Empty output type! Please be sure to supply either"
-                   " config, error or log." )
+            raise( ValueError( "Empty output type! Please be sure to supply either"                                " config, error or log." ) )
 
-        if( str( out_type ).strip( ).lower( ) == ( "config" ) ):
+        if( out_type == ( "config" ) ):
             output_file = ( self.config_file_name )
-        elif( str( out_type ).strip( ).lower( ) == ( "error" ) ):
+        elif( out_type == ( "error" ) ):
             output_file = ( self.error_file_name )
-        elif( str( out_type ).strip( ).lower( ) == ( "log" ) ):
+        elif( out_type == ( "log" ) ):
             output_file = ( self.log_file_name )
         else:
-            raise( "Incorrect output type! Please be sure to supply either"
-                   " config, error or log." )
+            raise( ValueError( "Incorrect output type! Please be sure to supply either"
+                   " config, error or log." ) )
         return( output_file )
 
     @abstractmethod
@@ -104,38 +138,119 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
     @abstractmethod
     def string_output( self, output_type, content ):
         """write log content (string) to a specified file"""
-        if( WriteThis.is_enabled ):
-            pass
         return
 
     @abstractmethod
     def list_output( self, output_type, content, delim ):
         """write log content (list) to a specified file"""
-        if( WriteThis.is_enabled ):
-            pass
+        return
+
+    @abstractmethod
+    def create_file( self, file_name ):
+        """touch and create an empty new file"""
+        return
+
+    @abstractmethod
+    def discard_file( self, file_name ):
+        """discard a file and permanently remove it"""
+        return
+
+    @abstractmethod
+    def is_file_exist( self, file_name ):
+        """check if a specified file exists"""
         return
 
 #non-abstract class
 class WriteThis( LogThis ):
     def show_doc( self ):
-        print( "{x} id ({y}), only accepts three "
-               "string values representing file names".format( x = ( self ), y = ( id( self ) ) ) )
+        print( "{x} id ({y}), accepts output_type, string_content, err_func_call, err_line_num, err_type, err_msg, err_filename"
+               "string values representing file names".format( 
+               x = ( self ), y = ( id( self ) ) ) )
+        return
 
-    def string_output( self, output_type, content ):
+    def string_output( self, output_type, string_content, err_func_call = ( "" ), err_line_num = ( "" ), err_type = ( "" ), err_msg = ( "" ), err_filename = ( "" ) ):
         """write log content (string) to a specified filer"""
+        if( self.is_content_valid( string_content ) == ( False ) ):
+            return
+
+        the_main_output = ( "" )
+        output_type = str( output_type ).strip( ).lower( )
+ 
+        file_name = ( self.determine_output_type( output_type ) )
+
+        if( not file_name ):
+            raise( ValueError( "File name field seems to be empty!" ) )
+
+        if( "config" in ( output_type ) ):
+            if( not self.is_conf_enabled ):
+                return
+            the_main_output += ( string_content.lower( ) + '\n' )
+            with open( file_name, 'w' ) as fout:
+                fout.write( the_main_output )
+        elif( "error" in ( output_type ) ):
+            if( not self.is_err_enabled ):
+                return
+            the_main_output += ( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                               "[ {0} ]\n[ {1} ]\n[ {2} ]\n[ {3} ]\n[ {4} ]\n[ {5} ]"
+                               "\n\n".format( 
+                               "DATE: " + str( datetime.now( ) )[0:19:1], 
+                               "FILE: " + str( err_filename ),
+                               "FUNC: " + str( err_func_call ) + 
+                               " (" + str( id( err_func_call ) ) + ')',                         
+                               "LINE: " + str( err_line_num ), 
+                               "TYPE: " + str( err_type ), 
+                               "ERR : " + string_content.lower( ) ) )
+            with open( file_name, 'a' ) as fout:
+                fout.write( the_main_output )
+        elif( "log" in ( output_type ) ):
+            if( not self.is_log_enabled ):
+                return
+            the_main_output += ( "[ {0} ] [ {1} ]\n".format( 
+                               "DATE: " + str( datetime.now( ) )[0:19:1], 
+                               "LOG: " + string_content.lower( ) ) )
+            with open( file_name, 'a' ) as fout:
+                fout.write( the_main_output )
+        else:
+            raise( ValueError( "Incorrect output type! Please be sure to supply either"
+                   " config, error or log." ) )
+        return
+
+    def list_output( self, output_type, list_content ):
+        """write log content (list) to a specified filer"""
+        if( self.is_content_valid( list_content ) == ( False ) ):
+            return
+
+        output_type = str( output_type ).strip( ).lower( )
+ 
         file_name = ( self.determine_output_type( output_type ) )
 
         if( not file_name ):
             raise( ValueError( "File name seems to be empty!" ) )
 
-        with open( file_name, 'a' ) as fout:
-            if( self.is_valid_content( content ) ):
-                fout.write( "[{0}] [{1}]\n".format( str( datetime.now( ) )[0:19:1], content.lower( ) ) )
+        if( "config" in ( output_type ) ):
+            if( not self.is_conf_enabled ):
+                return
+            with open( file_name, 'w' ) as fout:
+                for item in list_content: 
+                    fout.write( "{0}\n".format( item ) )
+        elif( "log" in ( output_type ) ):
+            if( not self.is_log_enabled ):
+                return
+            with open( file_name, 'a' ) as fout:
+                for item in list_content: 
+                    fout.write( "{0}\n".format( item ) )
+        else:
+            raise( ValueError( "Incorrect output type! Please be sure to supply either"
+                   " config or log." ) )
         return
 
-    def list_output( self, output_type, content, delim ):
-        """write log content (list) to a specified file using a delimiter"""
-        file_name = ( determine_output_type( out_type ) )
-        if( not file_name ):
-            raise( ValueError( "File name seems to be empty!" ) )
+    def create_file( self, file_name ):
         return
+
+    def discard_file( self, file_name ):
+        return
+
+    def is_file_exist( self, file_name ):
+        return
+
+
