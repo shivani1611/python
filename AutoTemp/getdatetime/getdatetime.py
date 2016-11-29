@@ -1,85 +1,101 @@
-class ConvertThis( object ):
+from datetime import date
+from datetime import datetime
+from calendar import monthrange
+from calendar import isleap
+from dateutil.relativedelta import relativedelta
+
+import calendar
+import time
+
+class GetDateTime( object ):
+    @staticmethod
+    def is_leap_year( value ):
+        return( isleap( int( value ) ) )
 
     @staticmethod
-    def convert_bool( obj, _raise_err = ( False ) ):
-        try:
-            obj = ( bool( obj ) )
-        except ValueError:
-            if( _raise_err == ( True ) ):
-                print( "Cannot convert [\"{0}\"] to boolean".format( str( obj ) ) )
-                raise
-            obj = ( False )
-        return( obj )
+    def print_current_date_time( ):
+        _time = ( datetime.today( ) )
+        return( _time.strftime( '%c' ) )
 
     @staticmethod
-    def convert_int( obj, _raise_err = ( False ) ):
-        try:
-            obj = ( int( obj ) )
-        except ValueError:
-            if( _raise_err == ( True ) ):
-                print( "Cannot convert [\"{0}\"] to integer".format( str( obj ) ) )
-                raise
-            obj = ( 0 )
-        return( obj )
+    def current_first_last_day_in_month( ):
+         return( str( monthrange( int( GetDateTime.current_year_value( ) ), int( GetDateTime.current_month_value( ) ) ) ) )
 
     @staticmethod
-    def convert_float( obj, _raise_err = ( False ) ):
-        try:
-            obj = ( float( obj ) )
-        except ValueError:
-            if( _raise_err == ( True ) ):
-                print( "Cannot convert [\"{0}\"] to floating point".format( str( obj ) ) )
-                raise
-            obj = ( 0.0 )
-        return( obj )
+    def current_day_of_month( ):
+        _month = ( datetime.today( ) )
+        return( _month.strftime( '%d' ) )
 
     @staticmethod
-    def convert_str( obj, _raise_err = ( False ) ):
-        try:
-            obj = ( str( obj ) )
-        except ValueError:
-            if( _raise_err == ( True ) ):
-                print( "Cannot convert [\"{0}\"] to string".format( str( obj ) ) )
-                raise
-            obj = ( "" )
-        return( obj )
+    def current_timestamp( with_milli_seconds = ( True ) ):
+        if( with_milli_seconds == ( True ) ):
+            val = ( str( datetime.now( ) ) )
+        else:
+            val = ( str( datetime.now( ) )[0:19:1] )
+        return( val )
 
     @staticmethod
-    def convert_frozen_set( obj, _raise_err = ( True ) ):
-        try:
-            obj = ( frozenset( obj ) )
-        except TypeError: 
-            obj = ( frozenset( ) )
-            print( "Cannot convert [\"{0}\"] to frozen set".format( str( obj ) ) )
-            raise
-        return( obj )
+    def current_year_value( incre = ( 0 ) ):
+        return( str( int( date.today( ).year ) + int( incre ) ) )
 
     @staticmethod
-    def convert_set( obj, _raise_err = ( True ) ):
-        try:
-            obj = ( set( obj ) )
-        except TypeError: 
-            obj = ( set( ) )
-            print( "Cannot convert [\"{0}\"] to set".format( str( obj ) ) )
-            raise
-        return( obj )
+    def current_year_abbrev_value( ):
+        _year = ( datetime.today( ) )
+        return( _year.strftime( '%y' ) )
 
     @staticmethod
-    def convert_tuple( obj, _raise_err = ( True ) ):
-        try:
-            obj = ( tuple( obj ) )
-        except TypeError: 
-            obj = ( tuple( ) )
-            print( "Cannot convert [\"{0}\"] to tuple".format( str( obj ) ) )
-            raise
-        return( obj )
+    def current_month_name( incre = ( 0 ) ):
+        _month = ( datetime.today( ) + relativedelta( month = ( incre ) ) )
+        return( _month.strftime( '%B' ) )
 
     @staticmethod
-    def convert_list( obj, _raise_err = ( True ) ):
-        try:
-            obj = ( list( obj ) )
-        except TypeError: 
-            obj = ( list( ) )
-            print( "Cannot convert [\"{0}\"] to list".format( str( obj ) ) )
-            raise
-        return( obj )
+    def current_month_abbrev_name( incre = ( 0 ) ):
+        _month = ( datetime.today( ) + relativedelta( month = ( incre ) ) )
+        return( _month.strftime( '%b' ) )
+
+    @staticmethod
+    def current_month_value( incre = ( 0 ) ):
+        _month = ( datetime.today( ) + relativedelta( month = ( incre ) ) )
+        return( _month.strftime( '%m' ) )
+
+    @staticmethod
+    def current_day_name( incre = ( 0 ) ):
+        if( incre < 0 ):
+            retur( '?' )
+        _day = ( datetime.today( ) + relativedelta( day = ( incre ) ) )
+        return( _day.strftime( '%A' ) )
+
+    @staticmethod
+    def current_day_abbrev_name( incre = ( 0 ) ):
+        _day = ( datetime.today( ) + relativedelta( day = incre ) )
+        return( _day.strftime( '%a' ) )
+
+    @staticmethod
+    def current_day_value( ):
+        _day = ( datetime.today( ) )
+        return( _day.strftime( '%w' ) )
+
+    @staticmethod
+    def current_24_hour_value( ):
+        _day = ( datetime.today( ) )
+        return( _day.strftime( '%H' ) )
+
+    @staticmethod
+    def current_12_hour_value( ):
+        _day = ( datetime.today( ) )
+        return( _day.strftime( '%I' ) )
+
+    @staticmethod
+    def current_minute_value( ):
+        _minute = ( datetime.today( ) )
+        return( _minute.strftime( '%M' ) )
+
+    @staticmethod
+    def current_second_value( ):
+        _second = ( datetime.today( ) )
+        return( _second.strftime( '%S' ) )
+
+    @staticmethod
+    def current_micro_second_value( ):
+        _micro_second = ( datetime.today( ) )
+        return( _micro_second.strftime( '%f' ) )
