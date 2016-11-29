@@ -1,16 +1,61 @@
 from datetime import date
 from datetime import datetime
-from calendar import monthrange
 from calendar import isleap
+from calendar import month
+from calendar import monthrange
 from dateutil.relativedelta import relativedelta
 
 import calendar
 import time
 
 class GetDateTime( object ):
+    _start_time   = ( 0.0 )
+    _elapsed_time = ( 0.0 )
+    _end_time     = ( 0.0 )
+
+    @ClassProperty
+    @classmethod
+    def start_time( cls ):
+        return( cls._start_time ) 
+
+    @ClassProperty
+    @classmethod
+    def elapsed_time( cls ):
+        return( cls._elapsed_time ) 
+
+    @ClassProperty
+    @classmethod
+    def end_time( cls ):
+        return( cls._end_time ) 
+
+    @start_time.setter
+    @classmethod
+    def start_time( cls, value ):
+        cls._start_time = ( value )
+
+    @elapsed_time.setter
+    @classmethod
+    def elapsed_time( cls, value ):
+        cls._elapsed_time = ( value )
+
+    @end_time.setter
+    @classmethod
+    def end_time( cls, value ):
+        cls._end_time = ( value )
+
+    @classmethod
+    def reset_timer( cls ):
+        cls.start_time   = ( 0.0 )
+        cls.elapsed_time = ( 0.0 )
+        cls.end_time     = ( 0.0 )
+
     @staticmethod
     def is_leap_year( value ):
         return( isleap( int( value ) ) )
+
+    @staticmethod
+    def print_current_month_calendar( _year, _month ):
+        print( month( _year, _month ) ) 
 
     @staticmethod
     def print_current_date_time( ):
