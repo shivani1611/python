@@ -13,6 +13,10 @@ class GetDateTime( object ):
         return( isleap( int( value ) ) )
 
     @staticmethod
+    def print_current_month_calendar( _year, _month ):
+        print( calendar.month( _year, _month ) )
+
+    @staticmethod
     def print_current_date_time( ):
         _time = ( datetime.today( ) )
         return( _time.strftime( '%c' ) )
