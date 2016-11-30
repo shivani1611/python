@@ -79,6 +79,11 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
             self._is_conf_enabled = ( False )
         return
 
+    @is_conf_enabled.deleter
+    def is_conf_enabled( self ):
+        """_is_conf_enabled deleter"""
+        self._is_conf_enabled = ( None )
+
     @is_err_enabled.setter
     def is_err_enabled( self, value ):
         """_is_err_enabled setter"""
@@ -93,6 +98,11 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
             self._is_err_enabled = ( False )
         return
 
+    @is_err_enabled.deleter
+    def is_err_enabled( self ):
+        """_is_err_enabled deleter"""
+        self._is_err_enabled = ( None )
+
     @is_log_enabled.setter
     def is_log_enabled( self, value ):
         """_is_log_enabled setter"""
@@ -106,6 +116,11 @@ class LogThis( object, metaclass = ( ABCMeta ) ):
         else:
             self._is_log_enabled = ( False )
         return
+
+    @is_log_enabled.deleter
+    def is_log_enabled( self ):
+        """_is_log_enabled deleter"""
+        self._is_log_enabled = ( None )
 
     def is_content_valid( self, content ):
         is_valid = ( True )
