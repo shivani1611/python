@@ -18,16 +18,19 @@ class Request( object ):
 
         return None
 
+
     def test_api_connection( self ):
         return self._wcapi.get( "" ).json( )
 
-    def post(self, end_point, pay_load ):
-        result        = ( self._wcapi.post( end_point, pay_load ) )
+ 
+    def post(self, end_point, payload ):
+        result        = ( self._wcapi.post( end_point, payload ) )
         response_code = ( result.status_code )
         body          = ( result.json( ) )
         url           = ( result.url )
 
         return [response_code, body, url] 
+
 
     def get( self, end_point ):
         result        = ( self._wcapi.get( end_point ) )
@@ -36,4 +39,5 @@ class Request( object ):
         url           = ( result.url )
 
         return [response_code, body, url] 
+
 

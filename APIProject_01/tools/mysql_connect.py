@@ -5,6 +5,7 @@ class Mysql_Connect( object ):
     def __init__( self ):
         pass
 
+
     def __connect( self, host, port, user, db  ):
 
         # establish the connection
@@ -14,6 +15,7 @@ class Mysql_Connect( object ):
                           db = ( db ) ), )
 
         return conn
+
 
     def select( self, db, query ):
 
@@ -45,6 +47,7 @@ class Mysql_Connect( object ):
 
         return all_rows
 
+
 def update( self, db, query ):
 
     # make a call to establish the connection
@@ -66,3 +69,6 @@ def update( self, db, query ):
     cur.close( )
 
     return result
+
+
+
