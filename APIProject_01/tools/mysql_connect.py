@@ -1,26 +1,40 @@
-from pymysql import connect
+#!/usr/bin/env python3
+
+import pymysql
 
 class Mysql_Connect( object ):
 
+#--------------------------------------------------------------------------------
+
+
     def __init__( self ):
-        pass
+
+        # establish the mysql connection
+        self._conn = pymysql.connect( host = ( "127.0.0.1" ), 
+                                      port = ( 3306 ), 
+                                      user = ( "root" ), 
+                                      passwd = ( "pqowieuryt" ),
+                                      db = ( "wp690" ) )
+
+        print( "MySQL Connection Established: " + str( self._conn ) )
+
+        return None
 
 
-    def __connect( self, host, port, user, db  ):
-
-        # establish the connection
-        conn = ( connect( host = ( host ), 
-                          port = ( port ), 
-                          user = ( user ), 
-                          db = ( db ) ), )
-
-        return conn
+#--------------------------------------------------------------------------------
 
 
-    def select( self, db, query ):
+    def close( self ):
 
-        # make a call to establish the connection
-        conn = ( self.__connect( db ) )
+        # terminate the mysql connection
+        self._conn.close( )
+
+        return None
+
+#--------------------------------------------------------------------------------
+
+ 
+    def select( self, query ):
 
         # establish the cursor
         cur  = ( self._conn.cursor( ) )
@@ -39,36 +53,36 @@ class Mysql_Connect( object ):
                 row.append( str( col ) )
             all_rows.append( row )
 
+       # close the cursor
+        cur.close( ) 
+
+        # return list of lists for every row
+        return all_rows
+
+
+#--------------------------------------------------------------------------------
+
+
+    def update( self, query ):
+
+        # establish the cursor
+        cur  = ( conn.cursor( ) )
+
+        # retrieve results from query
+        result = ( cur.execute( query ) )
+
+        # save the results
+        conn.commit( )
+
         # close the connection
         conn.close( )
 
         # close the cursor
-        cur.close( ) 
+        cur.close( )
 
-        return all_rows
+        return result
 
 
-def update( self, db, query ):
-
-    # make a call to establish the connection
-    conn = self.__connect( db )
-
-    # establish the cursor
-    cur  = conn.cursor( )
-
-    # retrieve results from query
-    result = ( cur.execute( query ) )
-
-    # save the results
-    conn.commit( )
-
-    # close the connection
-    conn.close( )
-
-    # close the cursor
-    cur.close( )
-
-    return result
-
+#--------------------------------------------------------------------------------
 
 

@@ -1,6 +1,11 @@
+#!/usr/bin/env python3
+
 from woocommerce import API
 
 class Request( object ):
+
+    #--------------------------------------------------------------------------------
+
 
     def __init__( self ):
         url             = ( r"http://127.0.0.1/api_test01/" )
@@ -19,10 +24,16 @@ class Request( object ):
         return None
 
 
+    #--------------------------------------------------------------------------------
+
+
     def test_api_connection( self ):
         return self._wcapi.get( "" ).json( )
 
  
+    #--------------------------------------------------------------------------------
+
+
     def post(self, end_point, payload ):
         result        = ( self._wcapi.post( end_point, payload ) )
         response_code = ( result.status_code )
@@ -32,6 +43,9 @@ class Request( object ):
         return [response_code, body, url] 
 
 
+    #--------------------------------------------------------------------------------
+
+
     def get( self, end_point ):
         result        = ( self._wcapi.get( end_point ) )
         response_code = ( result.status_code )
@@ -39,5 +53,8 @@ class Request( object ):
         url           = ( result.url )
 
         return [response_code, body, url] 
+
+
+    #--------------------------------------------------------------------------------
 
 
