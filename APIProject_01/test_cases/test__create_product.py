@@ -14,32 +14,12 @@ class TestCase_Create_Product( TestSuper ):
         self._test_case_category = ( "products" )
         self._end_point          = ( "products" )
 
-        # fields to validate with api/db
-        self._title     = ( "Miracle" )
-        self._price     = ( "21.99" )
+        # individual fields to validate with both api/db
+        self._title     = ( "test_create_product" )
+        self._price     = ( "625.99" )
 
-        super( ).__init__( )
-
-        return None
-
-
-    #--------------------------------------------------------------------------------
-
-
-    def start_test( self ):
-        self.test_api( )
-        self.test_db( )
-
-        return None
-
-
-    #--------------------------------------------------------------------------------
-
-
-    def test_api( self ):
-
-        # actual payload
-        payload = {
+        # test case payload
+        self._payload = {
             "name": "{name}".format( name = ( self._title ) ),
             "type": "simple",
             "regular_price": "{price}".format( price = ( self._price ) ),
@@ -66,7 +46,32 @@ class TestCase_Create_Product( TestSuper ):
              ]
         }
 
-        response_all = ( self._req_conn.post( self._end_point, payload ) )
+        # call the superclass constructor
+        super( ).__init__( )
+
+        return None
+
+
+    #--------------------------------------------------------------------------------
+
+
+    def start_test( self ):
+
+        # run api test first
+        self.test_api( )
+
+        # run db test last
+        self.test_db( )
+
+        return None
+
+
+    #--------------------------------------------------------------------------------
+
+
+    def test_api( self ):
+
+        response_all = ( self._req_conn.post( self._end_point, self._payload ) )
         response_code = ( response_all[0] )
         response_body = ( response_all[1] )
 
@@ -80,14 +85,12 @@ class TestCase_Create_Product( TestSuper ):
         rs_price = ( response_body["regular_price"] )
         self._id = ( response_body["id"] )
 
-        print( "id is: {}".format( str( self._id ) ) )
-
         assert rs_title == ( self._title ), r"The title in response is" \
         " not the same as in the response title is: {}".format( rs_title )
 
         assert rs_price == ( self._price ), r"The price is not correct!"
 
-        print( "API Testing passed - {title}!".format( title = ( self._test_case_title ) ) )
+        print( "- API test passed\t ==>\t [{title}]".format( title = ( self._test_case_title ) ) )
 
         return None
 
@@ -102,8 +105,6 @@ class TestCase_Create_Product( TestSuper ):
 
         query_results = ( self._db_conn.select( query ) )
 
-        print( query_results[0] )
-
         # extracting the data from db
         db_title         = query_results[0][0]
         db_type          = query_results[0][1] 
@@ -115,7 +116,7 @@ class TestCase_Create_Product( TestSuper ):
 
         assert db_regular_price == self._price, r"The regular price in DB is not as expected. Actual Result: {}, Expected Result: {}".format( db_regular_price, price )
 
-        print( "DB Testing passed - {title}!".format( title = ( self._test_case_title ) ) )
+        print( "- DB test passed\t ==>\t [{title}]".format( title = ( self._test_case_title ) ) )
 
         return None
 

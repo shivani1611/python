@@ -21,14 +21,6 @@ class ModuleHandler( object ):
 
 
     @staticmethod
-    def load_modules( ):
-        pass
-
-
-    #--------------------------------------------------------------------------------
-
-
-    @staticmethod
     def print_paths( ):
         for i in sys.path:
             print( "PATH: " + str( i ) + '\n' )

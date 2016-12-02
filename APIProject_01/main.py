@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
 
 from tools.module_handler import ModuleHandler as mh
-from sys import exit
+from sys  import exit
+from time import sleep
 
 def main( ):
 
-    # add all the paths
+    # add all import paths
     mh.process_paths( is_display_paths = ( False ) )
 
     # load interface.py
-    mh.load_source_file( "interface", "interface.py" )
+    mh.load_source_file( "interface", "../interface.py" )
     from interface import Interface
-
-    # load all the modules
-    mh.load_modules( )
-
-    # load the main interface
     intf = ( Interface( ) )
 
     # TODO: setup argv to determine which tests user wants to run
     intf.execute_all_tests( )
+
+    sleep( 5 )
 
     # exit the automation
     return( 0 )
