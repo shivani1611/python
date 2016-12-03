@@ -2,29 +2,44 @@
 
 from module_handler import ModuleHandler as mh
 
+
 class Interface( object ):
+
 
     #--------------------------------------------------------------------------------
 
 
     def __init__( self ):
+
+        self.test_case_count = ( 0 )
+
         return None
 
 
     #--------------------------------------------------------------------------------
 
 
-    def execute_all_tests( self ):
+    def load_all_tests( self ):
         mh.load_source_file( "test_create_product", "../test_cases/test_create_product.py" )
-        from test_create_product import TestCase_Create_Product
+        from test_create_product import TestCase_Create_Product as test_case
 
-        with TestCase_Create_Product( ) as tc:
+        self._execute_test( test_case )
 
-            # execute all the test cases
-            tc.start_tests( )
+        return None
 
 
     #--------------------------------------------------------------------------------
 
+
+    def _execute_test( self, test_case ):
+        with test_case( ) as tc:
+
+            # execute all the test cases
+            tc.start_tests( )
+
+        return None
+
+
+    #--------------------------------------------------------------------------------
 
 

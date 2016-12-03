@@ -4,6 +4,10 @@ from tools.module_handler import ModuleHandler as mh
 from sys  import exit
 from time import sleep
 
+
+#--------------------------------------------------------------------------------
+
+
 def main( ):
 
     # add all import paths
@@ -15,7 +19,7 @@ def main( ):
     intf = ( Interface( ) )
 
     # TODO: setup argv to determine which tests user wants to run
-    intf.execute_all_tests( )
+    intf.load_all_tests( )
 
     # pause before exiting
     sleep( 5 )
@@ -29,3 +33,4 @@ def main( ):
 
 if( __name__ == ( "__main__" ) ):
     exit( main( ) )
+

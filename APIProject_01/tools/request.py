@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
 
 from woocommerce import API
+import base64
+
 
 class Request( object ):
+
 
     #--------------------------------------------------------------------------------
 
 
     def __init__( self ):
-        url             = ( r"http://127.0.0.1/api_test01/" )
-        consumer_key    = ( r"ck_3c39facaa33d0e7dd953167c6f627a4d25022f18" )
-        consumer_secret = ( r"cs_967e8d9ecd7e75f2254d5a15aaae3a13339235e7" )
+        # home laptop
+        url             = ( r"http://127.0.0.1/wp_/" )
+        consumer_key    = ( r"ck_f919d59bfc31c2d417ecdc06c0611f17af4cb593" )
+        consumer_secret = ( r"ck_762bfdfeb5d8588eec6285345820ad548eeedb2c" )
+
+        # work laptop
+        #url             = ( r"http://127.0.0.1/api_test01/" )
+        #consumer_key    = ( r"ck_3c39facaa33d0e7dd953167c6f627a4d25022f18" ) # base64
+        #consumer_secret = ( r"cs_967e8d9ecd7e75f2254d5a15aaae3a13339235e7" ) # base64
+
         wp_api          = ( True )
         version         = ( r"wc/v1" )
 
@@ -34,7 +44,7 @@ class Request( object ):
     #--------------------------------------------------------------------------------
 
 
-    def post(self, end_point, payload ):
+    def post( self, end_point, payload ):
         result        = ( self._wcapi.post( end_point, payload ) )
         response_code = ( result.status_code )
         body          = ( result.json( ) )

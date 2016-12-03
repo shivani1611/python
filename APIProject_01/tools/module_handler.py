@@ -9,6 +9,7 @@ import os
 
 class ModuleHandler( object ):
 
+
     #--------------------------------------------------------------------------------
 
 
@@ -23,7 +24,7 @@ class ModuleHandler( object ):
     @staticmethod
     def print_paths( ):
         for i in sys.path:
-            print( "PATH: " + str( i ) + '\n' )
+            print( "\nPATH: " + str( i ) )
 
         return None
 
@@ -81,6 +82,5 @@ class ModuleHandler( object ):
 
 
     #--------------------------------------------------------------------------------
-
 
 

@@ -1,9 +1,19 @@
 #!/usr/bin/env python3
 
+# Instructions on adding test cases:
+#
+#
+#
+#
+#
+
+
 from request       import Request
 from mysql_connect import Mysql_Connect
 
+
 class TestSuper( object ):
+
 
     #--------------------------------------------------------------------------------
 
@@ -43,6 +53,5 @@ class TestSuper( object ):
         return None
 
     #--------------------------------------------------------------------------------
-
 
 

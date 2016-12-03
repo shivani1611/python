@@ -1,27 +1,29 @@
 #!/usr/bin/env python3
 
+import base64
 import pymysql
 
 class Mysql_Connect( object ):
 
-#--------------------------------------------------------------------------------
+
+    #--------------------------------------------------------------------------------
 
 
     def __init__( self ):
 
         # establish the mysql connection
-        self._conn = pymysql.connect( host = ( "127.0.0.1" ), 
-                                      port = ( 3306 ), 
-                                      user = ( "root" ), 
-                                      passwd = ( "pqowieuryt" ),
-                                      db = ( "wp690" ) )
+        self._conn = pymysql.connect( host   = ( "127.0.0.1" ), 
+                                      port   = ( 3306 ), 
+                                      user   = ( "root" ),       # base64
+                                      passwd = ( "pqowieuryt" ), # base64
+                                      db     = ( "wp690" ) )     # base64
 
-        print( "MySQL Connection Established: " + str( self._conn ) )
+        print( "\nMySQL Connection Established: {0}\n".format( str( self._conn ) )
 
         return None
 
 
-#--------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------
 
 
     def close( self ):
@@ -31,7 +33,7 @@ class Mysql_Connect( object ):
 
         return None
 
-#--------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------
 
  
     def select( self, query ):
@@ -60,7 +62,7 @@ class Mysql_Connect( object ):
         return all_rows
 
 
-#--------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------
 
 
     def update( self, query ):
@@ -83,6 +85,6 @@ class Mysql_Connect( object ):
         return result
 
 
-#--------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------
 
 

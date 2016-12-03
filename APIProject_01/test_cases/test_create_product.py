@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-from test_super import TestSuper
+from _super import TestSuper
 import json
 
 class TestCase_Create_Product( TestSuper ):
+
 
     #--------------------------------------------------------------------------------
 
@@ -15,7 +16,7 @@ class TestCase_Create_Product( TestSuper ):
 
         self.is_test_case_passed = ( True )
 
-       # call the superclass constructor (superclass constructor in: test_super.py)
+       # call the superclass constructor (superclass constructor in: _super.py)
         super( ).__init__( )
 
         return None
@@ -67,7 +68,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 1 (response code check)
         assert( act_res_code == ( exp_res_code ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Negative Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Negative Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_code ),\
@@ -75,7 +76,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 2 (response type check)
         assert( act_res_type == ( exp_res_type ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Negative Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Negative Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_type ),\
@@ -83,7 +84,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 3 (response message check)
         assert( act_res_msg == ( exp_res_msg ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Negative Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Negative Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_msg ),\
@@ -120,7 +121,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 1 (response code check)
         assert( act_res_code == ( exp_res_code ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Positive Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Positive Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_code ),\
@@ -128,7 +129,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 2 (title/name check)
         assert( act_name == ( exp_name ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Positive Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Positive Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_code ),\
@@ -136,7 +137,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # assert: 3 (price check)
         assert( act_regular_price == ( exp_regular_price ) ),\
-        r"MSG: {err_msg} for use case: '{uc_title}' - [Positive Test] -"\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [API Positive Test] -"\
         " [{tc_title}] - Expected: {exp_res}, Actual: {act_res}"\
         "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
         tc_title = ( self._test_case_title ), exp_res = ( exp_res_code ),\
@@ -147,11 +148,55 @@ class TestCase_Create_Product( TestSuper ):
 
     #--------------------------------------------------------------------------------
 
-    #def validate_db_responses( self, use_case_name,
-        #return None
+     def validate_db_responses( self,
+                                use_case_name,
+                                db_id,
+                                qry_res,
+                                err_msg,
+                                exp_name,
+                                exp_regular_price ):
+        
+        # flag to determine if test passed
+        is_use_case_passed = ( True )
+
+        # expected outcomes
+        exp_type          = ( "product" ) 
+
+        # actual outcomes
+        act_name          = ( qry_res[0][0] )
+        act_type          = ( qry_res[0][1] )
+        act_regular_price = ( qry_res[0][2] )
+
+
+        # assert: 1 (title/name check)
+        assert( act_name == ( exp_name ) ),\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [DB Test] -"\
+        " [{tc_title}] - Expected: {exp_title}, Actual: {act_title}"\
+        "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
+        tc_title = ( self._test_case_title ), exp_title = ( exp_name ),\
+        act_title = ( act_name ) )
+
+        # assert: 2 (type check)
+        assert( act_type == ( exp_type ) ),\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [DB Test] -"\
+        " [{tc_title}] - Expected: {_exp_type}, Actual: {_act_type}"\
+        "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
+        tc_title = ( self._test_case_title ), exp_type = ( exp_type ),\
+        act_type = ( act_type ) )
+
+        # assert: 3 (price check)
+        assert( act_regular_price == ( exp_regular_price ) ),\
+        r"MSG: {err_msg} for use case: '{uc_title}' - [DB Test] -"\
+        " [{tc_title}] - Expected: {_exp_regular_price}, Actual: {_act_regular_price}"\
+        "".format( err_msg = ( error_msg ), uc_title = ( use_case_name ),
+        tc_title = ( self._test_case_title ), exp_regular_price = ( _exp_regular_price ),\
+        act_regular_price = ( _act_regular_price ) )
+
+        return is_use_case_passed
  
 
     #--------------------------------------------------------------------------------
+
 
     def start_tests( self ):
 
@@ -198,7 +243,7 @@ class TestCase_Create_Product( TestSuper ):
         print( "  ==> API test passed: Negative Test ['{tc_title}'] - ['{uc_title}']"
         "".format( uc_title = ( use_case_title  ), tc_title = ( self._test_case_title ) ) )
 
-        return None 
+        return result
 
 
     #--------------------------------------------------------------------------------
@@ -232,7 +277,7 @@ class TestCase_Create_Product( TestSuper ):
         print( "  ==> API test passed: Negative Test ['{tc_title}'] - ['{uc_title}']"
         "".format( uc_title = ( use_case_title  ), tc_title = ( self._test_case_title ) ) )
 
-        return None 
+        return result
 
 
     #--------------------------------------------------------------------------------
@@ -266,7 +311,7 @@ class TestCase_Create_Product( TestSuper ):
         print( "  ==> API test passed: Negative Test ['{tc_title}'] - ['{uc_title}']"
         "".format( uc_title = ( use_case_title  ), tc_title = ( self._test_case_title ) ) )
 
-        return None 
+        return result
 
 
     #--------------------------------------------------------------------------------
@@ -328,7 +373,7 @@ class TestCase_Create_Product( TestSuper ):
         print( "  ==> API test passed: Positive Test ['{test_case_title}'] - ['Populated Payload']"
         "".format( test_case_title = ( self._test_case_title ) ) )
 
-        return None
+        return result
 
 
     #--------------------------------------------------------------------------------
@@ -342,24 +387,26 @@ class TestCase_Create_Product( TestSuper ):
         # process the query
         query_results = ( self._db_conn.select( query ) )
 
-        # actual outcomes
-        actual_db_name          = ( query_results[0][0] )
-        actual_db_type          = ( query_results[0][1] )
-        actual_db_regular_price = ( query_results[0][2] )
+     def validate_db_responses( self,
+                                use_case_name,
+                                db_id,
+                                qry_res,
+                                err_msg,
+                                exp_name,
+                                exp_regular_price ):
 
-        # assert: 1 (db name/title check)
-        assert( actual_db_name == ( self._expected_name ) ), r"MSG: The name/title in DB is not as expected. Actual Results: {}, Expected Results: {}".format( actual_db_name, self._expected_name )
+        result = (\
+        self.validate_db_responses( use_case_title,
+                                    self._act_id,
+                                    query_results,
+                                    use_case_error,
+                                    self._expected_name,
+                                    self._expected_regular_price ) )
 
-        # assert: 2
-        assert( actual_db_type == ( "product" ) ), r"MSG: The type does not match. Actual Results: {}, Expected Results: 'product'".format( actual_db_name, actual_db_type )
-
-        # assert: 3
-        assert( actual_db_regular_price == ( self._expected_regular_price ) ), r"MSG: The regular price in DB is not as expected. Actual Result: {}, Expected Result: {}".format( actual_db_regular_price, self._expected_regular_price )
-
-        print( "  ==> DB  test passed: ['{test_case_title}'] - ['Populated Payload']"
+         print( "  ==> DB  test passed: ['{test_case_title}'] - ['Populated Payload']"
         "".format( test_case_title = ( self._test_case_title ) ) )
 
-        return None
+        return result
 
 
     #--------------------------------------------------------------------------------
