@@ -17,6 +17,7 @@ def main( ):
     # TODO: setup argv to determine which tests user wants to run
     intf.execute_all_tests( )
 
+    # pause before exiting
     sleep( 5 )
 
     # exit the automation
