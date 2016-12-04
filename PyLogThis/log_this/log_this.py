@@ -9,9 +9,9 @@ from re       import search
 
 #abstract class
 class LogThis( object, metaclass = ( ABCMeta ) ):
-    _is_conf_enabled = ( False )
-    _is_err_enabled  = ( False )
-    _is_log_enabled  = ( False )
+    _is_conf_enabled = ( True )
+    _is_err_enabled  = ( True )
+    _is_log_enabled  = ( True )
 
     def __init__( self, conf_file, err_file, log_file ):
         #iterate through the supplied files

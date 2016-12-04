@@ -11,25 +11,20 @@ class Request( object ):
 
 
     def __init__( self ):
-        # home laptop
-        url             = ( r"http://127.0.0.1/wp_/" )
-        consumer_key    = ( r"ck_f919d59bfc31c2d417ecdc06c0611f17af4cb593" )
-        consumer_secret = ( r"ck_762bfdfeb5d8588eec6285345820ad548eeedb2c" )
 
-        # work laptop
-        #url             = ( r"http://127.0.0.1/api_test01/" )
-        #consumer_key    = ( r"ck_3c39facaa33d0e7dd953167c6f627a4d25022f18" ) # base64
-        #consumer_secret = ( r"cs_967e8d9ecd7e75f2254d5a15aaae3a13339235e7" ) # base64
-
-        wp_api          = ( True )
-        version         = ( r"wc/v1" )
+        CONFIG_PATH = ( "../config/config.py" )
+        CONFIG_MOD_NAME = ( "config" )
+        mh.load_source_file( CONFIG_MOD_NAME, CONFIG_PATH )
+        from config import Config as Conf
 
         self._wcapi = API(
-            url             = ( url ),
-            consumer_key    = ( consumer_key ),
-            consumer_secret = ( consumer_secret ),
-            wp_api          = ( wp_api ),
-            version         = ( version ), )
+            url             = ( Conf.API_URL ),
+            consumer_key    = ( Conf.API_KEY ),
+            consumer_secret = ( Conf.API_SEC ),
+            wp_api          = ( Conf.API_WP ),
+            version         = ( Conf.API_VER ), )
+
+        print( "\nAPI Connection Established: {0}\n".format( str( self._wcapi ) )
 
         return None
 

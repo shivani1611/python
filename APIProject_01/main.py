@@ -10,19 +10,28 @@ from time import sleep
 
 def main( ):
 
-    # add all import paths
-    mh.process_paths( is_display_paths = ( False ) )
+    # config module - config.py
+    CONFIG_PATH = ( "config/config.py" )
+    CONFIG_MOD_NAME = ( "config" )
+    mh.load_source_file( CONFIG_MOD_NAME, CONFIG_PATH )
+    from config import Config as Conf
 
-    # load interface.py
-    mh.load_source_file( "interface", "../interface.py" )
-    from interface import Interface
-    intf = ( Interface( ) )
+    # add all import paths
+    mh.process_paths( is_display_paths = ( True ) )
+
+    # interface module - interface.py
+    mh.load_source_file( Conf.INTF_MOD_NAME, Conf.INTF_NAME )
+    from interface import Interface as Intf
+    intf = ( Intf( ) )
+
+    # pause before starting
+    sleep( Conf.MAIN_START_SLEEP )
 
     # TODO: setup argv to determine which tests user wants to run
-    intf.load_all_tests( )
+    intf.load_tests( )
 
     # pause before exiting
-    sleep( 5 )
+    sleep( Conf.MAIN_END_SLEEP )
 
     # exit the automation
     return( 0 )
@@ -33,4 +42,5 @@ def main( ):
 
 if( __name__ == ( "__main__" ) ):
     exit( main( ) )
+
 

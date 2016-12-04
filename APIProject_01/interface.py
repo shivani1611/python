@@ -11,7 +11,7 @@ class Interface( object ):
 
     def __init__( self ):
 
-        self.test_case_count = ( 0 )
+        self.test_case_count = ( int( 0 ) )
 
         return None
 
@@ -19,7 +19,7 @@ class Interface( object ):
     #--------------------------------------------------------------------------------
 
 
-    def load_all_tests( self ):
+    def load_tests( self ):
         mh.load_source_file( "test_create_product", "../test_cases/test_create_product.py" )
         from test_create_product import TestCase_Create_Product as test_case
 
