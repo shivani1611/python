@@ -16,7 +16,7 @@ class TestCase_Create_Product( TestSuper ):
 
         self.is_test_case_passed = ( True )
 
-       # call the superclass constructor (superclass constructor in: _super.py)
+        # call the superclass constructor (superclass constructor in: _super.py)
         super( ).__init__( )
 
         return None
@@ -218,8 +218,8 @@ class TestCase_Create_Product( TestSuper ):
     # negative test
     def test_api_empty_fields( self ):
 
-        use_case_title = ( "Empty Fields" )
-        use_case_error = ( "Required fields cannot be empty" )
+        use_case_title = ( "API: Empty Fields" )
+        use_case_error = ( "API: Required fields cannot be empty" )
 
         # expected outcomes
         expected_response_code    = ( 400 )
@@ -252,8 +252,8 @@ class TestCase_Create_Product( TestSuper ):
     # negative test
     def test_api_missing_fields( self ):
 
-        use_case_title = ( "Missing Fields" )
-        use_case_error = ( "Required fields must be supplied in the payload" )
+        use_case_title = ( "API: Missing Fields" )
+        use_case_error = ( "API: Required fields must be supplied in the payload" )
 
         # expected outcomes
         expected_response_code    = ( 400 )
@@ -286,8 +286,8 @@ class TestCase_Create_Product( TestSuper ):
     # negative test
     def test_api_blank_payload( self ):
 
-        use_case_title = ( "Blank Payload" )
-        use_case_error = ( "Payload cannot be blank" )
+        use_case_title = ( "API: Blank Payload" )
+        use_case_error = ( "API: Payload cannot be blank" )
 
         # expected outcomes
         expected_response_code    = ( 400 )
@@ -320,8 +320,8 @@ class TestCase_Create_Product( TestSuper ):
     # positive test
     def test_api_create_product( self ):
 
-        use_case_title = ( "Create Product" )
-        use_case_error = ( "Unable to create new product" )
+        use_case_title = ( "API: Create Product" )
+        use_case_error = ( "API: Unable to create new product" )
 
         # expected outcomes
         expected_response_code       = ( 201 )
@@ -381,19 +381,14 @@ class TestCase_Create_Product( TestSuper ):
 
     def test_db_create_product( self ):
 
+        use_case_title = ( "DB: Create Product" )
+        use_case_error = ( "DB: Product not found in db" )
+
          # mysql query 
         query = r"SELECT p.post_title, p.post_type, pm.meta_value from wp690.apitest_posts p JOIN wp690.apitest_postmeta pm on p.id=pm.post_id WHERE p.id={pid} AND pm.meta_key='_regular_price';".format( pid = ( self._act_id ) )
 
         # process the query
         query_results = ( self._db_conn.select( query ) )
-
-    def validate_db_responses( self,
-                               use_case_name,
-                               db_id,
-                               qry_res,
-                               err_msg,
-                               exp_name,
-                               exp_regular_price ):
 
         result = (\
         self.validate_db_responses( use_case_title,
