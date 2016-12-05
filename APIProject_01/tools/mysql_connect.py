@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from config import Config as Conf
 import pymysql
 
 class Mysql_Connect( object ):
@@ -10,11 +11,6 @@ class Mysql_Connect( object ):
 
     def __init__( self ):
 
-        CONFIG_PATH = ( "../config/config.py" )
-        CONFIG_MOD_NAME = ( "config" )
-        mh.load_source_file( CONFIG_MOD_NAME, CONFIG_PATH )
-        from config import Config as Conf
-
         # establish the mysql connection
         self._conn = pymysql.connect( host   = ( Conf.DB_HOST ), 
                                       port   = ( Conf.DB_PORT ), 
@@ -22,7 +18,7 @@ class Mysql_Connect( object ):
                                       passwd = ( Conf.DB_PASS ),
                                       db     = ( Conf.DB_NAME ) )
 
-        print( "\nMySQL Connection Established: {0}\n".format( str( self._conn ) )
+        print( "\nMySQL Connection Established: {0}\n".format( str( self._conn ) ) )
 
         return None
 

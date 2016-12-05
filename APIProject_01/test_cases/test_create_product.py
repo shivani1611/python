@@ -25,6 +25,23 @@ class TestCase_Create_Product( TestSuper ):
     #--------------------------------------------------------------------------------
 
 
+    def start_tests( self ):
+
+        # positive test(s)
+        self.test_api_create_product( )
+        self.test_db_create_product( )
+
+        # negative test(s)
+        self.test_api_blank_payload( )
+        self.test_api_missing_fields( )
+        self.test_api_empty_fields( )
+
+        return None
+
+
+    #--------------------------------------------------------------------------------
+
+
     @staticmethod
     def display_response_information( res_all = ( None ), res_code = ( None ), res_body = ( None ) ):
         if( res_all ):
@@ -148,14 +165,14 @@ class TestCase_Create_Product( TestSuper ):
 
     #--------------------------------------------------------------------------------
 
-     def validate_db_responses( self,
-                                use_case_name,
-                                db_id,
-                                qry_res,
-                                err_msg,
-                                exp_name,
-                                exp_regular_price ):
-        
+    def validate_db_responses( self,
+                               use_case_name,
+                               db_id,
+                               qry_res,
+                               err_msg,
+                               exp_name,
+                               exp_regular_price ):
+       
         # flag to determine if test passed
         is_use_case_passed = ( True )
 
@@ -194,23 +211,6 @@ class TestCase_Create_Product( TestSuper ):
 
         return is_use_case_passed
  
-
-    #--------------------------------------------------------------------------------
-
-
-    def start_tests( self ):
-
-        # positive test(s)
-        self.test_api_create_product( )
-        self.test_db_create_product( )
-
-        # negative test(s)
-        self.test_api_blank_payload( )
-        self.test_api_missing_fields( )
-        self.test_api_empty_fields( )
-
-        return None
-
 
     #--------------------------------------------------------------------------------
 
@@ -330,7 +330,7 @@ class TestCase_Create_Product( TestSuper ):
 
         # test case payload ( populated payload - expected response code is 201 )
         payload = {
-            "name": "{name}".format( name = ( self._expected_name) ),
+            "name": "{name}".format( name = ( self._expected_name ) ),
             "type": "simple",
             "regular_price": "{price}".format( price = ( self._expected_regular_price ) ),
             "description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
@@ -387,13 +387,13 @@ class TestCase_Create_Product( TestSuper ):
         # process the query
         query_results = ( self._db_conn.select( query ) )
 
-     def validate_db_responses( self,
-                                use_case_name,
-                                db_id,
-                                qry_res,
-                                err_msg,
-                                exp_name,
-                                exp_regular_price ):
+    def validate_db_responses( self,
+                               use_case_name,
+                               db_id,
+                               qry_res,
+                               err_msg,
+                               exp_name,
+                               exp_regular_price ):
 
         result = (\
         self.validate_db_responses( use_case_title,
@@ -403,7 +403,7 @@ class TestCase_Create_Product( TestSuper ):
                                     self._expected_name,
                                     self._expected_regular_price ) )
 
-         print( "  ==> DB  test passed: ['{test_case_title}'] - ['Populated Payload']"
+        print( "  ==> DB  test passed: ['{test_case_title}'] - ['Populated Payload']"
         "".format( test_case_title = ( self._test_case_title ) ) )
 
         return result

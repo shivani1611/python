@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from config import Config as Conf
 from woocommerce import API
 import base64
 
@@ -12,11 +13,6 @@ class Request( object ):
 
     def __init__( self ):
 
-        CONFIG_PATH = ( "../config/config.py" )
-        CONFIG_MOD_NAME = ( "config" )
-        mh.load_source_file( CONFIG_MOD_NAME, CONFIG_PATH )
-        from config import Config as Conf
-
         self._wcapi = API(
             url             = ( Conf.API_URL ),
             consumer_key    = ( Conf.API_KEY ),
@@ -24,7 +20,7 @@ class Request( object ):
             wp_api          = ( Conf.API_WP ),
             version         = ( Conf.API_VER ), )
 
-        print( "\nAPI Connection Established: {0}\n".format( str( self._wcapi ) )
+        print( "\nAPI Connection Established: {0}\n".format( str( self._wcapi ) ) )
 
         return None
 

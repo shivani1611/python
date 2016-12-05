@@ -11,16 +11,16 @@ from time import sleep
 def main( ):
 
     # config module - config.py
-    CONFIG_PATH = ( "config/config.py" )
+    CONFIG_PATH = ( "../config/config.py" )
     CONFIG_MOD_NAME = ( "config" )
     mh.load_source_file( CONFIG_MOD_NAME, CONFIG_PATH )
     from config import Config as Conf
 
     # add all import paths
-    mh.process_paths( is_display_paths = ( True ) )
+    mh.process_paths( is_display_paths = ( False ) )
 
     # interface module - interface.py
-    mh.load_source_file( Conf.INTF_MOD_NAME, Conf.INTF_NAME )
+    mh.load_source_file( Conf.INTF_MOD_NAME, "../" + Conf.INTF_NAME )
     from interface import Interface as Intf
     intf = ( Intf( ) )
 

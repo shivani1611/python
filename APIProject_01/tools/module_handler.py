@@ -24,7 +24,7 @@ class ModuleHandler( object ):
     @staticmethod
     def print_paths( ):
         for i in sys.path:
-            print( "\nPath: {path}".format( path = ( str( i ) ) )
+            print( "\nPath: {path}".format( path = ( str( i ) ) ) )
 
         return None
 
@@ -55,7 +55,7 @@ class ModuleHandler( object ):
                                     wd + "/bin",
                                     wd + "/test_cases",
                                     wd + "/tools",
-                                    wd + "/config )
+                                    wd + "/config" )
 
         # print the completed path list
         if( is_display_paths == ( True ) ):
