@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20161207 15:53:09.808" generator="Robot 3.0 (Python 2.7.10 on darwin)">
+<suite source="/Users/xasarkis/Development/Personal/python/robot_framework_test/tests/locators.robot" id="s1" name="Locators">
+<test id="s1-t1" name="Should be able to search for product">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://www.amazon.com</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20161207 15:53:09.886" level="INFO">Opening browser 'chrome' to base url 'http://www.amazon.com'</msg>
+<status status="PASS" endtime="20161207 15:53:13.791" starttime="20161207 15:53:09.886"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3s</arg>
+</arguments>
+<msg timestamp="20161207 15:53:16.793" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" endtime="20161207 15:53:16.793" starttime="20161207 15:53:13.791"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=twotabsearchtextbox</arg>
+<arg>Ferrari 458</arg>
+</arguments>
+<msg timestamp="20161207 15:53:16.794" level="INFO">Typing text 'Ferrari 458' into text field 'id=twotabsearchtextbox'</msg>
+<status status="PASS" endtime="20161207 15:53:16.886" starttime="20161207 15:53:16.794"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3s</arg>
+</arguments>
+<msg timestamp="20161207 15:53:19.889" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" endtime="20161207 15:53:19.890" starttime="20161207 15:53:16.886"></status>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#nav-search &gt; form &gt; div.nav-right &gt; div &gt; input</arg>
+</arguments>
+<msg timestamp="20161207 15:53:19.890" level="INFO">Clicking button 'css=#nav-search &gt; form &gt; div.nav-right &gt; div &gt; input'.</msg>
+<status status="PASS" endtime="20161207 15:53:22.194" starttime="20161207 15:53:19.890"></status>
+</kw>
+<kw name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20161207 15:53:22.260" starttime="20161207 15:53:22.194"></status>
+</kw>
+<status status="PASS" endtime="20161207 15:53:22.260" critical="yes" starttime="20161207 15:53:09.885"></status>
+</test>
+<doc>This is some basic info about the whole suite</doc>
+<status status="PASS" endtime="20161207 15:53:22.262" starttime="20161207 15:53:09.812"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Locators" pass="1">Locators</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
