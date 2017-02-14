@@ -22,7 +22,7 @@ class SuperTTT( object ):
     # determine the game mode
     game_mode = ""
 
-    # determine who goes first 
+    # determine who goes first
     x_player = ""
     y_player = ""
 
@@ -43,7 +43,7 @@ class SuperTTT( object ):
         and cls.d[0] != " " and cls.d[1] != " " and cls.d[2] != " " and cls.d[3] != " " and cls.d[4] != " "
         and cls.e[0] != " " and cls.e[1] != " " and cls.e[2] != " " and cls.e[3] != " " and cls.e[4] != " " ):
             is_tie = True
-     
+
         return( is_tie )
 
     @classmethod
@@ -56,23 +56,23 @@ class SuperTTT( object ):
             print( "Tie Game!" )
 
         return( is_tie_game )
-       
+
     @classmethod
     def win_logic( cls, symbol ):
 
         is_win = False
 
         if( ( symbol == cls.a[0] and symbol == cls.a[1] and symbol == cls.a[2] and symbol == cls.a[3] and symbol == cls.a[4] )
-         or ( symbol == cls.b[0] and symbol == cls.b[1] and symbol == cls.b[2] and symbol == cls.b[3] and symbol == cls.b[4] ) 
-         or ( symbol == cls.c[0] and symbol == cls.c[1] and symbol == cls.c[2] and symbol == cls.c[3] and symbol == cls.c[4] ) 
-         or ( symbol == cls.d[0] and symbol == cls.d[1] and symbol == cls.d[2] and symbol == cls.d[3] and symbol == cls.d[4] ) 
-         or ( symbol == cls.e[0] and symbol == cls.e[1] and symbol == cls.e[2] and symbol == cls.e[3] and symbol == cls.e[4] ) 
-         or ( symbol == cls.a[0] and symbol == cls.b[0] and symbol == cls.c[0] and symbol == cls.d[0] and symbol == cls.e[0] ) 
-         or ( symbol == cls.a[1] and symbol == cls.b[1] and symbol == cls.c[1] and symbol == cls.d[1] and symbol == cls.e[1] ) 
-         or ( symbol == cls.a[2] and symbol == cls.b[2] and symbol == cls.c[2] and symbol == cls.d[2] and symbol == cls.e[2] ) 
-         or ( symbol == cls.a[3] and symbol == cls.b[3] and symbol == cls.c[3] and symbol == cls.d[3] and symbol == cls.e[3] ) 
-         or ( symbol == cls.a[4] and symbol == cls.b[4] and symbol == cls.c[4] and symbol == cls.d[4] and symbol == cls.e[4] ) 
-         or ( symbol == cls.a[0] and symbol == cls.b[1] and symbol == cls.c[2] and symbol == cls.d[3] and symbol == cls.e[4] ) 
+         or ( symbol == cls.b[0] and symbol == cls.b[1] and symbol == cls.b[2] and symbol == cls.b[3] and symbol == cls.b[4] )
+         or ( symbol == cls.c[0] and symbol == cls.c[1] and symbol == cls.c[2] and symbol == cls.c[3] and symbol == cls.c[4] )
+         or ( symbol == cls.d[0] and symbol == cls.d[1] and symbol == cls.d[2] and symbol == cls.d[3] and symbol == cls.d[4] )
+         or ( symbol == cls.e[0] and symbol == cls.e[1] and symbol == cls.e[2] and symbol == cls.e[3] and symbol == cls.e[4] )
+         or ( symbol == cls.a[0] and symbol == cls.b[0] and symbol == cls.c[0] and symbol == cls.d[0] and symbol == cls.e[0] )
+         or ( symbol == cls.a[1] and symbol == cls.b[1] and symbol == cls.c[1] and symbol == cls.d[1] and symbol == cls.e[1] )
+         or ( symbol == cls.a[2] and symbol == cls.b[2] and symbol == cls.c[2] and symbol == cls.d[2] and symbol == cls.e[2] )
+         or ( symbol == cls.a[3] and symbol == cls.b[3] and symbol == cls.c[3] and symbol == cls.d[3] and symbol == cls.e[3] )
+         or ( symbol == cls.a[4] and symbol == cls.b[4] and symbol == cls.c[4] and symbol == cls.d[4] and symbol == cls.e[4] )
+         or ( symbol == cls.a[0] and symbol == cls.b[1] and symbol == cls.c[2] and symbol == cls.d[3] and symbol == cls.e[4] )
          or ( symbol == cls.a[4] and symbol == cls.b[3] and symbol == cls.c[2] and symbol == cls.d[1] and symbol == cls.e[0] ) ):
             is_win = True
 
@@ -97,8 +97,8 @@ class SuperTTT( object ):
     def is_player_y_win( cls ):
         is_y_win = False
 
-        if( cls.win_logic( "Y" ) ):
-            print( "Player Y Is The Winner!" )
+        if( cls.win_logic( "O" ) ):
+            print( "Player O Is The Winner!" )
             is_y_win = True
             cls.y_wins_times = cls.y_wins_times + 1
         return( is_y_win )
@@ -110,7 +110,7 @@ class SuperTTT( object ):
 
         choice = ""
         symbol = symbol.upper( )
-        
+
         while( True ):
             choice = str( input( "{0} - Provide input: ".format( symbol ) ) )
             choice = choice.upper( )
@@ -184,7 +184,7 @@ class SuperTTT( object ):
                     cls.e[4] = symbol
                 else:
                     continue
-                
+
                 break
 
 
@@ -497,6 +497,273 @@ class SuperTTT( object ):
         elif( cls.a[4] == " " and cls.b[3] == opponent and cls.c[2] == opponent and cls.d[1] == opponent and cls.e[0] == opponent ):
             cls.a[4] = symbol
 
+        ##########################
+        # 3-filled offensive logic
+        # a (rows)
+        elif( cls.a[0] == symbol and cls.a[1] == symbol and cls.a[2] == symbol and cls.a[3] == " " and cls.a[4] == " " ):
+            cls.a[4] = symbol
+        elif( cls.a[0] == symbol and cls.a[1] == symbol and cls.a[2] == " " and cls.a[3] == " " and cls.a[4] == symbol ):
+            cls.a[2] = symbol
+        elif( cls.a[0] == symbol and cls.a[1] == " " and cls.a[2] == " " and cls.a[3] == symbol and cls.a[4] == symbol ):
+            cls.a[2] = symbol
+        elif( cls.a[0] == " " and cls.a[1] == " " and cls.a[2] == symbol and cls.a[3] == symbol and cls.a[4] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.a[1] == symbol and cls.a[2] == " " and cls.a[3] == symbol and cls.a[4] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.a[1] == symbol and cls.a[2] == symbol and cls.a[3] == " " and cls.a[4] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.a[1] == symbol and cls.a[2] == symbol and cls.a[3] == symbol and cls.a[4] == " " ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == symbol and cls.a[1] == " " and cls.a[2] == symbol and cls.a[3] == " " and cls.a[4] == symbol ):
+            cls.a[3] = symbol
+        elif( cls.a[0] == symbol and cls.a[1] == symbol and cls.a[2] == " " and cls.a[3] == symbol and cls.a[4] == " " ):
+            cls.a[4] = symbol
+        elif( cls.a[0] == symbol and cls.a[1] == " " and cls.a[2] == symbol and cls.a[3] == symbol and cls.a[4] == " " ):
+            cls.a[4] = symbol
+
+        # b (rows)
+        elif( cls.b[0] == symbol and cls.b[1] == symbol and cls.b[2] == symbol and cls.b[3] == " " and cls.b[4] == " " ):
+            cls.b[4] = symbol
+        elif( cls.b[0] == symbol and cls.b[1] == symbol and cls.b[2] == " " and cls.b[3] == " " and cls.b[4] == symbol ):
+            cls.b[2] = symbol
+        elif( cls.b[0] == symbol and cls.b[1] == " " and cls.b[2] == " " and cls.b[3] == symbol and cls.b[4] == symbol ):
+            cls.b[2] = symbol
+        elif( cls.b[0] == " " and cls.b[1] == " " and cls.b[2] == symbol and cls.b[3] == symbol and cls.b[4] == symbol ):
+            cls.b[0] = symbol
+        elif( cls.b[0] == " " and cls.b[1] == symbol and cls.b[2] == " " and cls.b[3] == symbol and cls.b[4] == symbol ):
+            cls.b[0] = symbol
+        elif( cls.b[0] == " " and cls.b[1] == symbol and cls.b[2] == symbol and cls.b[3] == " " and cls.b[4] == symbol ):
+            cls.b[0] = symbol
+        elif( cls.b[0] == " " and cls.b[1] == symbol and cls.b[2] == symbol and cls.b[3] == symbol and cls.b[4] == " " ):
+            cls.b[0] = symbol
+        elif( cls.b[0] == symbol and cls.b[1] == " " and cls.b[2] == symbol and cls.b[3] == " " and cls.b[4] == symbol ):
+            cls.b[3] = symbol
+        elif( cls.b[0] == symbol and cls.b[1] == symbol and cls.b[2] == " " and cls.b[3] == symbol and cls.b[4] == " " ):
+            cls.b[4] = symbol
+        elif( cls.b[0] == symbol and cls.b[1] == " " and cls.b[2] == symbol and cls.b[3] == symbol and cls.b[4] == " " ):
+            cls.b[4] = symbol
+
+        # c (rows)
+        elif( cls.c[0] == symbol and cls.c[1] == symbol and cls.c[2] == symbol and cls.c[3] == " " and cls.c[4] == " " ):
+            cls.c[4] = symbol
+        elif( cls.c[0] == symbol and cls.c[1] == symbol and cls.c[2] == " " and cls.c[3] == " " and cls.c[4] == symbol ):
+            cls.c[2] = symbol
+        elif( cls.c[0] == symbol and cls.c[1] == " " and cls.c[2] == " " and cls.c[3] == symbol and cls.c[4] == symbol ):
+            cls.c[2] = symbol
+        elif( cls.c[0] == " " and cls.c[1] == " " and cls.c[2] == symbol and cls.c[3] == symbol and cls.c[4] == symbol ):
+            cls.c[0] = symbol
+        elif( cls.c[0] == " " and cls.c[1] == symbol and cls.c[2] == " " and cls.c[3] == symbol and cls.c[4] == symbol ):
+            cls.c[0] = symbol
+        elif( cls.c[0] == " " and cls.c[1] == symbol and cls.c[2] == symbol and cls.c[3] == " " and cls.c[4] == symbol ):
+            cls.c[0] = symbol
+        elif( cls.c[0] == " " and cls.c[1] == symbol and cls.c[2] == symbol and cls.c[3] == symbol and cls.c[4] == " " ):
+            cls.c[0] = symbol
+        elif( cls.c[0] == symbol and cls.c[1] == " " and cls.c[2] == symbol and cls.c[3] == " " and cls.c[4] == symbol ):
+            cls.c[3] = symbol
+        elif( cls.c[0] == symbol and cls.c[1] == symbol and cls.c[2] == " " and cls.c[3] == symbol and cls.c[4] == " " ):
+            cls.c[4] = symbol
+        elif( cls.c[0] == symbol and cls.c[1] == " " and cls.c[2] == symbol and cls.c[3] == symbol and cls.c[4] == " " ):
+            cls.c[4] = symbol
+
+        # d (rows)
+        elif( cls.d[0] == symbol and cls.d[1] == symbol and cls.d[2] == symbol and cls.d[3] == " " and cls.d[4] == " " ):
+            cls.d[4] = symbol
+        elif( cls.d[0] == symbol and cls.d[1] == symbol and cls.d[2] == " " and cls.d[3] == " " and cls.d[4] == symbol ):
+            cls.d[2] = symbol
+        elif( cls.d[0] == symbol and cls.d[1] == " " and cls.d[2] == " " and cls.d[3] == symbol and cls.d[4] == symbol ):
+            cls.d[2] = symbol
+        elif( cls.d[0] == " " and cls.d[1] == " " and cls.d[2] == symbol and cls.d[3] == symbol and cls.d[4] == symbol ):
+            cls.d[0] = symbol
+        elif( cls.d[0] == " " and cls.d[1] == symbol and cls.d[2] == " " and cls.d[3] == symbol and cls.d[4] == symbol ):
+            cls.d[0] = symbol
+        elif( cls.d[0] == " " and cls.d[1] == symbol and cls.d[2] == symbol and cls.d[3] == " " and cls.d[4] == symbol ):
+            cls.d[0] = symbol
+        elif( cls.d[0] == " " and cls.d[1] == symbol and cls.d[2] == symbol and cls.d[3] == symbol and cls.d[4] == " " ):
+            cls.d[0] = symbol
+        elif( cls.d[0] == symbol and cls.d[1] == " " and cls.d[2] == symbol and cls.d[3] == " " and cls.d[4] == symbol ):
+            cls.d[3] = symbol
+        elif( cls.d[0] == symbol and cls.d[1] == symbol and cls.d[2] == " " and cls.d[3] == symbol and cls.d[4] == " " ):
+            cls.d[4] = symbol
+        elif( cls.d[0] == symbol and cls.d[1] == " " and cls.d[2] == symbol and cls.d[3] == symbol and cls.d[4] == " " ):
+            cls.d[4] = symbol
+
+        # e (rows)
+        elif( cls.e[0] == symbol and cls.e[1] == symbol and cls.e[2] == symbol and cls.e[3] == " " and cls.e[4] == " " ):
+            cls.e[4] = symbol
+        elif( cls.e[0] == symbol and cls.e[1] == symbol and cls.e[2] == " " and cls.e[3] == " " and cls.e[4] == symbol ):
+            cls.e[2] = symbol
+        elif( cls.e[0] == symbol and cls.e[1] == " " and cls.e[2] == " " and cls.e[3] == symbol and cls.e[4] == symbol ):
+            cls.e[2] = symbol
+        elif( cls.e[0] == " " and cls.e[1] == " " and cls.e[2] == symbol and cls.e[3] == symbol and cls.e[4] == symbol ):
+            cls.d[0] = symbol
+        elif( cls.e[0] == " " and cls.e[1] == symbol and cls.e[2] == " " and cls.e[3] == symbol and cls.e[4] == symbol ):
+            cls.e[0] = symbol
+        elif( cls.e[0] == " " and cls.e[1] == symbol and cls.e[2] == symbol and cls.e[3] == " " and cls.e[4] == symbol ):
+            cls.e[0] = symbol
+        elif( cls.e[0] == " " and cls.e[1] == symbol and cls.e[2] == symbol and cls.e[3] == symbol and cls.e[4] == " " ):
+            cls.e[0] = symbol
+        elif( cls.e[0] == symbol and cls.e[1] == " " and cls.e[2] == symbol and cls.e[3] == " " and cls.e[4] == symbol ):
+            cls.e[3] = symbol
+        elif( cls.e[0] == symbol and cls.e[1] == symbol and cls.e[2] == " " and cls.e[3] == symbol and cls.e[4] == " " ):
+            cls.e[4] = symbol
+        elif( cls.e[0] == symbol and cls.e[1] == " " and cls.e[2] == symbol and cls.e[3] == symbol and cls.e[4] == " " ):
+            cls.d[4] = symbol
+
+        # 1 (columns)
+        elif( cls.a[0] == symbol and cls.b[0] == symbol and cls.c[0] == symbol and cls.d[0] == " " and cls.e[0] == " " ):
+            cls.e[0] = symbol
+        elif( cls.a[0] == symbol and cls.b[0] == symbol and cls.c[0] == " " and cls.d[0] == " " and cls.e[0] == symbol ):
+            cls.c[0] = symbol
+        elif( cls.a[0] == symbol and cls.b[0] == " " and cls.c[0] == " " and cls.d[0] == symbol and cls.e[0] == symbol ):
+            cls.c[0] = symbol
+        elif( cls.a[0] == " " and cls.b[0] == " " and cls.c[0] == symbol and cls.d[0] == symbol and cls.e[0] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.b[0] == symbol and cls.c[0] == " " and cls.d[0] == symbol and cls.e[0] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.b[0] == symbol and cls.c[0] == symbol and cls.d[0] == " " and cls.e[0] == symbol ):
+            cls.a[0] = symbol
+        elif( cls.a[0] == " " and cls.b[0] == symbol and cls.c[0] == symbol and cls.d[0] == symbol and cls.e[0] == " " ):
+            cls.e[0] = symbol
+        elif( cls.a[0] == symbol and cls.b[0] == " " and cls.c[0] == symbol and cls.d[0] == " " and cls.e[0] == symbol ):
+            cls.b[0] = symbol
+        elif( cls.a[0] == symbol and cls.b[0] == symbol and cls.c[0] == " " and cls.d[0] == symbol and cls.e[0] == " " ):
+            cls.e[0] = symbol
+        elif( cls.a[0] == symbol and cls.b[0] == " " and cls.c[0] == symbol and cls.d[0] == symbol and cls.e[0] == " " ):
+            cls.e[0] = symbol
+
+        # 2 (columns)
+        elif( cls.a[1] == symbol and cls.b[1] == symbol and cls.c[1] == symbol and cls.d[1] == " " and cls.e[1] == " " ):
+            cls.e[1] = symbol
+        elif( cls.a[1] == symbol and cls.b[1] == symbol and cls.c[1] == " " and cls.d[1] == " " and cls.e[1] == symbol ):
+            cls.c[1] = symbol
+        elif( cls.a[1] == symbol and cls.b[1] == " " and cls.c[1] == " " and cls.d[1] == symbol and cls.e[1] == symbol ):
+            cls.c[1] = symbol
+        elif( cls.a[1] == " " and cls.b[1] == " " and cls.c[1] == symbol and cls.d[1] == symbol and cls.e[1] == symbol ):
+            cls.a[1] = symbol
+        elif( cls.a[1] == " " and cls.b[1] == symbol and cls.c[1] == " " and cls.d[1] == symbol and cls.e[1] == symbol ):
+            cls.a[1] = symbol
+        elif( cls.a[1] == " " and cls.b[1] == symbol and cls.c[1] == symbol and cls.d[1] == " " and cls.e[1] == symbol ):
+            cls.a[1] = symbol
+        elif( cls.a[1] == " " and cls.b[1] == symbol and cls.c[1] == symbol and cls.d[1] == symbol and cls.e[1] == " " ):
+            cls.e[1] = symbol
+        elif( cls.a[1] == symbol and cls.b[1] == " " and cls.c[1] == symbol and cls.d[1] == " " and cls.e[1] == symbol ):
+            cls.b[1] = symbol
+        elif( cls.a[1] == symbol and cls.b[1] == symbol and cls.c[1] == " " and cls.d[1] == symbol and cls.e[1] == " " ):
+            cls.e[1] = symbol
+        elif( cls.a[1] == symbol and cls.b[1] == " " and cls.c[1] == symbol and cls.d[1] == symbol and cls.e[1] == " " ):
+            cls.e[1] = symbol
+
+        # 3 (columns)
+        elif( cls.a[2] == symbol and cls.b[2] == symbol and cls.c[2] == symbol and cls.d[2] == " " and cls.e[2] == " " ):
+            cls.e[2] = symbol
+        elif( cls.a[2] == symbol and cls.b[2] == symbol and cls.c[2] == " " and cls.d[2] == " " and cls.e[2] == symbol ):
+            cls.c[2] = symbol
+        elif( cls.a[2] == symbol and cls.b[2] == " " and cls.c[2] == " " and cls.d[2] == symbol and cls.e[2] == symbol ):
+            cls.c[2] = symbol
+        elif( cls.a[2] == " " and cls.b[2] == " " and cls.c[2] == symbol and cls.d[2] == symbol and cls.e[2] == symbol ):
+            cls.a[2] = symbol
+        elif( cls.a[2] == " " and cls.b[2] == symbol and cls.c[2] == " " and cls.d[2] == symbol and cls.e[2] == symbol ):
+            cls.a[2] = symbol
+        elif( cls.a[2] == " " and cls.b[2] == symbol and cls.c[2] == symbol and cls.d[2] == " " and cls.e[2] == symbol ):
+            cls.a[2] = symbol
+        elif( cls.a[2] == " " and cls.b[2] == symbol and cls.c[2] == symbol and cls.d[2] == symbol and cls.e[2] == " " ):
+            cls.e[2] = symbol
+        elif( cls.a[2] == symbol and cls.b[2] == " " and cls.c[2] == symbol and cls.d[2] == " " and cls.e[2] == symbol ):
+            cls.b[2] = symbol
+        elif( cls.a[2] == symbol and cls.b[2] == symbol and cls.c[2] == " " and cls.d[2] == symbol and cls.e[2] == " " ):
+            cls.e[2] = symbol
+        elif( cls.a[2] == symbol and cls.b[2] == " " and cls.c[2] == symbol and cls.d[2] == symbol and cls.e[2] == " " ):
+            cls.e[2] = symbol
+
+        # 4 (columns)
+        elif( cls.a[3] == symbol and cls.b[3] == symbol and cls.c[3] == symbol and cls.d[3] == " " and cls.e[3] == " " ):
+            cls.e[3] = symbol
+        elif( cls.a[3] == symbol and cls.b[3] == symbol and cls.c[3] == " " and cls.d[3] == " " and cls.e[3] == symbol ):
+            cls.c[3] = symbol
+        elif( cls.a[3] == symbol and cls.b[3] == " " and cls.c[3] == " " and cls.d[3] == symbol and cls.e[3] == symbol ):
+            cls.c[3] = symbol
+        elif( cls.a[3] == " " and cls.b[3] == " " and cls.c[3] == symbol and cls.d[3] == symbol and cls.e[3] == symbol ):
+            cls.a[3] = symbol
+        elif( cls.a[3] == " " and cls.b[3] == symbol and cls.c[3] == " " and cls.d[3] == symbol and cls.e[3] == symbol ):
+            cls.a[3] = symbol
+        elif( cls.a[3] == " " and cls.b[3] == symbol and cls.c[3] == symbol and cls.d[3] == " " and cls.e[3] == symbol ):
+            cls.a[3] = symbol
+        elif( cls.a[3] == " " and cls.b[3] == symbol and cls.c[3] == symbol and cls.d[3] == symbol and cls.e[3] == " " ):
+            cls.e[3] = symbol
+        elif( cls.a[3] == symbol and cls.b[3] == " " and cls.c[3] == symbol and cls.d[3] == " " and cls.e[3] == symbol ):
+            cls.b[3] = symbol
+        elif( cls.a[3] == symbol and cls.b[3] == symbol and cls.c[3] == " " and cls.d[3] == symbol and cls.e[3] == " " ):
+            cls.e[3] = symbol
+        elif( cls.a[3] == symbol and cls.b[3] == " " and cls.c[3] == symbol and cls.d[3] == symbol and cls.e[3] == " " ):
+            cls.e[3] = symbol
+
+        # 5 (columns)
+        elif( cls.a[4] == symbol and cls.b[4] == symbol and cls.c[4] == symbol and cls.d[4] == " " and cls.e[4] == " " ):
+            cls.e[4] = symbol
+        elif( cls.a[4] == symbol and cls.b[4] == symbol and cls.c[4] == " " and cls.d[4] == " " and cls.e[4] == symbol ):
+            cls.c[4] = symbol
+        elif( cls.a[4] == symbol and cls.b[4] == " " and cls.c[4] == " " and cls.d[4] == symbol and cls.e[4] == symbol ):
+            cls.c[4] = symbol
+        elif( cls.a[4] == " " and cls.b[4] == " " and cls.c[4] == symbol and cls.d[4] == symbol and cls.e[4] == symbol ):
+            cls.a[4] = symbol
+        elif( cls.a[4] == " " and cls.b[4] == symbol and cls.c[4] == " " and cls.d[4] == symbol and cls.e[4] == symbol ):
+            cls.a[4] = symbol
+        elif( cls.a[4] == " " and cls.b[4] == symbol and cls.c[4] == symbol and cls.d[4] == " " and cls.e[4] == symbol ):
+            cls.a[4] = symbol
+        elif( cls.a[4] == " " and cls.b[4] == symbol and cls.c[4] == symbol and cls.d[4] == symbol and cls.e[4] == " " ):
+            cls.e[4] = symbol
+        elif( cls.a[4] == symbol and cls.b[4] == " " and cls.c[4] == symbol and cls.d[4] == " " and cls.e[4] == symbol ):
+            cls.b[4] = symbol
+        elif( cls.a[4] == symbol and cls.b[4] == symbol and cls.c[4] == " " and cls.d[4] == symbol and cls.e[4] == " " ):
+            cls.e[4] = symbol
+        elif( cls.a[4] == symbol and cls.b[4] == " " and cls.c[4] == symbol and cls.d[4] == symbol and cls.e[4] == " " ):
+            cls.e[4] = symbol
+
+        # left (diagonal)
+        elif( cls.e[4] == symbol and cls.d[3] == symbol and cls.c[2] == symbol and cls.b[1] == " " and cls.a[0] == " " ):
+            cls.a[0] = symbol
+        elif( cls.e[4] == symbol and cls.d[3] == symbol and cls.c[2] == " " and cls.b[1] == " " and cls.a[0] == symbol ):
+            cls.b[1] = symbol
+        elif( cls.e[4] == symbol and cls.d[3] == " " and cls.c[2] == " " and cls.b[1] == symbol and cls.a[0] == symbol ):
+            cls.d[3] = symbol
+        elif( cls.e[4] == " " and cls.d[3] == " " and cls.c[2] == symbol and cls.b[1] == symbol and cls.a[0] == symbol ):
+            cls.e[4] = symbol
+        elif( cls.e[4] == " " and cls.d[3] == symbol and cls.c[2] == " " and cls.b[1] == symbol and cls.a[0] == symbol ):
+            cls.e[4] = symbol
+        elif( cls.e[4] == " " and cls.d[3] == symbol and cls.c[2] == symbol and cls.b[1] == " " and cls.a[0] == symbol ):
+            cls.b[1] = symbol
+        elif( cls.e[4] == " " and cls.d[3] == symbol and cls.c[2] == symbol and cls.b[1] == symbol and cls.a[0] == " " ):
+            cls.a[0] = symbol
+        elif( cls.e[4] == symbol and cls.d[3] == " " and cls.c[2] == symbol and cls.b[1] == " " and cls.a[0] == symbol ):
+            cls.d[3] = symbol
+        elif( cls.e[4] == symbol and cls.d[3] == symbol and cls.c[2] == " " and cls.b[1] == symbol and cls.a[0] == " " ):
+            cls.a[0] = symbol
+        elif( cls.e[4] == symbol and cls.d[3] == " " and cls.c[2] == symbol and cls.b[1] == symbol and cls.a[0] == " " ):
+            cls.a[0] = symbol
+
+        # right (diagonal)
+        elif( cls.e[0] == symbol and cls.d[1] == symbol and cls.c[2] == symbol and cls.b[3] == " " and cls.a[4] == " " ):
+            cls.a[4] = symbol
+        elif( cls.e[0] == symbol and cls.d[1] == symbol and cls.c[2] == " " and cls.b[3] == " " and cls.a[4] == symbol ):
+            cls.b[3] = symbol
+        elif( cls.e[0] == symbol and cls.d[1] == " " and cls.c[2] == " " and cls.b[3] == symbol and cls.a[4] == symbol ):
+            cls.d[1] = symbol
+        elif( cls.e[0] == " " and cls.d[1] == " " and cls.c[2] == symbol and cls.b[3] == symbol and cls.a[4] == symbol ):
+            cls.d[1] = symbol
+        elif( cls.e[0] == " " and cls.d[1] == symbol and cls.c[2] == " " and cls.b[3] == symbol and cls.a[4] == symbol ):
+            cls.e[0] = symbol
+        elif( cls.e[0] == " " and cls.d[1] == symbol and cls.c[2] == symbol and cls.b[3] == " " and cls.a[4] == symbol ):
+            cls.e[0] = symbol
+        elif( cls.e[0] == " " and cls.d[1] == symbol and cls.c[2] == symbol and cls.b[3] == symbol and cls.a[4] == " " ):
+            cls.a[4] = symbol
+        elif( cls.e[0] == symbol and cls.d[1] == " " and cls.c[2] == symbol and cls.b[3] == " " and cls.a[4] == symbol ):
+            cls.b[3] = symbol
+        elif( cls.e[0] == symbol and cls.d[1] == symbol and cls.c[2] == " " and cls.b[3] == symbol and cls.a[4] == " " ):
+            cls.a[4] = symbol
+        elif( cls.e[0] == symbol and cls.d[1] == " " and cls.c[2] == symbol and cls.b[3] == symbol and cls.a[4] == " " ):
+            cls.d[1] = symbol
+
+
         # capture individual spaces (corners)
         elif( cls.a[0] == " " ):
             cls.a[0] = symbol
@@ -558,7 +825,7 @@ class SuperTTT( object ):
             cls.computer_play_logic( "X" )
         else:
             raise ValueError( "Error: Not able to determine player X's turn!" )
-         
+
     # player y turn
     @classmethod
     def player_y_turn( cls ):
@@ -569,7 +836,7 @@ class SuperTTT( object ):
             cls.computer_play_logic( "O" )
         else:
             raise ValueError( "Error: Not able to determine player Y's turn!" )
- 
+
     # randomize the player turns (only meant for game mode # 2)
     @classmethod
     def randomize_player_turn( cls ):
@@ -592,11 +859,11 @@ class SuperTTT( object ):
         elif( cls.game_mode == "3" ):
             cls.x_player = "COMPUTER"
             cls.y_player = "COMPUTER"
- 
+
     # display the main menu
     @classmethod
     def main_menu( cls ):
-        
+
         while( True ):
 
             choice = ""
@@ -668,7 +935,7 @@ class SuperTTT( object ):
     # display the grid
     @classmethod
     def display_grid_5x5( cls ):
-       
+
         # clear the screen
         cls.clearScreen( )
 
