@@ -95,6 +95,7 @@ class SuperTTT( object ):
     # is player y the winner?
     @classmethod
     def is_player_y_win( cls ):
+
         is_y_win = False
 
         if( cls.win_logic( "O" ) ):
@@ -762,7 +763,6 @@ class SuperTTT( object ):
             cls.a[4] = symbol
         elif( cls.e[0] == symbol and cls.d[1] == " " and cls.c[2] == symbol and cls.b[3] == symbol and cls.a[4] == " " ):
             cls.d[1] = symbol
-
 
         # capture individual spaces (corners)
         elif( cls.a[0] == " " ):
