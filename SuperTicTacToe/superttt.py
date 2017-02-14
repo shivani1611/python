@@ -814,6 +814,16 @@ class SuperTTT( object ):
         elif( cls.e[3] == " " ):
             cls.e[3] = symbol
 
+        # capture individual spaces (outer center edges)
+        elif( cls.b[0] == " " ):
+            cls.b[0] = symbol
+        elif( cls.b[4] == " " ):
+            cls.b[4] = symbol
+        elif( cls.d[0] == " " ):
+            cls.d[0] = symbol
+        elif( cls.d[4] == " " ):
+            cls.d[4] = symbol
+
 
     # player x turn
     @classmethod
@@ -876,8 +886,9 @@ class SuperTTT( object ):
             print( "1) Human VS Human" )
             print( "2) Human VS Computer" )
             print( "3) Computer VS Computer" )
+            print( "4) Exit" )
             choice = ( str( input( "Enter a choice: " ) ) )
-            if( choice != "1" and choice != "2" and choice != "3" ):
+            if( choice != "1" and choice != "2" and choice != "3" and choice != "4" ):
                 continue
             else:
                 if( choice == "1" ):
@@ -886,6 +897,8 @@ class SuperTTT( object ):
                     cls.game_mode = "2"
                 elif( choice == "3" ):
                     cls.game_mode = "3"
+                elif( choice == "4" ):
+                    exit( )
                 else:
                     raise ValueError( "Error: Not able to select game mode!" )
                 break
