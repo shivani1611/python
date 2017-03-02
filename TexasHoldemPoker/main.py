@@ -7,102 +7,122 @@ class TexasHoldemPoker(object):
     
     my_deck = []
 
-    def generate_rand_number( ):
+    @staticmethod
+    def generate_random_number( ):
 
         rand_num = randint( 1, 52 )
-        print( rand_num )
 
-    def shuffle_deck( ):
+        return rand_num
 
+
+    @classmethod
+    def shuffle_deck( cls ):
+
+        elements_used = []
         temp_deck = []
 
-        for i in range( 0, len( my_deck ), 1 ):
-            rand_num = randint( 1, 52 )
-            print rand_num
+        while True:
+            rand_num = randint( 0, 51 )
+
+            if rand_num not in elements_used:
+                print (rand_num )
+                elements_used.append( rand_num )
+                temp_deck.append( cls.my_deck[rand_num] )
+
+                if len( temp_deck ) == len( cls.my_deck ):
+                    break
+
+        cls.my_deck = temp_deck
 
 
+    @classmethod
+    def display_deck( cls ):
+        for i in cls.my_deck:
+            print( "Card: ", i )
 
-    def initialize_deck( ):
+
+    @classmethod
+    def initialize_deck( cls ):
 
         my_deck = []
 
         # Ace
-        my_deck.append( "AC" )
-        my_deck.append( "AH" )
-        my_deck.append( "AS" )
-        my_deck.append( "AD" )
+        cls.my_deck.append( "AC" )
+        cls.my_deck.append( "AH" )
+        cls.my_deck.append( "AS" )
+        cls.my_deck.append( "AD" )
 
         # Two
-        my_deck.append( "2C" )
-        my_deck.append( "2H" )
-        my_deck.append( "2S" )
-        my_deck.append( "2D" )
+        cls.my_deck.append( "2C" )
+        cls.my_deck.append( "2H" )
+        cls.my_deck.append( "2S" )
+        cls.my_deck.append( "2D" )
 
         # Three
-        my_deck.append( "3C" )
-        my_deck.append( "3H" )
-        my_deck.append( "3S" )
-        my_deck.append( "3D" )
+        cls.my_deck.append( "3C" )
+        cls.my_deck.append( "3H" )
+        cls.my_deck.append( "3S" )
+        cls.my_deck.append( "3D" )
 
         # Four
-        my_deck.append( "4C" )
-        my_deck.append( "4H" )
-        my_deck.append( "4S" )
-        my_deck.append( "4D" )
+        cls.my_deck.append( "4C" )
+        cls.my_deck.append( "4H" )
+        cls.my_deck.append( "4S" )
+        cls.my_deck.append( "4D" )
 
         # Five
-        my_deck.append( "5C" )
-        my_deck.append( "5H" )
-        my_deck.append( "5S" )
-        my_deck.append( "5D" )
+        cls.my_deck.append( "5C" )
+        cls.my_deck.append( "5H" )
+        cls.my_deck.append( "5S" )
+        cls.my_deck.append( "5D" )
 
         # Six
-        my_deck.append( "6C" )
-        my_deck.append( "6H" )
-        my_deck.append( "6S" )
-        my_deck.append( "6D" )
+        cls.my_deck.append( "6C" )
+        cls.my_deck.append( "6H" )
+        cls.my_deck.append( "6S" )
+        cls.my_deck.append( "6D" )
 
         # Seven
-        my_deck.append( "7C" )
-        my_deck.append( "7H" )
-        my_deck.append( "7S" )
-        my_deck.append( "7D" )
+        cls.my_deck.append( "7C" )
+        cls.my_deck.append( "7H" )
+        cls.my_deck.append( "7S" )
+        cls.my_deck.append( "7D" )
 
         # Eight
-        my_deck.append( "8C" )
-        my_deck.append( "8H" )
-        my_deck.append( "8S" )
-        my_deck.append( "8D" )
+        cls.my_deck.append( "8C" )
+        cls.my_deck.append( "8H" )
+        cls.my_deck.append( "8S" )
+        cls.my_deck.append( "8D" )
 
         # Nine
-        my_deck.append( "9C" )
-        my_deck.append( "9H" )
-        my_deck.append( "9S" )
-        my_deck.append( "9D" )
+        cls.my_deck.append( "9C" )
+        cls.my_deck.append( "9H" )
+        cls.my_deck.append( "9S" )
+        cls.my_deck.append( "9D" )
 
         # Ten
-        my_deck.append( "10C" )
-        my_deck.append( "10H" )
-        my_deck.append( "10S" )
-        my_deck.append( "10D" )
+        cls.my_deck.append( "10C" )
+        cls.my_deck.append( "10H" )
+        cls.my_deck.append( "10S" )
+        cls.my_deck.append( "10D" )
 
         # Jack
-        my_deck.append( "JC" )
-        my_deck.append( "JH" )
-        my_deck.append( "JS" )
-        my_deck.append( "JD" )
+        cls.my_deck.append( "JC" )
+        cls.my_deck.append( "JH" )
+        cls.my_deck.append( "JS" )
+        cls.my_deck.append( "JD" )
 
         # Queen
-        my_deck.append( "QC" )
-        my_deck.append( "QH" )
-        my_deck.append( "QS" )
-        my_deck.append( "QD" )
+        cls.my_deck.append( "QC" )
+        cls.my_deck.append( "QH" )
+        cls.my_deck.append( "QS" )
+        cls.my_deck.append( "QD" )
 
         # King
-        my_deck.append( "KC" )
-        my_deck.append( "KH" )
-        my_deck.append( "KS" )
-        my_deck.append( "KD" )
+        cls.my_deck.append( "KC" )
+        cls.my_deck.append( "KH" )
+        cls.my_deck.append( "KS" )
+        cls.my_deck.append( "KD" )
 
 def main( ):
 
@@ -110,6 +130,7 @@ def main( ):
 
     thp.initialize_deck( )
     thp.shuffle_deck( )
+    thp.display_deck( )
 
 if __name__ == "__main__":
     exit( main( ) )
