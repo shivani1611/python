@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+
+from random import randint
+from sys import exit
+
+class TexasHoldemPoker(object):
+    
+    my_deck = []
+
+    def generate_rand_number( ):
+
+        rand_num = randint( 1, 52 )
+        print( rand_num )
+
+    def shuffle_deck( ):
+
+        temp_deck = []
+
+        for i in range( 0, len( my_deck ), 1 ):
+            rand_num = randint( 1, 52 )
+            print rand_num
+
+
+
+    def initialize_deck( ):
+
+        my_deck = []
+
+        # Ace
+        my_deck.append( "AC" )
+        my_deck.append( "AH" )
+        my_deck.append( "AS" )
+        my_deck.append( "AD" )
+
+        # Two
+        my_deck.append( "2C" )
+        my_deck.append( "2H" )
+        my_deck.append( "2S" )
+        my_deck.append( "2D" )
+
+        # Three
+        my_deck.append( "3C" )
+        my_deck.append( "3H" )
+        my_deck.append( "3S" )
+        my_deck.append( "3D" )
+
+        # Four
+        my_deck.append( "4C" )
+        my_deck.append( "4H" )
+        my_deck.append( "4S" )
+        my_deck.append( "4D" )
+
+        # Five
+        my_deck.append( "5C" )
+        my_deck.append( "5H" )
+        my_deck.append( "5S" )
+        my_deck.append( "5D" )
+
+        # Six
+        my_deck.append( "6C" )
+        my_deck.append( "6H" )
+        my_deck.append( "6S" )
+        my_deck.append( "6D" )
+
+        # Seven
+        my_deck.append( "7C" )
+        my_deck.append( "7H" )
+        my_deck.append( "7S" )
+        my_deck.append( "7D" )
+
+        # Eight
+        my_deck.append( "8C" )
+        my_deck.append( "8H" )
+        my_deck.append( "8S" )
+        my_deck.append( "8D" )
+
+        # Nine
+        my_deck.append( "9C" )
+        my_deck.append( "9H" )
+        my_deck.append( "9S" )
+        my_deck.append( "9D" )
+
+        # Ten
+        my_deck.append( "10C" )
+        my_deck.append( "10H" )
+        my_deck.append( "10S" )
+        my_deck.append( "10D" )
+
+        # Jack
+        my_deck.append( "JC" )
+        my_deck.append( "JH" )
+        my_deck.append( "JS" )
+        my_deck.append( "JD" )
+
+        # Queen
+        my_deck.append( "QC" )
+        my_deck.append( "QH" )
+        my_deck.append( "QS" )
+        my_deck.append( "QD" )
+
+        # King
+        my_deck.append( "KC" )
+        my_deck.append( "KH" )
+        my_deck.append( "KS" )
+        my_deck.append( "KD" )
+
+def main( ):
+
+    thp = TexasHoldemPoker( )
+
+    thp.initialize_deck( )
+    thp.shuffle_deck( )
+
+if __name__ == "__main__":
+    exit( main( ) )
