@@ -13,9 +13,30 @@ class TexasHoldemPoker(object):
     computer_hand = []
     table_hand = []
 
-    # money
-    PAY_PER_HAND = 5.00
-    the_balance = 500.00
+
+    @staticmethod
+    def is_play_again( ):
+
+        is_play = False
+
+        choice = ''
+
+        while( choice != 'y' and choice != 'n' ): 
+
+            choice = input( "Play again? (y/n): " )
+            choice = str( choice ).strip( ).lower( )
+
+            if choice == 'y':
+                is_play = True
+                break
+            elif choice == 'n':
+                is_play = False
+                break
+            else:
+                print( "No such option!" )
+
+        return is_play
+
 
 
     @classmethod
@@ -880,16 +901,21 @@ def main( ):
         TexasHoldemPoker.initialize_deck( )
         TexasHoldemPoker.shuffle_deck( )
 
+        TexasHoldemPoker.deal_card( "trash" )
+        TexasHoldemPoker.deal_card( "computer" )
+        TexasHoldemPoker.deal_card( "human" )
         TexasHoldemPoker.deal_card( "computer" )
         TexasHoldemPoker.deal_card( "human" )
 
-        TexasHoldemPoker.deal_card( "computer" )
-        TexasHoldemPoker.deal_card( "human" )
+        TexasHoldemPoker.deal_card( "trash" )
+        TexasHoldemPoker.deal_card( "table" )
+        TexasHoldemPoker.deal_card( "table" )
+        TexasHoldemPoker.deal_card( "table" )
 
+        TexasHoldemPoker.deal_card( "trash" )
         TexasHoldemPoker.deal_card( "table" )
-        TexasHoldemPoker.deal_card( "table" )
-        TexasHoldemPoker.deal_card( "table" )
-        TexasHoldemPoker.deal_card( "table" )
+
+        TexasHoldemPoker.deal_card( "trash" )
         TexasHoldemPoker.deal_card( "table" )
 
         TexasHoldemPoker.display_human_hand( )
@@ -898,5 +924,8 @@ def main( ):
 
         TexasHoldemPoker.determine_winner( )
 
+        if not TexasHoldemPoker.is_play_again( ):
+            break
+
 if __name__ == "__main__":
-    exit( main( ) )
+   exit( main( ) )
