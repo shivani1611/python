@@ -4,6 +4,9 @@ from random import randint
 from sys import exit
 
 class TexasHoldemPoker(object):
+
+    # games played count
+    games_played_count = 0
     
     # entire deck
     the_deck = []
@@ -42,14 +45,20 @@ class TexasHoldemPoker(object):
     @classmethod
     def determine_winner( cls ):
 
+        winning_hand = None
+        is_computer_win = False
+        is_human_win = False
+        is_tie = False
+
+
         # check this to determine the players hand value
         human_hand_value = cls.determine_hand( "human" )
         computer_hand_value = cls.determine_hand( "computer" )
 
         if human_hand_value < computer_hand_value:
-            print( "Computer wins with a \'{hand}\'".format( hand = cls.display_winners_hand( computer_hand_value ) ) )
+            is_human_win = True
         elif human_hand_value > computer_hand_value:
-            print( "Human wins with a \'{hand}\'".format( hand = cls.display_winners_hand( human_hand_value ) ) )
+            is_computer_win = True
         else:
 
             # only check this if the hand value is equal
@@ -57,11 +66,24 @@ class TexasHoldemPoker(object):
             computer_hand_count = cls.determine_hand_count( "computer" )
 
             if human_hand_count < computer_hand_count:
-                print( "Close but computer wins with a higher \'{hand}\'".format( hand = cls.display_winners_hand( computer_hand_value ) ) )
+                is_human_win = True
             elif human_hand_count > computer_hand_count:
-                print( "Close but human wins with a higher \'{hand}\'".format( hand = cls.display_winners_hand( human_hand_value ) ) )
+                is_computer_win = True
             else:
+                winning_hand = 0
                 print( "Draw!" )
+
+        if is_human_win:
+            winning_hand = cls.display_winners_hand( computer_hand_value ) 
+            print( "Winner: Computer!" )
+        elif is_computer_win:
+            winning_hand = cls.display_winners_hand( human_hand_value )
+            print( "Winner: Human!" )
+        else:
+            winning_hand = "Draw"
+            print( winning_hand )
+
+        return winning_hand
 
 
     @staticmethod
@@ -896,7 +918,12 @@ class TexasHoldemPoker(object):
 
 def main( ):
 
+    winning_hand = None
+
     while( True ): 
+
+        TexasHoldemPoker.games_played_count += 1
+        print( "\nGame #:", TexasHoldemPoker.games_played_count )
 
         TexasHoldemPoker.initialize_deck( )
         TexasHoldemPoker.shuffle_deck( )
@@ -922,7 +949,8 @@ def main( ):
         TexasHoldemPoker.display_computer_hand( )
         TexasHoldemPoker.display_table_hand( )
 
-        TexasHoldemPoker.determine_winner( )
+        winning_hand = TexasHoldemPoker.determine_winner( )
+        print( "Winning Hand: ", winning_hand )
 
         if not TexasHoldemPoker.is_play_again( ):
             break
