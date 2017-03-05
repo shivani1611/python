@@ -926,6 +926,7 @@ def main( ):
 
         if not TexasHoldemPoker.is_play_again( ):
             break
+        print( )
 
 if __name__ == "__main__":
    exit( main( ) )
