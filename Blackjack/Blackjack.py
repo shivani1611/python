@@ -21,15 +21,15 @@ class Blackjack:
   def reset_hands( self ):
     self.my_players_count = ( 0 )
     self.my_dealers_count = ( 0 )
-    self.my_players_hand.clear( )
-    self.my_dealers_hand.clear( )
+    self.my_players_hand = []
+    self.my_dealers_hand = []
     self.my_is_player_lose = ( False )
     self.my_is_player_tie = ( False )
 
   def reset_deck( self ):
     self.my_players_count = ( 0 )
     self.my_dealers_count = ( 0 )
-    self.my_deck.clear( )
+    self.my_deck = []
     self.my_is_player_lose = ( False )
     self.my_is_player_tie = ( False )
 
