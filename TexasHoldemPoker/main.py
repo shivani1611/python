@@ -920,7 +920,7 @@ def main( ):
 
     winning_hand = None
 
-    while( True ): 
+    while( winning_hand != "Royal Flush" ): 
 
         TexasHoldemPoker.games_played_count += 1
         print( "\nGame #:", TexasHoldemPoker.games_played_count )
@@ -952,8 +952,8 @@ def main( ):
         winning_hand = TexasHoldemPoker.determine_winner( )
         print( "Winning Hand: ", winning_hand )
 
-        if not TexasHoldemPoker.is_play_again( ):
-            break
+        #if not TexasHoldemPoker.is_play_again( ):
+        #    break
         print( )
 
 if __name__ == "__main__":
