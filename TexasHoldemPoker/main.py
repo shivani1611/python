@@ -7,7 +7,7 @@ class TexasHoldemPoker(object):
 
     # games played count
     games_played_count = 0
-    
+
     # entire deck
     the_deck = []
 
@@ -24,7 +24,7 @@ class TexasHoldemPoker(object):
 
         choice = ''
 
-        while( choice != 'y' and choice != 'n' ): 
+        while( choice != 'y' and choice != 'n' ):
 
             choice = input( "Play again? (y/n): " )
             choice = str( choice ).strip( ).lower( )
@@ -74,7 +74,7 @@ class TexasHoldemPoker(object):
                 print( "Draw!" )
 
         if is_human_win:
-            winning_hand = cls.display_winners_hand( computer_hand_value ) 
+            winning_hand = cls.display_winners_hand( computer_hand_value )
             print( "Winner: Computer!" )
         elif is_computer_win:
             winning_hand = cls.display_winners_hand( human_hand_value )
@@ -112,7 +112,7 @@ class TexasHoldemPoker(object):
         elif count == 1:
             winners_hand = "High Card"
 
-        return winners_hand 
+        return winners_hand
 
 
     @classmethod
@@ -161,7 +161,7 @@ class TexasHoldemPoker(object):
 
         return temp_deck
 
-    
+
     @classmethod
     def is_royal_flush( cls, who ):
 
@@ -169,29 +169,29 @@ class TexasHoldemPoker(object):
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-        
+
         # club
-        if all( [ 'AC' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck, 'KC' in temp_deck] ): 
+        if all( [ 'AC' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck, 'KC' in temp_deck] ):
             is_hand = True
 
         # heart
-        elif all( [ 'AH' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck, 'KH' in temp_deck] ): 
+        elif all( [ 'AH' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck, 'KH' in temp_deck] ):
             is_hand = True
 
         # spade
-        elif all( [ 'AS' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck, 'KS' in temp_deck] ): 
+        elif all( [ 'AS' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck, 'KS' in temp_deck] ):
             is_hand = True
 
         # diamond
-        elif all( [ 'AD' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck, 'KD' in temp_deck] ): 
+        elif all( [ 'AD' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck, 'KD' in temp_deck] ):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_straight_flush( cls, who ):
-    
+
         is_hand = False
 
         # prep the hands by combining the players hand and the table hand
@@ -200,88 +200,88 @@ class TexasHoldemPoker(object):
         # search for all possible straights
 
         # club
-        if all( [ '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck, 'KC' in temp_deck] ): 
+        if all( [ '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck, 'KC' in temp_deck] ):
             is_hand = True
-        elif all( [ '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck] ): 
+        elif all( [ '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck, 'QC' in temp_deck] ):
             is_hand = True
-        elif all( [ '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck] ): 
+        elif all( [ '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck, 'JC' in temp_deck] ):
             is_hand = True
-        elif all( [ '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck] ): 
+        elif all( [ '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck, '10C' in temp_deck] ):
             is_hand = True
-        elif all( [ '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck] ): 
+        elif all( [ '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck, '9C' in temp_deck] ):
             is_hand = True
-        elif all( [ '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck] ): 
+        elif all( [ '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck, '8C' in temp_deck] ):
             is_hand = True
-        elif all( [ '3C' in temp_deck, '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck] ): 
+        elif all( [ '3C' in temp_deck, '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck, '7C' in temp_deck] ):
             is_hand = True
-        elif all( [ '2C' in temp_deck, '3C' in temp_deck, '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck] ): 
+        elif all( [ '2C' in temp_deck, '3C' in temp_deck, '4C' in temp_deck, '5C' in temp_deck, '6C' in temp_deck] ):
             is_hand = True
 
         # heart
-        elif all( [ '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck, 'KH' in temp_deck] ): 
+        elif all( [ '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck, 'KH' in temp_deck] ):
             is_hand = True
-        elif all( [ '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck] ): 
+        elif all( [ '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck, 'QH' in temp_deck] ):
             is_hand = True
-        elif all( [ '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck] ): 
+        elif all( [ '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck, 'JH' in temp_deck] ):
             is_hand = True
-        elif all( [ '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck] ): 
+        elif all( [ '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck, '10H' in temp_deck] ):
             is_hand = True
-        elif all( [ '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck] ): 
+        elif all( [ '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck, '9H' in temp_deck] ):
             is_hand = True
-        elif all( [ '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck] ): 
+        elif all( [ '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck, '8H' in temp_deck] ):
             is_hand = True
-        elif all( [ '3H' in temp_deck, '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck] ): 
+        elif all( [ '3H' in temp_deck, '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck, '7H' in temp_deck] ):
             is_hand = True
-        elif all( [ '2H' in temp_deck, '3H' in temp_deck, '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck] ): 
+        elif all( [ '2H' in temp_deck, '3H' in temp_deck, '4H' in temp_deck, '5H' in temp_deck, '6H' in temp_deck] ):
             is_hand = True
 
         # spade
-        elif all( [ '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck, 'KS' in temp_deck] ): 
+        elif all( [ '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck, 'KS' in temp_deck] ):
             is_hand = True
-        elif all( [ '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck] ): 
+        elif all( [ '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck, 'QS' in temp_deck] ):
             is_hand = True
-        elif all( [ '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck] ): 
+        elif all( [ '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck, 'JS' in temp_deck] ):
             is_hand = True
-        elif all( [ '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck] ): 
+        elif all( [ '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck, '10S' in temp_deck] ):
             is_hand = True
-        elif all( [ '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck] ): 
+        elif all( [ '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck, '9S' in temp_deck] ):
             is_hand = True
-        elif all( [ '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck] ): 
+        elif all( [ '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck, '8S' in temp_deck] ):
             is_hand = True
-        elif all( [ '3S' in temp_deck, '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck] ): 
+        elif all( [ '3S' in temp_deck, '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck, '7S' in temp_deck] ):
             is_hand = True
-        elif all( [ '2S' in temp_deck, '3S' in temp_deck, '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck] ): 
+        elif all( [ '2S' in temp_deck, '3S' in temp_deck, '4S' in temp_deck, '5S' in temp_deck, '6S' in temp_deck] ):
             is_hand = True
 
         # diamond
-        elif all( [ '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck, 'KD' in temp_deck] ): 
+        elif all( [ '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck, 'KD' in temp_deck] ):
             is_hand = True
-        elif all( [ '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck] ): 
+        elif all( [ '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck, 'QD' in temp_deck] ):
             is_hand = True
-        elif all( [ '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck] ): 
+        elif all( [ '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck, 'JD' in temp_deck] ):
             is_hand = True
-        elif all( [ '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck] ): 
+        elif all( [ '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck, '10D' in temp_deck] ):
             is_hand = True
-        elif all( [ '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck] ): 
+        elif all( [ '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck, '9D' in temp_deck] ):
             is_hand = True
-        elif all( [ '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck] ): 
+        elif all( [ '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck, '8D' in temp_deck] ):
             is_hand = True
-        elif all( [ '3D' in temp_deck, '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck] ): 
+        elif all( [ '3D' in temp_deck, '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck, '7D' in temp_deck] ):
             is_hand = True
-        elif all( [ '2D' in temp_deck, '3D' in temp_deck, '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck] ): 
+        elif all( [ '2D' in temp_deck, '3D' in temp_deck, '4D' in temp_deck, '5D' in temp_deck, '6D' in temp_deck] ):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_four_kind( cls, who ):
-    
+
         is_hand = False
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-    
+
         # set all the counts to zero
         c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = c10 = cj = cq = ck = ca = 0
 
@@ -323,11 +323,11 @@ class TexasHoldemPoker(object):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_full_house( cls, who ):
-    
+
         is_hand = False
 
         is_pair = False
@@ -335,7 +335,7 @@ class TexasHoldemPoker(object):
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-    
+
         # set all the counts to zero
         c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = c10 = cj = cq = ck = ca = 0
 
@@ -382,11 +382,11 @@ class TexasHoldemPoker(object):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_flush( cls, who ):
-    
+
         is_hand = False
 
         # set all the counts to zero
@@ -394,7 +394,7 @@ class TexasHoldemPoker(object):
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-    
+
         # traverse the hand
         for i in temp_deck:
 
@@ -412,47 +412,47 @@ class TexasHoldemPoker(object):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_straight( cls, who ):
-    
+
         is_hand = False
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-    
+
         # search for all possible straights
-        if all( [ '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck, 'K' in temp_deck, 'A' in temp_deck] ): 
+        if all( [ '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck, 'K' in temp_deck, 'A' in temp_deck] ):
             is_hand = True
-        elif all( [ '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck, 'K' in temp_deck] ): 
+        elif all( [ '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck, 'K' in temp_deck] ):
             is_hand = True
-        elif all( [ '8' in temp_deck, '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck] ): 
+        elif all( [ '8' in temp_deck, '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck, 'Q' in temp_deck] ):
             is_hand = True
-        elif all( [ '7' in temp_deck, '8' in temp_deck, '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck] ): 
+        elif all( [ '7' in temp_deck, '8' in temp_deck, '9' in temp_deck, '10' in temp_deck, 'J' in temp_deck] ):
             is_hand = True
-        elif all( [ '6' in temp_deck, '7' in temp_deck, '8' in temp_deck, '9' in temp_deck, '10' in temp_deck] ): 
+        elif all( [ '6' in temp_deck, '7' in temp_deck, '8' in temp_deck, '9' in temp_deck, '10' in temp_deck] ):
             is_hand = True
-        elif all( [ '5' in temp_deck, '6' in temp_deck, '7' in temp_deck, '8' in temp_deck, '9' in temp_deck] ): 
+        elif all( [ '5' in temp_deck, '6' in temp_deck, '7' in temp_deck, '8' in temp_deck, '9' in temp_deck] ):
             is_hand = True
-        elif all( [ '4' in temp_deck, '5' in temp_deck, '6' in temp_deck, '7' in temp_deck, '8' in temp_deck] ): 
+        elif all( [ '4' in temp_deck, '5' in temp_deck, '6' in temp_deck, '7' in temp_deck, '8' in temp_deck] ):
             is_hand = True
-        elif all( [ '3' in temp_deck, '4' in temp_deck, '5' in temp_deck, '6' in temp_deck, '7' in temp_deck] ): 
+        elif all( [ '3' in temp_deck, '4' in temp_deck, '5' in temp_deck, '6' in temp_deck, '7' in temp_deck] ):
             is_hand = True
-        elif all( [ '2' in temp_deck, '3' in temp_deck, '4' in temp_deck, '5' in temp_deck, '6' in temp_deck] ): 
+        elif all( [ '2' in temp_deck, '3' in temp_deck, '4' in temp_deck, '5' in temp_deck, '6' in temp_deck] ):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_three_pair( cls, who ):
-    
+
         is_hand = False
 
         # prep the hands by combining the players hand and the table hand
         temp_deck = cls._prep_hands( who )
-    
+
         # set all the counts to zero
         c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = c10 = cj = cq = ck = ca = 0
 
@@ -494,11 +494,11 @@ class TexasHoldemPoker(object):
             is_hand = True
 
         return is_hand
-    
-    
+
+
     @classmethod
     def is_two_pair( cls, who ):
-    
+
         is_hand = False
 
         # set all the counts to zero
@@ -539,7 +539,7 @@ class TexasHoldemPoker(object):
 
         # checking for the number of actual pairs spotted
         pair_count = 0
-            
+
         if c2 > 1:
             pair_count += 1
         if c3 > 1:
@@ -571,11 +571,11 @@ class TexasHoldemPoker(object):
             is_hand = True
 
         return is_hand
-    
+
 
     @classmethod
     def is_pair( cls, who ):
-    
+
         is_hand = False
 
         # set all the counts to zero
@@ -674,7 +674,7 @@ class TexasHoldemPoker(object):
                 isTwo = True
             else:
                 raise ValueError( "Error: Not able to determine highest card" )
-        
+
         if isAce:
             temp_high_card = 14
         elif isKing:
@@ -745,7 +745,7 @@ class TexasHoldemPoker(object):
                 temp_hand_count += 1
             else:
                 raise ValueError( "Error: Not able to determine count for the specified hand!" )
-        
+
         return temp_hand_count
 
 
@@ -916,11 +916,12 @@ class TexasHoldemPoker(object):
         cls.the_deck.append( "KS" )
         cls.the_deck.append( "KD" )
 
+
 def main( ):
 
     winning_hand = None
 
-    while( winning_hand != "Royal Flush" ): 
+    while( winning_hand != "Royal Flush" ):
 
         TexasHoldemPoker.games_played_count += 1
         print( "\nGame #:", TexasHoldemPoker.games_played_count )
