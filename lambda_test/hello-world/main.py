@@ -22,4 +22,4 @@ if __name__ == "__main__":
             return e[key]
     context = "context"
     event = Event()
-    print( lambda_handler(event, context) )
+    print(lambda_handler(event, context))
